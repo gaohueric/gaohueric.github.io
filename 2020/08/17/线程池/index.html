@@ -9,7 +9,11 @@
     <meta name="keywords" content="线程池, Hi 高虎">
     <meta name="baidu-site-verification" content="fmlEuI34ir">
     <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
-    <meta name="description" content="线程池 | Hi 高虎">
+    <meta name="description" content="摘要 ：
+
+线程池是一种多线程处理形式，处理过程中将任务添加到队列，然后在创建线程后自动启动这些任务。线程池线程都是后台线程。每个线程都使用默认的堆栈大小，以默认的优先级运行，并处于多线程单元中
+
+手动声明线程池《Java阿里巴巴开发手册》">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -806,14 +810,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        0
+                        1.2k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        1 分
+                        4 分
                     </div>
                     
                 
@@ -830,7 +834,95 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <p><strong>摘要 ：</strong></p>
+<blockquote>
+<p>线程池是一种多线程处理形式，处理过程中将任务添加到队列，然后在创建线程后自动启动这些任务。线程池线程都是后台线程。每个线程都使用默认的<a href="https://baike.baidu.com/item/堆栈/1682032" target="_blank" rel="noopener">堆栈</a>大小，以默认的优先级运行，并处于多线程单元中</p>
+</blockquote>
+<h5 id="手动声明线程池"><a href="#手动声明线程池" class="headerlink" title="手动声明线程池"></a>手动声明线程池</h5><p>《Java阿里巴巴开发手册》中有提到：<font face="黑体" color="red">线程资源必须通过线程池提供</font>，不允许在应用中自行显式创建线程。使用线程池的好处是减少在创建和销毁线程上所消耗的时间以及系统资源的开销，解决资源不足的问题。如果不使用线程池，有可能造成系统创建大量同类线程而导致消耗完内存或者“过度切换”的问题。<font face="黑体" color="red">线程池不允许使用 Executors去创建</font> ，而是通过 去创建，而是通过 ThreadPoolExecutor的方式，避资源耗尽风险。</p>
+<p> Executors返回的线程池对象 的弊端 如下 ：</p>
+<ul>
+<li><p>FixedThreadPool和 SingleThreadPoolPool : 允许的请求队列长度为 Integer.MAX_VALUE，可能会堆积大量的请求，从而导致 OOM。</p>
+</li>
+<li><p>CachedThreadPool和ScheduledThreadPool : 允许的创建线程数量为 Integer.MAX_VALUE，可能会创建大量的线程，从而导致 OOM</p>
+</li>
+</ul>
+<p>不建议使用Executors提供的快捷线程池原因：</p>
+<ul>
+<li>需要根据自己的业务场景，并发情况来评估线程池的几个核心参数，包括核心线程数、最大线程数、线程回收策略、工作队列的类型、拒绝策略，确保线程池的工作符合需求，需要设置有界的工作队列和可控的线程数。</li>
+<li>自定义线程池指定有意义的名称，以方便排查问题，当线程池出现暴增、线程死锁、线程占用大量cpu、线程执行出现异常问题等，我们往往会抓取线程栈，这个时候有意义的线程名称可以帮助我们快速定位问题。</li>
+</ul>
+<h5 id="创建线程池示例："><a href="#创建线程池示例：" class="headerlink" title="创建线程池示例："></a><strong>创建线程池示例：</strong></h5><pre class=" language-java"><code class="language-java"><span class="token keyword">import</span> lombok<span class="token punctuation">.</span>extern<span class="token punctuation">.</span>slf4j<span class="token punctuation">.</span>Slf4j<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>lucene<span class="token punctuation">.</span>util<span class="token punctuation">.</span>NamedThreadFactory<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>concurrent<span class="token punctuation">.</span>ArrayBlockingQueue<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>concurrent<span class="token punctuation">.</span>ExecutorService<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>concurrent<span class="token punctuation">.</span>ThreadPoolExecutor<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>concurrent<span class="token punctuation">.</span>TimeUnit<span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">/**
+ * 线程池添加task时的执行过程：
+ * 1. 如果池中线程数小于核心线程数，直接创建一个线程入池并执行此task
+ * 2. 如果池中线程数大于或等于核心线程数，则判断队列中task数量：
+ * &lt;1>如果队列中task数量未达到队列容量，则task直接进队列（不创建新线程，因为线程是很重的资源，能不新建就不新建，例外情况是
+ * 如果核心线程数是0，则新建一个线程）
+ * &lt;2>如果队列中task数量达到队列最大容量，且池中线程数量未达到最大线程数，则创建一个线程入池，并用此线程执行
+ * 此task（注意，是直接执行本次要添加的task，而不是从队列里拿task）
+ * &lt;3>如果队列中task数量达到队列最大容量，且池中线程数量达到最大线程数，则根据指定的RejectPolicy来决定：
+ * CallerRunsPolicy: 用提交task的线程来执行此task，不扔RejectedExecutionException
+ * AbortPolicy: 直接丢弃此task，扔RejectedExecutionException; 此策略为未指定RejectedExecutionHandler时的默认策略
+ * DiscardPolicy: 直接丢弃此task，不扔RejectedExecutionException
+ * DiscardOldestPolicy: 丢弃队列中最老的task，并将此task放入队尾，不扔RejectedExecutionException
+ * 线程池构造函数：
+ * int corePoolSize,                  核心线程数
+ * int maximumPoolSize,               最大线程数
+ * long keepAliveTime,                线程闲置时保持存活的时间数量
+ * TimeUnit unit,                     线程闲置时保持存活的时间单位
+ * BlockingQueue&lt;Runnable> workQueue, 线程任务队列
+ * ThreadFactory threadFactory,       线程池用于创建线程的工厂类
+ * RejectedExecutionHandler handler   线程池满且队列满时的任务提交策略
+ *
+ * @author gaohu08299
+ * @create $ ID: ThreadPools, 2020-10-15 10:51 gaohu08299 Exp $
+ * @since 1.0.0
+ */</span>
+<span class="token annotation punctuation">@Slf4j</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ThreadPools</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> ExecutorService logPools<span class="token punctuation">;</span>
+
+    <span class="token keyword">private</span> <span class="token function">ThreadPools</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+      logPools <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ThreadPoolExecutor</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">50</span><span class="token punctuation">,</span><span class="token number">15</span><span class="token punctuation">,</span> TimeUnit<span class="token punctuation">.</span>MINUTES<span class="token punctuation">,</span><span class="token keyword">new</span> <span class="token class-name">ArrayBlockingQueue</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token number">1024</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token keyword">new</span> <span class="token class-name">NamedThreadFactory</span><span class="token punctuation">(</span><span class="token string">"LOGGER"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> ThreadPools <span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> ThreadPoolManagerHolder<span class="token punctuation">.</span>instance<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">ThreadPoolManagerHolder</span> <span class="token punctuation">{</span>
+        <span class="token keyword">public</span> <span class="token keyword">static</span> ThreadPools instance <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ThreadPools</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">void</span> <span class="token function">submitLoggerTask</span><span class="token punctuation">(</span>Runnable task<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+            logPools<span class="token punctuation">.</span><span class="token function">submit</span><span class="token punctuation">(</span>task<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            log<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span><span class="token string">"submitLoggerTask exception{}"</span><span class="token punctuation">,</span> e<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre>
+<h5 id="使用线程池"><a href="#使用线程池" class="headerlink" title="使用线程池"></a>使用线程池</h5><pre class=" language-java"><code class="language-java">    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">asyncCacheCityDetailPage</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        ThreadPools<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">submitLoggerTask</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span> <span class="token function">submitLogger</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<h5 id="线程池默认的工作行为"><a href="#线程池默认的工作行为" class="headerlink" title="线程池默认的工作行为"></a>线程池默认的工作行为</h5><ul>
+<li>不会初始化corePoolSize 个线程，有任务来了才创建工作线程。</li>
+<li>当核心线程满了之后不会立即扩容线程池，而是把任务堆积到工作队列中。</li>
+<li>当工作队列满了之后扩容线程池，一直到线程个数达到maximumPoolSize为止。</li>
+<li>如果队列已满且达到最大线程后还有任务进来，按照拒绝策略处理。</li>
+<li>当线程数大于核心线程数时，线程等待keepAliveTime后还是没有任务需要处理的话，收缩线程到核心线程数。</li>
+</ul>
+
             </div>
             <hr>
 
@@ -1563,7 +1655,7 @@
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">123k</span> 字
+                <span class="white-color">124.2k</span> 字
             
             <br>
         <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1278301656'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s9.cnzz.com/z_stat.php%3Fid%3D1278301656%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://gaohueric.github.io/"/>
-  <updated>2020-09-27T03:35:08.123Z</updated>
+  <updated>2020-10-15T08:54:58.074Z</updated>
   <id>https://gaohueric.github.io/</id>
   
   <author>
@@ -21,9 +21,19 @@
     <link href="https://gaohueric.github.io/2020/08/17/%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
     <id>https://gaohueric.github.io/2020/08/17/线程池/</id>
     <published>2020-08-17T05:03:26.000Z</published>
-    <updated>2020-09-27T03:35:08.123Z</updated>
+    <updated>2020-10-15T08:54:58.074Z</updated>
     
     <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;strong&gt;摘要 ：&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;线程池是一种多线程处理形式，处理过程中将任务添加到队列，然后在创建线程后自动启动这些任务。线程池线程都是后台线程。每个线程都使用默认的&lt;a
+        
+      
     
     </summary>
     
@@ -262,7 +272,7 @@
     <link href="https://gaohueric.github.io/2018/08/17/%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4Java%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C/"/>
     <id>https://gaohueric.github.io/2018/08/17/阿里巴巴Java开发手册/</id>
     <published>2018-08-17T05:03:26.000Z</published>
-    <updated>2020-08-12T08:46:20.772Z</updated>
+    <updated>2020-10-15T08:54:58.074Z</updated>
     
     <summary type="html">
     
