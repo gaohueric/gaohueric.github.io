@@ -9,8 +9,10 @@
     <meta name="keywords" content="Redis使用总结, Hi 高虎">
     <meta name="baidu-site-verification" content="fmlEuI34ir">
     <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
-    <meta name="description" content="Java题目详解:
-✔ String StringBuffer 和 StringBuilder 的区别是什么? String 为什么是不可变的? @done (19-09-16 13:01)  1️⃣ 可变性：String 类中使用 fin">
+    <meta name="description" content="##### 
+Redis 典型问题
+
+Redis 数据结构">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -807,7 +809,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        360
+                        10
                     </div>
                     
 
@@ -831,10 +833,10 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Java题目详解:</p>
-<h6 id="✔-String-StringBuffer-和-StringBuilder-的区别是什么-String-为什么是不可变的-done-19-09-16-13-01"><a href="#✔-String-StringBuffer-和-StringBuilder-的区别是什么-String-为什么是不可变的-done-19-09-16-13-01" class="headerlink" title="✔ String StringBuffer 和 StringBuilder 的区别是什么? String 为什么是不可变的? @done (19-09-16 13:01)"></a>✔ String StringBuffer 和 StringBuilder 的区别是什么? String 为什么是不可变的? @done (19-09-16 13:01)</h6><p>  1️⃣ 可变性：String 类中使用 final 关键字修饰字符数组来保存字符串，private final char value[]，所以 String 对象是不可变的，而StringBuilder 与 StringBuffer 没有用 final 关键字修饰，所以这两种对象都是可变的。<br>  2️⃣ 线程安全性:String 中的对象是不可变的，也就可以理解为常量，线程安全,StringBuffer 对方法加了同步锁或者对调用的方法加了同步锁，所以是线程安全的。StringBuilder 并没有对方法进行加同步锁，所以是非线程安全的。<br>  3️⃣ 速度：StringBuilder&gt;StringBuffer&gt;String ，，原因:每次对 String 类型进行改变的时候，都会生成一个新的 String 对象，然后将指针指向新的 String 对象、StringBuffer线程安全，加锁了，线程安全但牺牲了速度。</p>
-<h5 id="✔-equals和-的区别-done-19-09-16-13-01"><a href="#✔-equals和-的区别-done-19-09-16-13-01" class="headerlink" title="✔ equals和==的区别 @done (19-09-16 13:01)"></a>✔ equals和==的区别 @done (19-09-16 13:01)</h5><p>  1️⃣ == :       它的作用是判断两个对象的地址是不是相等。即，判断两个对象是不是同一个对象(基本数据类型==比较的是值，引用数据类型==比较的是内存地址)。<br>  2️⃣ equals() : 它的作用也是判断两个对象是否相等。但它一般有两种使用情况：</p>
-<h5 id="❑-你重写过-hashcode-和-equals-么，为什么重写equals时必须重写hashCode方法？"><a href="#❑-你重写过-hashcode-和-equals-么，为什么重写equals时必须重写hashCode方法？" class="headerlink" title="❑ 你重写过 hashcode 和 equals 么，为什么重写equals时必须重写hashCode方法？"></a>❑ 你重写过 hashcode 和 equals 么，为什么重写equals时必须重写hashCode方法？</h5>
+                <p>##### </p>
+<p>Redis 典型问题</p>
+<p><img src="https://raw.githubusercontent.com/gaohueric/blogpicture/master/redis.jpeg" alt=""></p>
+<h5 id="Redis-数据结构"><a href="#Redis-数据结构" class="headerlink" title="Redis 数据结构"></a>Redis 数据结构</h5>
             </div>
             <hr>
 
@@ -1565,7 +1567,7 @@
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">124.2k</span> 字
+                <span class="white-color">123.2k</span> 字
             
             <br>
         <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1278301656'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s9.cnzz.com/z_stat.php%3Fid%3D1278301656%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>
