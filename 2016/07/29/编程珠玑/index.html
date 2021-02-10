@@ -811,14 +811,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        1.1k
+                        1.4k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        4 分
+                        5 分
                     </div>
                     
                 
@@ -959,6 +959,42 @@
 
 </code></pre>
 <p>思路：维护一个只有3个元素的TreeSet，如果大于三个元素就就把Set中的最小最小值remove掉。<br>最后如果Set中元素小于3就返回Set最大值，否则返回最小值。</p>
+<h4 id="628-三个数的最大乘积"><a href="#628-三个数的最大乘积" class="headerlink" title="628. 三个数的最大乘积"></a><a href="https://leetcode-cn.com/problems/maximum-product-of-three-numbers/" target="_blank" rel="noopener">628. 三个数的最大乘积</a></h4><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//给你一个整型数组 nums ，在数组中找出由三个数组成的最大乘积，并输出这个乘积。 </span>
+<span class="token comment" spellcheck="true">//</span>
+<span class="token comment" spellcheck="true">// 示例 1： </span>
+<span class="token comment" spellcheck="true">//输入：nums = [1,2,3]</span>
+<span class="token comment" spellcheck="true">//输出：6</span>
+<span class="token comment" spellcheck="true">// </span>
+<span class="token comment" spellcheck="true">// 示例 2： </span>
+<span class="token comment" spellcheck="true">// </span>
+<span class="token comment" spellcheck="true">//输入：nums = [1,2,3,4]</span>
+<span class="token comment" spellcheck="true">//输出：24</span>
+<span class="token comment" spellcheck="true">// </span>
+<span class="token comment" spellcheck="true">// 示例 3： </span>
+<span class="token comment" spellcheck="true">//</span>
+<span class="token comment" spellcheck="true">//输入：nums = [-1,-2,-3]</span>
+<span class="token comment" spellcheck="true">//输出：-6</span>
+<span class="token comment" spellcheck="true">// 提示： </span>
+<span class="token comment" spellcheck="true">//</span>
+<span class="token comment" spellcheck="true">// 3 &lt;= nums.length &lt;= 104 </span>
+<span class="token comment" spellcheck="true">// -1000 &lt;= nums[i] &lt;= 1000 </span>
+<span class="token comment" spellcheck="true">// </span>
+<span class="token comment" spellcheck="true">// Related Topics 数组 数学 </span>
+<span class="token comment" spellcheck="true">// 👍 278 👎 0</span>
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">maximumProduct</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     Arrays<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token keyword">int</span> max1 <span class="token operator">=</span> nums<span class="token punctuation">[</span>nums<span class="token punctuation">.</span>length<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">*</span>nums<span class="token punctuation">[</span>nums<span class="token punctuation">.</span>length<span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token operator">*</span>nums<span class="token punctuation">[</span>nums<span class="token punctuation">.</span>length<span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+     <span class="token keyword">int</span> max2 <span class="token operator">=</span> nums<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">*</span>nums<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">*</span>nums<span class="token punctuation">[</span>nums<span class="token punctuation">.</span>length<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+     <span class="token keyword">return</span> Math<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>max1<span class="token punctuation">,</span>max2<span class="token punctuation">)</span><span class="token punctuation">;</span> 
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre>
+<p>思路：首先将数组排序。</p>
+<p>如果数组中全是非负数，则排序后最大的三个数相乘即为最大乘积；如果全是非正数，则最大的三个数相乘同样也为最大乘积。</p>
+<p>如果数组中有正数有负数，则最大乘积既可能是三个最大正数的乘积，也可能是两个最小负数（即绝对值最大）与最大正数的乘积。</p>
+<p>综上，我们在给数组排序后，分别求出三个最大正数的乘积，以及两个最小负数与最大正数的乘积，二者之间的最大值即为所求答案。</p>
 
             </div>
             <hr>
@@ -1694,7 +1730,7 @@
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">124k</span> 字
+                <span class="white-color">124.3k</span> 字
             
             <br>
         <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1278301656'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s9.cnzz.com/z_stat.php%3Fid%3D1278301656%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>
