@@ -1,3 +1,4 @@
+https://gaohueric.github.io/2021/02/01/编程珠玑/
 https://gaohueric.github.io/2020/08/17/线程池/
 https://gaohueric.github.io/2019/11/17/数据结构与算法专栏/
 https://gaohueric.github.io/2019/02/15/Java类加载机制详解/
@@ -44,6 +45,5 @@ https://gaohueric.github.io/2016/08/03/数据结构之快速排序/
 https://gaohueric.github.io/2016/08/03/数据结构之选择排序/
 https://gaohueric.github.io/2016/08/02/数据结构之插入排序/
 https://gaohueric.github.io/2016/08/02/数据结构之冒泡排序/
-https://gaohueric.github.io/2016/07/29/编程珠玑/
 https://gaohueric.github.io/2016/07/27/java集合框架/
 https://gaohueric.github.io/2016/05/15/spring/
