@@ -809,14 +809,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        2.5k
+                        2.9k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        10 分
+                        12 分
                     </div>
                     
                 
@@ -880,6 +880,52 @@
 <p>我们先对数组进行排序。</p>
 <p>由于每两个数，我们只能选择当前小的一个进行累加。</p>
 <p>因此我们猜想应该从第一个位置进行选择，然后隔一步选择下一个数。这样形成的序列的求和值最大</p>
+<h4 id="566-重塑矩阵"><a href="#566-重塑矩阵" class="headerlink" title="566. 重塑矩阵"></a><a href="https://leetcode-cn.com/problems/reshape-the-matrix/" target="_blank" rel="noopener">566. 重塑矩阵</a></h4><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//在MATLAB中，有一个非常有用的函数 reshape，它可以将一个矩阵重塑为另一个大小不同的新矩阵，但保留其原始数据。 </span>
+<span class="token comment" spellcheck="true">// 给出一个由二维数组表示的矩阵，以及两个正整数r和c，分别表示想要的重构的矩阵的行数和列数。 </span>
+<span class="token comment" spellcheck="true">// 重构后的矩阵需要将原始矩阵的所有元素以相同的行遍历顺序填充。 </span>
+<span class="token comment" spellcheck="true">// 如果具有给定参数的reshape操作是可行且合理的，则输出新的重塑矩阵；否则，输出原始矩阵。 </span>
+<span class="token comment" spellcheck="true">// 示例 1: </span>
+<span class="token comment" spellcheck="true">//输入: </span>
+<span class="token comment" spellcheck="true">//nums = </span>
+<span class="token comment" spellcheck="true">//[[1,2],</span>
+<span class="token comment" spellcheck="true">// [3,4]]</span>
+<span class="token comment" spellcheck="true">//r = 1, c = 4</span>
+<span class="token comment" spellcheck="true">//输出: </span>
+<span class="token comment" spellcheck="true">//[[1,2,3,4]]</span>
+<span class="token comment" spellcheck="true">//解释:</span>
+<span class="token comment" spellcheck="true">//行遍历nums的结果是 [1,2,3,4]。新的矩阵是 1 * 4 矩阵, 用之前的元素值一行一行填充新矩阵。</span>
+<span class="token comment" spellcheck="true">// 示例 2: </span>
+<span class="token comment" spellcheck="true">//输入: </span>
+<span class="token comment" spellcheck="true">//nums = </span>
+<span class="token comment" spellcheck="true">//[[1,2],</span>
+<span class="token comment" spellcheck="true">// [3,4]]</span>
+<span class="token comment" spellcheck="true">//r = 2, c = 4</span>
+<span class="token comment" spellcheck="true">//输出: </span>
+<span class="token comment" spellcheck="true">//[[1,2],</span>
+<span class="token comment" spellcheck="true">// [3,4]]</span>
+<span class="token comment" spellcheck="true">//解释:</span>
+<span class="token comment" spellcheck="true">//没有办法将 2 * 2 矩阵转化为 2 * 4 矩阵。 所以输出原矩阵。</span>
+<span class="token comment" spellcheck="true">// 注意： </span>
+<span class="token comment" spellcheck="true">// 给定矩阵的宽和高范围在 [1, 100]。 </span>
+<span class="token comment" spellcheck="true">// 给定的 r 和 c 都是正数。 </span>
+<span class="token comment" spellcheck="true">// </span>
+<span class="token comment" spellcheck="true">// Related Topics 数组 </span>
+<span class="token comment" spellcheck="true">// 👍 183 👎 0</span>
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">matrixReshape</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">,</span> <span class="token keyword">int</span> r<span class="token punctuation">,</span> <span class="token keyword">int</span> c<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">int</span> m <span class="token operator">=</span> nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+      <span class="token keyword">int</span> n <span class="token operator">=</span> nums<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span>m<span class="token operator">*</span>n <span class="token operator">!=</span> r<span class="token operator">*</span>c<span class="token punctuation">)</span><span class="token punctuation">{</span>
+          <span class="token keyword">return</span> nums<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> ans <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>r<span class="token punctuation">]</span><span class="token punctuation">[</span>c<span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> x<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>x<span class="token operator">&lt;</span>m<span class="token operator">*</span>n<span class="token punctuation">;</span>x<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+           ans<span class="token punctuation">[</span>x <span class="token operator">/</span> c<span class="token punctuation">]</span><span class="token punctuation">[</span>x <span class="token operator">%</span> c<span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span>x <span class="token operator">/</span> n<span class="token punctuation">]</span><span class="token punctuation">[</span>x <span class="token operator">%</span> n<span class="token punctuation">]</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">return</span> ans<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
 <h3 id="数组的遍历"><a href="#数组的遍历" class="headerlink" title="数组的遍历"></a>数组的遍历</h3><h5 id="485-最大连续1的个数"><a href="#485-最大连续1的个数" class="headerlink" title="485. 最大连续1的个数"></a><a href="https://leetcode-cn.com/problems/max-consecutive-ones/" target="_blank" rel="noopener">485. 最大连续1的个数</a></h5><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//给定一个二进制数组， 计算其中最大连续1的个数。 </span>
 <span class="token comment" spellcheck="true">//示例 1: </span>
 <span class="token comment" spellcheck="true">//输入: [1,1,0,1,1,1]</span>
@@ -1881,7 +1927,7 @@
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">125.5k</span> 字
+                <span class="white-color">125.8k</span> 字
             
             <br>
         <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1278301656'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s9.cnzz.com/z_stat.php%3Fid%3D1278301656%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>
