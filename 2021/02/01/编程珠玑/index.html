@@ -809,14 +809,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        3.2k
+                        4k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        13 分
+                        16 分
                     </div>
                     
                 
@@ -923,6 +923,36 @@
            ans<span class="token punctuation">[</span>x <span class="token operator">/</span> c<span class="token punctuation">]</span><span class="token punctuation">[</span>x <span class="token operator">%</span> c<span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span>x <span class="token operator">/</span> n<span class="token punctuation">]</span><span class="token punctuation">[</span>x <span class="token operator">%</span> n<span class="token punctuation">]</span><span class="token punctuation">;</span>
       <span class="token punctuation">}</span>
       <span class="token keyword">return</span> ans<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h4 id="1004-最大连续1的个数-III"><a href="#1004-最大连续1的个数-III" class="headerlink" title="1004. 最大连续1的个数 III"></a><a href="https://leetcode-cn.com/problems/max-consecutive-ones-iii/" target="_blank" rel="noopener">1004. 最大连续1的个数 III</a></h4><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//给定一个由若干 0 和 1 组成的数组 A，我们最多可以将 K 个值从 0 变成 1 。 </span>
+<span class="token comment" spellcheck="true">// 返回仅包含 1 的最长（连续）子数组的长度。 </span>
+<span class="token comment" spellcheck="true">// 示例 1： </span>
+<span class="token comment" spellcheck="true">//</span>
+<span class="token comment" spellcheck="true">// 输入：A = [1,1,1,0,0,0,1,1,1,1,0], K = 2</span>
+<span class="token comment" spellcheck="true">//输出：6</span>
+<span class="token comment" spellcheck="true">//解释： </span>
+<span class="token comment" spellcheck="true">//[1,1,1,0,0,1,1,1,1,1,1]</span>
+<span class="token comment" spellcheck="true">//粗体数字从 0 翻转到 1，最长的子数组长度为 6。 </span>
+<span class="token comment" spellcheck="true">//</span>
+<span class="token comment" spellcheck="true">// 示例 2： </span>
+<span class="token comment" spellcheck="true">// 输入：A = [0,0,1,1,0,0,1,1,1,0,1,1,0,0,0,1,1,1,1], K = 3</span>
+<span class="token comment" spellcheck="true">//输出：10</span>
+<span class="token comment" spellcheck="true">//解释：</span>
+<span class="token comment" spellcheck="true">//[0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1]</span>
+<span class="token comment" spellcheck="true">//粗体数字从 0 翻转到 1，最长的子数组长度为 10。 </span>
+<span class="token comment" spellcheck="true">// 提示： </span>
+<span class="token comment" spellcheck="true">// 1 &lt;= A.length &lt;= 20000 </span>
+<span class="token comment" spellcheck="true">// 0 &lt;= K &lt;= A.length </span>
+<span class="token comment" spellcheck="true">// A[i] 为 0 或 1 </span>
+<span class="token comment" spellcheck="true">// </span>
+<span class="token comment" spellcheck="true">// Related Topics 双指针 Sliding Window </span>
+<span class="token comment" spellcheck="true">// 👍 218 👎 0</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">longestOnes</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> A<span class="token punctuation">,</span> <span class="token keyword">int</span> K<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
@@ -1243,6 +1273,53 @@
 <p>解题思路：</p>
 <p>1、哈希表 我们可以将数组所有的数放入哈希表，随后从 11 开始依次枚举正整数，并判断其是否在哈希表中。</p>
 <p>2、原地哈希：我们对数组进行遍历，对于遍历到的数 x，如果它在 [1, N][1,N] 的范围内，那么就将数组中的第 x-1 个位置（注意：数组下标从 0 开始）打上「标记」。在遍历结束之后，如果所有的位置都被打上了标记，那么答案是 N+1，否则答案是最小的没有打上标记的位置加 1。</p>
+<h4 id="274-H-指数"><a href="#274-H-指数" class="headerlink" title="274. H 指数"></a><a href="https://leetcode-cn.com/problems/h-index/" target="_blank" rel="noopener">274. H 指数</a></h4><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//给定一位研究者论文被引用次数的数组（被引用次数是非负整数）。编写一个方法，计算出研究者的 h 指数。 </span>
+<span class="token comment" spellcheck="true">// h 指数的定义：h 代表“高引用次数”（high citations），一名科研人员的 h 指数是指他（她）的 （N 篇论文中）总共有 h 篇论文分别被引</span>
+<span class="token comment" spellcheck="true">//用了至少 h 次。且其余的 N - h 篇论文每篇被引用次数 不超过 h 次。 </span>
+<span class="token comment" spellcheck="true">// 例如：某人的 h 指数是 20，这表示他已发表的论文中，每篇被引用了至少 20 次的论文总共有 20 篇。 </span>
+<span class="token comment" spellcheck="true">// 示例：  </span>
+<span class="token comment" spellcheck="true">//输入：citations = [3,0,6,1,5]</span>
+<span class="token comment" spellcheck="true">//输出：3 </span>
+<span class="token comment" spellcheck="true">//解释：给定数组表示研究者总共有 5 篇论文，每篇论文相应的被引用了 3, 0, 6, 1, 5 次。</span>
+<span class="token comment" spellcheck="true">//     由于研究者有 3 篇论文每篇 至少 被引用了 3 次，其余两篇论文每篇被引用 不多于 3 次，所以她的 h 指数是 3。 </span>
+<span class="token comment" spellcheck="true">// 提示：如果 h 有多种可能的值，h 指数是其中最大的那个。 </span>
+<span class="token comment" spellcheck="true">// Related Topics 排序 哈希表 </span>
+<span class="token comment" spellcheck="true">// 👍 129 👎 0</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">hIndex</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> citations<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h4 id="453-最小操作次数使数组元素相等"><a href="#453-最小操作次数使数组元素相等" class="headerlink" title="453. 最小操作次数使数组元素相等"></a><a href="https://leetcode-cn.com/problems/minimum-moves-to-equal-array-elements/" target="_blank" rel="noopener">453. 最小操作次数使数组元素相等</a></h4><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//给定一个长度为 n 的 非空 整数数组，每次操作将会使 n - 1 个元素增加 1。找出让数组所有元素相等的最小操作次数。 </span>
+<span class="token comment" spellcheck="true">// 示例： </span>
+<span class="token comment" spellcheck="true">//输入：</span>
+<span class="token comment" spellcheck="true">//[1,2,3]</span>
+<span class="token comment" spellcheck="true">//输出：</span>
+<span class="token comment" spellcheck="true">//3</span>
+<span class="token comment" spellcheck="true">//解释：</span>
+<span class="token comment" spellcheck="true">//只需要3次操作（注意每次操作会增加两个元素的值）：</span>
+<span class="token comment" spellcheck="true">//[1,2,3]  =>  [2,3,3]  =>  [3,4,3]  =>  [4,4,4]</span>
+<span class="token comment" spellcheck="true">// </span>
+<span class="token comment" spellcheck="true">// Related Topics 数学 </span>
+<span class="token comment" spellcheck="true">// 👍 190 👎 0</span>
+<span class="token comment" spellcheck="true">//排序解法</span>
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">minMoves</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     Arrays<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span>nums<span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token keyword">int</span> res <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+       res <span class="token operator">=</span> res <span class="token operator">+</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">-</span> nums<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+     <span class="token punctuation">}</span>
+     <span class="token keyword">return</span> res<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">//数学解法：</span>
+
+</code></pre>
+<p>解题思路：先找出数组中的最小值，然后让数组中的每一个值减去最小值,代表着这个数要移动的次数。然后把所有次数累加求和即是结果。</p>
 
             </div>
             <hr>
@@ -1979,7 +2056,7 @@
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">126.2k</span> 字
+                <span class="white-color">126.9k</span> 字
             
             <br>
         <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1278301656'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s9.cnzz.com/z_stat.php%3Fid%3D1278301656%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>
