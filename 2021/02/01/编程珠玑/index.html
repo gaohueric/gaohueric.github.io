@@ -809,7 +809,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        4.7k
+                        4.9k
                     </div>
                     
 
@@ -1406,7 +1406,21 @@
      <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-<span class="token comment" spellcheck="true">//双指针解法(快慢指针)</span>
+<span class="token comment" spellcheck="true">//双指针交换</span>
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">moveZeroes</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     <span class="token keyword">int</span> start <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+         <span class="token keyword">if</span><span class="token punctuation">(</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">!=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+             <span class="token keyword">int</span> temp <span class="token operator">=</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+             nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> nums<span class="token punctuation">[</span>start<span class="token punctuation">]</span><span class="token punctuation">;</span>
+             nums<span class="token punctuation">[</span>start<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">;</span>
+             start<span class="token operator">++</span><span class="token punctuation">;</span>   
+         <span class="token punctuation">}</span>
+     <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">//双指针解法(快慢指针) 优化上面交换方法，减少操作次数</span>
 <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
     <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">moveZeroes</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">if</span><span class="token punctuation">(</span>nums <span class="token operator">==</span> null <span class="token operator">||</span> nums<span class="token punctuation">.</span>length <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
@@ -1424,8 +1438,28 @@
      <span class="token punctuation">}</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
-<span class="token comment" spellcheck="true">//对撞指针解法</span>
 
+</code></pre>
+<h3 id="二维数组及滚动数组"><a href="#二维数组及滚动数组" class="headerlink" title="二维数组及滚动数组"></a>二维数组及滚动数组</h3><h4 id="118-杨辉三角"><a href="#118-杨辉三角" class="headerlink" title="118. 杨辉三角"></a><a href="https://leetcode-cn.com/problems/pascals-triangle/" target="_blank" rel="noopener">118. 杨辉三角</a></h4><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//给定一个非负整数 numRows，生成杨辉三角的前 numRows 行。 </span>
+<span class="token comment" spellcheck="true">// 在杨辉三角中，每个数是它左上方和右上方的数的和。 </span>
+<span class="token comment" spellcheck="true">// 示例: </span>
+<span class="token comment" spellcheck="true">// 输入: 5</span>
+<span class="token comment" spellcheck="true">//输出:</span>
+<span class="token comment" spellcheck="true">//[</span>
+<span class="token comment" spellcheck="true">//     [1],</span>
+<span class="token comment" spellcheck="true">//    [1,1],</span>
+<span class="token comment" spellcheck="true">//   [1,2,1],</span>
+<span class="token comment" spellcheck="true">//  [1,3,3,1],</span>
+<span class="token comment" spellcheck="true">// [1,4,6,4,1]</span>
+<span class="token comment" spellcheck="true">//] </span>
+<span class="token comment" spellcheck="true">// Related Topics 数组 </span>
+<span class="token comment" spellcheck="true">// 👍 454 👎 0</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> List<span class="token operator">&lt;</span>List<span class="token operator">&lt;</span>Integer<span class="token operator">>></span> <span class="token function">generate</span><span class="token punctuation">(</span><span class="token keyword">int</span> numRows<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
             </div>
@@ -2163,7 +2197,7 @@
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">127.7k</span> 字
+                <span class="white-color">127.8k</span> 字
             
             <br>
         <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1278301656'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s9.cnzz.com/z_stat.php%3Fid%3D1278301656%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>
