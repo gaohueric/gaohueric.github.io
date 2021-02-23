@@ -809,14 +809,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        5.6k
+                        5.8k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        24 分
+                        25 分
                     </div>
                     
                 
@@ -834,8 +834,8 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <blockquote>
-<p>计算机编程充满乐趣。有时候，它是一门优雅的科学，有时候，它要去开发和使用新的软件工具。编程与人息息相关：客户实际想解决什么问题？<br><a id="more"></a></p>
-</blockquote>
+<p>计算机编程充满乐趣。有时候，它是一门优雅的科学，有时候，它要去开发和使用新的软件工具。编程与人息息相关：客户实际想解决什么问题？</p>
+<h1 id=""><a href="#" class="headerlink" title=""></a><a id="more"></a></h1></blockquote>
 <h3 id="解题模板"><a href="#解题模板" class="headerlink" title="解题模板"></a>解题模板</h3><h4 id="双指针解题模板"><a href="#双指针解题模板" class="headerlink" title="双指针解题模板"></a>双指针解题模板</h4><p>我们通过迭代数组来解决一些问题。通常，我们只需要一个指针进行迭代，即从数组中的第一个元素开始，最后一个元素结束。然而，有时我们会使用两个指针进行迭代。<br><img src="https://raw.githubusercontent.com/gaohueric/blogpicture/master/bfdf27723d1b26ee06a56adbf6206fb9d1f7446e297ce05e74e0275b268cd945-1.png" alt=""></p>
 <p>示例<br>让我们从一个经典问题开始：</p>
 <blockquote>
@@ -1560,6 +1560,39 @@
         <span class="token keyword">return</span> count<span class="token operator">==</span><span class="token number">0</span> <span class="token operator">||</span> count<span class="token operator">==</span>chars<span class="token punctuation">.</span>length <span class="token operator">||</span> <span class="token punctuation">(</span>count<span class="token operator">==</span><span class="token number">1</span> <span class="token operator">&amp;&amp;</span> chars<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">>=</span><span class="token string">'A'</span> <span class="token operator">&amp;&amp;</span> chars<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">&lt;=</span><span class="token string">'Z'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
+
+</code></pre>
+<h4 id="125-验证回文串"><a href="#125-验证回文串" class="headerlink" title="125. 验证回文串"></a><a href="https://leetcode-cn.com/problems/valid-palindrome/" target="_blank" rel="noopener">125. 验证回文串</a></h4><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，可以忽略字母的大小写。 </span>
+<span class="token comment" spellcheck="true">// 说明：本题中，我们将空字符串定义为有效的回文串。 </span>
+<span class="token comment" spellcheck="true">// 示例 1: </span>
+<span class="token comment" spellcheck="true">// 输入: "A man, a plan, a canal: Panama"</span>
+<span class="token comment" spellcheck="true">//输出: true</span>
+<span class="token comment" spellcheck="true">// 示例 2: </span>
+<span class="token comment" spellcheck="true">// 输入: "race a car"</span>
+<span class="token comment" spellcheck="true">//输出: false</span>
+<span class="token comment" spellcheck="true">// Related Topics 双指针 字符串 </span>
+<span class="token comment" spellcheck="true">// 👍 330 👎 0</span>
+<span class="token comment" spellcheck="true">//双指针解法</span>
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isPalindrome</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        String s1 <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">toLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span> chars <span class="token operator">=</span> s1<span class="token punctuation">.</span><span class="token function">toCharArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        StringBuilder sb <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>chars<span class="token punctuation">.</span>length<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token punctuation">(</span>chars<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">>=</span><span class="token string">'a'</span> <span class="token operator">&amp;&amp;</span> chars<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">&lt;=</span><span class="token string">'z'</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token punctuation">(</span>chars<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">>=</span><span class="token string">'0'</span> <span class="token operator">&amp;&amp;</span> chars<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token operator">&lt;=</span><span class="token string">'9'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                sb<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>chars<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">int</span> j <span class="token operator">=</span> sb<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>sb<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>sb<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">!=</span> sb<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>j<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            j<span class="token operator">--</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
             </div>
@@ -2088,30 +2121,30 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/08/17/线程池/">
+                <a href="/2021/01/31/LeetCode刷题指南/">
                     <div class="card-image">
                         
-                        <img src="https://github.com/gaohueric/blogpicture/raw/master/alibaba.jpg" class="responsive-img" alt="线程池">
+                        <img src="https://raw.githubusercontent.com/gaohueric/blogpicture/master/46b64dc5812a178e90ed2b05f66f5c13.jpg" class="responsive-img" alt="LeetCode刷题指南">
                         
-                        <span class="card-title">线程池</span>
+                        <span class="card-title">LeetCode刷题指南</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            在程序中，我们会用各种池化技术来缓存创建昂贵的对象，比如线程池、连接池、内存池。
+                            刷题提升自身数据结构与算法的能力，提升思考问题，解决问题的能力。
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-08-17
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-01-31
                             </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/Java/" class="post-category" target="_blank">
-                                    Java
+                            <a href="/categories/数据结构与算法分析/" class="post-category" target="_blank">
+                                    数据结构与算法分析
                                 </a>
                             
                             
@@ -2121,8 +2154,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Java/" target="_blank">
-                        <span class="chip bg-color">Java</span>
+                    <a href="/tags/数据结构与算法分析/" target="_blank">
+                        <span class="chip bg-color">数据结构与算法分析</span>
                     </a>
                     
                 </div>
@@ -2297,7 +2330,7 @@
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">128.6k</span> 字
+                <span class="white-color">129.7k</span> 字
             
             <br>
         <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1278301656'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s9.cnzz.com/z_stat.php%3Fid%3D1278301656%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>

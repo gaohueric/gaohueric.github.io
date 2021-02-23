@@ -9,11 +9,28 @@
     <meta name="keywords" content="LeetCode刷题指南, Hi 高虎">
     <meta name="baidu-site-verification" content="fmlEuI34ir">
     <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
-    <meta name="description" content="824. 山羊拉丁文给定一个由空格分割单词的句子 S。每个单词只包含大写或小写字母。
-我们要将句子转换为 “Goat Latin”（一种类似于 猪拉丁文 - Pig Latin 的虚构语言）。
-山羊拉丁文的规则如下：
+    <meta name="description" content="一. 数组
 
-如果单词以元音开头（">
+
+题目分类
+题目编号
+
+
+
+
+数组的遍历
+485✔、495✔、414✔、628✔
+
+
+统计数组中的元素
+645✔、697✔、448✔、442✔、41✔、274✔
+
+
+数组的改变、移动
+453✔、665✔、283✔
+
+
+二维数组">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -796,7 +813,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2017-05-29
+                    2021-01-31
                 </div>
 
                 <div class="post-author info-break-policy">
@@ -810,14 +827,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        436
+                        1.4k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        2 分
+                        6 分
                     </div>
                     
                 
@@ -834,66 +851,608 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h4 id="824-山羊拉丁文"><a href="#824-山羊拉丁文" class="headerlink" title="824. 山羊拉丁文"></a><a href="https://leetcode-cn.com/problems/goat-latin/" target="_blank" rel="noopener">824. 山羊拉丁文</a></h4><p>给定一个由空格分割单词的句子 <code>S</code>。每个单词只包含大写或小写字母。</p>
-<p>我们要将句子转换为 <em>“Goat Latin”</em>（一种类似于 猪拉丁文 - Pig Latin 的虚构语言）。</p>
-<p>山羊拉丁文的规则如下：</p>
-<ul>
-<li>如果单词以元音开头（a, e, i, o, u），在单词后添加<code>&quot;ma&quot;</code>。<br>例如，单词<code>&quot;apple&quot;</code>变为<code>&quot;applema&quot;</code>。</li>
-<li>如果单词以辅音字母开头（即非元音字母），移除第一个字符并将它放到末尾，之后再添加<code>&quot;ma&quot;</code>。<br>例如，单词<code>&quot;goat&quot;</code>变为<code>&quot;oatgma&quot;</code>。</li>
-<li>根据单词在句子中的索引，在单词最后添加与索引相同数量的字母<code>&#39;a&#39;</code>，索引从1开始。<br>例如，在第一个单词后添加<code>&quot;a&quot;</code>，在第二个单词后添加<code>&quot;aa&quot;</code>，以此类推。</li>
-</ul>
-<p>返回将 <code>S</code> 转换为山羊拉丁文后的句子。</p>
-<p><strong>示例 1:</strong></p>
-<pre><code>输入: &quot;I speak Goat Latin&quot;
-输出: &quot;Imaa peaksmaaa oatGmaaaa atinLmaaaaa&quot;
-
-</code></pre><p><strong>示例 2:</strong></p>
-<pre><code>输入: &quot;The quick brown fox jumped over the lazy dog&quot;
-输出: &quot;heTmaa uickqmaaa rownbmaaaa oxfmaaaaa umpedjmaaaaaa overmaaaaaaa hetmaaaaaaaa azylmaaaaaaaaa ogdmaaaaaaaaaa&quot;
-
-</code></pre><p><strong>说明:</strong></p>
-<ul>
-<li><code>S</code> 中仅包含大小写字母和空格。单词间有且仅有一个空格。</li>
-<li><code>1 &lt;= S.length &lt;= 150</code>。</li>
-</ul>
-<p>解题方案</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
-    <span class="token keyword">public</span> String <span class="token function">toGoatLatin</span><span class="token punctuation">(</span>String S<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        StringBuilder sb <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        String<span class="token punctuation">[</span><span class="token punctuation">]</span> temps <span class="token operator">=</span> S<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">" "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">int</span> n<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>temps<span class="token punctuation">.</span>length<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span>temps<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-                <span class="token keyword">continue</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-            n<span class="token operator">++</span><span class="token punctuation">;</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token function">has</span><span class="token punctuation">(</span>temps<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-                sb<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>temps<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-            <span class="token keyword">else</span><span class="token punctuation">{</span>
-                sb<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>temps<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-                sb<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>temps<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-            sb<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">"ma"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> k<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>k<span class="token operator">&lt;</span>n<span class="token punctuation">;</span>k<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-                sb<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">"a"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-            sb<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">" "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span> sb<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-
-    <span class="token keyword">private</span> <span class="token keyword">boolean</span> <span class="token function">has</span><span class="token punctuation">(</span><span class="token keyword">char</span> s<span class="token punctuation">)</span><span class="token punctuation">{</span>
-        <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span> cs <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">'a'</span><span class="token punctuation">,</span><span class="token string">'e'</span><span class="token punctuation">,</span><span class="token string">'i'</span><span class="token punctuation">,</span><span class="token string">'o'</span><span class="token punctuation">,</span><span class="token string">'u'</span><span class="token punctuation">,</span><span class="token string">'A'</span><span class="token punctuation">,</span><span class="token string">'E'</span><span class="token punctuation">,</span><span class="token string">'I'</span><span class="token punctuation">,</span><span class="token string">'O'</span><span class="token punctuation">,</span><span class="token string">'U'</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span>cs<span class="token punctuation">.</span>length<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-            <span class="token keyword">if</span><span class="token punctuation">(</span>s <span class="token operator">==</span> cs<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-                <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">return</span>  <span class="token boolean">false</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-</code></pre>
+                <h4 id="一-数组"><a href="#一-数组" class="headerlink" title="一. 数组"></a>一. 数组</h4><table>
+<thead>
+<tr>
+<th>题目分类</th>
+<th>题目编号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数组的遍历</td>
+<td>485✔、495✔、414✔、628✔</td>
+</tr>
+<tr>
+<td>统计数组中的元素</td>
+<td>645✔、697✔、448✔、442✔、41✔、274✔</td>
+</tr>
+<tr>
+<td>数组的改变、移动</td>
+<td>453✔、665✔、283✔</td>
+</tr>
+<tr>
+<td>二维数组及滚动数组</td>
+<td>118✔、119✔、661、598、419</td>
+</tr>
+<tr>
+<td>数组的旋转</td>
+<td>189✔、396</td>
+</tr>
+<tr>
+<td>特定顺序遍历二维数组</td>
+<td>54、59、498</td>
+</tr>
+<tr>
+<td>二维数组变换</td>
+<td>566、48、73、289</td>
+</tr>
+<tr>
+<td>前缀和数组</td>
+<td>303、304、238</td>
+</tr>
+<tr>
+<td>题解</td>
+<td><a href="https://leetcode-cn.com/circle/article/oalBEI/" target="_blank" rel="noopener">数组篇</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="二-字符串"><a href="#二-字符串" class="headerlink" title="二. 字符串"></a>二. 字符串</h4><table>
+<thead>
+<tr>
+<th>题目分类</th>
+<th>题目编号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>字符</td>
+<td>520✔</td>
+</tr>
+<tr>
+<td>回文串的定义</td>
+<td>125✔</td>
+</tr>
+<tr>
+<td>公共前缀</td>
+<td>14</td>
+</tr>
+<tr>
+<td>单词</td>
+<td>434、58</td>
+</tr>
+<tr>
+<td>字符串的反转</td>
+<td>344、541、557、151</td>
+</tr>
+<tr>
+<td>字符的统计</td>
+<td>387、389、383、242、49、451、423、657、551、696、467、535</td>
+</tr>
+<tr>
+<td>数字与字符串间转换</td>
+<td>299、412、506、539、553、537、592、640、38、443、8、13、12、273、165、481</td>
+</tr>
+<tr>
+<td>子序列</td>
+<td>392、524、521、522</td>
+</tr>
+<tr>
+<td>高精度运算</td>
+<td>66、67、415、43、306</td>
+</tr>
+<tr>
+<td>字符串变换</td>
+<td>482、6、68</td>
+</tr>
+<tr>
+<td>字符串匹配</td>
+<td>28、686、459、214</td>
+</tr>
+<tr>
+<td>中心拓展法</td>
+<td>5、647</td>
+</tr>
+</tbody>
+</table>
+<h4 id="三-数与位"><a href="#三-数与位" class="headerlink" title="三. 数与位"></a>三. 数与位</h4><table>
+<thead>
+<tr>
+<th>题目分类</th>
+<th>题目编号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数字的位操作</td>
+<td>7、9、479、564、231、342、326、504、263、190、191、476、461、477、693、393、172、458、258、319、405、171、168、670、233、357、400</td>
+</tr>
+<tr>
+<td>简单数学题</td>
+<td>492、29、507</td>
+</tr>
+<tr>
+<td>快速幂</td>
+<td>50、372</td>
+</tr>
+</tbody>
+</table>
+<h4 id="四-栈与递归"><a href="#四-栈与递归" class="headerlink" title="四. 栈与递归"></a>四. 栈与递归</h4><table>
+<thead>
+<tr>
+<th>题目分类</th>
+<th>题目编号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>用栈访问最后若干元素</td>
+<td>682、71、388</td>
+</tr>
+<tr>
+<td>栈与计算器</td>
+<td>150、227、224</td>
+</tr>
+<tr>
+<td>栈与括号匹配</td>
+<td>20、636、591、32</td>
+</tr>
+<tr>
+<td>递归</td>
+<td>385、341、394</td>
+</tr>
+</tbody>
+</table>
+<h4 id="五-链表"><a href="#五-链表" class="headerlink" title="五. 链表"></a>五. 链表</h4><table>
+<thead>
+<tr>
+<th>题目分类</th>
+<th>题目编号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>链表的删除</td>
+<td>203、237、19</td>
+</tr>
+<tr>
+<td>链表的遍历</td>
+<td>430</td>
+</tr>
+<tr>
+<td>链表的旋转与反转</td>
+<td>61、24、206、92、25</td>
+</tr>
+<tr>
+<td>链表高精度加法</td>
+<td>2、445</td>
+</tr>
+<tr>
+<td>链表的合并</td>
+<td>21、23</td>
+</tr>
+</tbody>
+</table>
+<h4 id="六-哈希表"><a href="#六-哈希表" class="headerlink" title="六. 哈希表"></a>六. 哈希表</h4><table>
+<thead>
+<tr>
+<th>题目分类</th>
+<th>题目编号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>哈希表的查找、插入及删除</td>
+<td>217、633、349、128、202、500、290、532、205、166、466、138</td>
+</tr>
+<tr>
+<td>哈希表与索引</td>
+<td>1、167、599、219、220</td>
+</tr>
+<tr>
+<td>哈希表与统计</td>
+<td>594、350、554、609、454、18</td>
+</tr>
+<tr>
+<td>哈希表与前缀和</td>
+<td>560、523、525</td>
+</tr>
+</tbody>
+</table>
+<h4 id="七-贪心算法"><a href="#七-贪心算法" class="headerlink" title="七. 贪心算法"></a>七. 贪心算法</h4><table>
+<thead>
+<tr>
+<th>题目分类</th>
+<th>题目编号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数组与贪心算法</td>
+<td>605、121、122、561、455、575、135、409、621、179、56、57、228、452、435、646、406、48、169、215、75、324、517、649、678、420</td>
+</tr>
+<tr>
+<td>子数组与贪心算法</td>
+<td>53、134、581、152</td>
+</tr>
+<tr>
+<td>子序列与贪心算法</td>
+<td>334、376、659</td>
+</tr>
+<tr>
+<td>数字与贪心</td>
+<td>343</td>
+</tr>
+<tr>
+<td>单调栈法</td>
+<td>496、503、456、316、402、321、84、85</td>
+</tr>
+</tbody>
+</table>
+<h4 id="八-双指针法"><a href="#八-双指针法" class="headerlink" title="八. 双指针法"></a>八. 双指针法</h4><table>
+<thead>
+<tr>
+<th>题目分类</th>
+<th>题目编号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>头尾指针</td>
+<td>345、680、167、15、16、18、11、42</td>
+</tr>
+<tr>
+<td>同向双指针、滑动窗口</td>
+<td>27、26、80、83、82、611、187、643、674、209、3、438、567、424、76、30</td>
+</tr>
+<tr>
+<td>分段双指针</td>
+<td>86、328、160、88、475</td>
+</tr>
+<tr>
+<td>快慢指针</td>
+<td>141、142、143、234、457、287</td>
+</tr>
+</tbody>
+</table>
+<h4 id="九-树"><a href="#九-树" class="headerlink" title="九. 树"></a>九. 树</h4><table>
+<thead>
+<tr>
+<th>题目分类</th>
+<th>题目编号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>树与递归</td>
+<td>100、222、101、226、437、563、617、508、572、543、654、687、87</td>
+</tr>
+<tr>
+<td>树的层次遍历</td>
+<td>102、429、690、559、662、671、513、515、637、103、107、257、623、653、104、111、112、113、129、404、199、655、116、117</td>
+</tr>
+<tr>
+<td>树的前序遍历</td>
+<td>144、589</td>
+</tr>
+<tr>
+<td>树的前序序列化</td>
+<td>606、331、652、297、449</td>
+</tr>
+<tr>
+<td>树的后序遍历</td>
+<td>145、590</td>
+</tr>
+<tr>
+<td>树的中序遍历与二叉搜索树</td>
+<td>94、700、530、538、230、98、173、669、450、110、95、108、109</td>
+</tr>
+<tr>
+<td>重构二叉树</td>
+<td>105、106</td>
+</tr>
+<tr>
+<td>二叉树的展开</td>
+<td>114</td>
+</tr>
+<tr>
+<td>最近公共祖先</td>
+<td>235、236</td>
+</tr>
+<tr>
+<td>Morris中序遍历</td>
+<td>501、99</td>
+</tr>
+<tr>
+<td>四叉树</td>
+<td>558、427</td>
+</tr>
+</tbody>
+</table>
+<h4 id="十-图与搜索"><a href="#十-图与搜索" class="headerlink" title="十. 图与搜索"></a>十. 图与搜索</h4><table>
+<thead>
+<tr>
+<th>题目分类</th>
+<th>题目编号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>图的建立与应用</td>
+<td>565</td>
+</tr>
+<tr>
+<td>深度优先搜索</td>
+<td>17、397</td>
+</tr>
+<tr>
+<td>回溯法</td>
+<td>526、401、36、37、51、52、77、39、216、40、46、47、31、556、60、491、78、90、79、93、332</td>
+</tr>
+<tr>
+<td>回溯法与表达式</td>
+<td>241、282、679</td>
+</tr>
+<tr>
+<td>回溯法与括号</td>
+<td>22、301</td>
+</tr>
+<tr>
+<td>回溯法与贪心</td>
+<td>488</td>
+</tr>
+<tr>
+<td>广度优先搜索</td>
+<td>133、200、695、463、542、130、417、529、127、126、433、675</td>
+</tr>
+<tr>
+<td>并查集</td>
+<td>547、684、685</td>
+</tr>
+<tr>
+<td>拓扑排序</td>
+<td>399、207、210</td>
+</tr>
+<tr>
+<td>有限状态自动机</td>
+<td>65、468</td>
+</tr>
+</tbody>
+</table>
+<h4 id="十一-二分查找"><a href="#十一-二分查找" class="headerlink" title="十一. 二分查找"></a>十一. 二分查找</h4><table>
+<thead>
+<tr>
+<th>题目分类</th>
+<th>题目编号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>二分查找应用(简单)</td>
+<td>374、35、278、367、69、441</td>
+</tr>
+<tr>
+<td>二分查找应用(中等)</td>
+<td>34、540、275、436、300、354、658、162、4</td>
+</tr>
+<tr>
+<td>二分查找与旋转数组</td>
+<td>153、154、33、81</td>
+</tr>
+<tr>
+<td>二分查找与矩阵</td>
+<td>74、240</td>
+</tr>
+<tr>
+<td>二分答案法</td>
+<td>378、668、410、483</td>
+</tr>
+</tbody>
+</table>
+<h4 id="十二-二进制运算的应用"><a href="#十二-二进制运算的应用" class="headerlink" title="十二. 二进制运算的应用"></a>十二. 二进制运算的应用</h4><table>
+<thead>
+<tr>
+<th>题目分类</th>
+<th>题目编号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>异或的应用</td>
+<td>89、136、137、260、268</td>
+</tr>
+<tr>
+<td>与或非的应用</td>
+<td>371、318、201</td>
+</tr>
+</tbody>
+</table>
+<h4 id="十三-动态规划"><a href="#十三-动态规划" class="headerlink" title="十三. 动态规划"></a>十三. 动态规划</h4><table>
+<thead>
+<tr>
+<th>题目分类</th>
+<th>题目编号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数组中的动态规划</td>
+<td>509、70、338、45、55、198、213、650、91、639、552、123、188、309、32、264、313、403</td>
+</tr>
+<tr>
+<td>子数组、子序列中的动态规划</td>
+<td>689、413、446、368、416、279</td>
+</tr>
+<tr>
+<td>背包问题</td>
+<td>322、518、474、494、377</td>
+</tr>
+<tr>
+<td>矩阵中的动态规划</td>
+<td>62、63、64、120、576、688、221、629、174、96、329</td>
+</tr>
+<tr>
+<td>动态规划与字符串匹配</td>
+<td>583、72、97、115、516、132、131、139、140、514、10、44</td>
+</tr>
+<tr>
+<td>状态压缩动态规划</td>
+<td>464、691、698、638、473</td>
+</tr>
+<tr>
+<td>区间中的动态规划</td>
+<td>486、664、375、312、546</td>
+</tr>
+<tr>
+<td>树形dp</td>
+<td>337、124</td>
+</tr>
+<tr>
+<td>数位dp</td>
+<td>233、600</td>
+</tr>
+</tbody>
+</table>
+<h4 id="十四-数据结构"><a href="#十四-数据结构" class="headerlink" title="十四. 数据结构"></a>十四. 数据结构</h4><table>
+<thead>
+<tr>
+<th>题目分类</th>
+<th>题目编号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数据结构设计——栈与队列</td>
+<td>225、232、284、622、641、155</td>
+</tr>
+<tr>
+<td>数据结构设计——哈希表</td>
+<td>676、355、380、381</td>
+</tr>
+<tr>
+<td>数据结构设计——哈希与双向链表</td>
+<td>432、146、460</td>
+</tr>
+<tr>
+<td>前缀树</td>
+<td>208、211、648、386、677、472、421、212、336、440</td>
+</tr>
+<tr>
+<td>堆</td>
+<td>23、373、378、632、347、692、502、630、407、295、480</td>
+</tr>
+<tr>
+<td>树状数组</td>
+<td>307、315、493、327、673</td>
+</tr>
+<tr>
+<td>线段树</td>
+<td>699</td>
+</tr>
+<tr>
+<td>平衡树(set/map)</td>
+<td>352、218、363</td>
+</tr>
+</tbody>
+</table>
+<h4 id="十五-采样"><a href="#十五-采样" class="headerlink" title="十五. 采样"></a>十五. 采样</h4><table>
+<thead>
+<tr>
+<th>题目分类</th>
+<th>题目编号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>按权值采样</td>
+<td>528、497</td>
+</tr>
+<tr>
+<td>蓄水池抽样</td>
+<td>382、398</td>
+</tr>
+<tr>
+<td>拒绝采样</td>
+<td>470、478、519</td>
+</tr>
+</tbody>
+</table>
+<h4 id="十六-计算几何"><a href="#十六-计算几何" class="headerlink" title="十六. 计算几何"></a>十六. 计算几何</h4><table>
+<thead>
+<tr>
+<th>题目分类</th>
+<th>题目编号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>计算几何基础</td>
+<td>593、447、223、149</td>
+</tr>
+<tr>
+<td>分类讨论法</td>
+<td>335</td>
+</tr>
+<tr>
+<td>凸包</td>
+<td>587</td>
+</tr>
+<tr>
+<td>覆盖问题</td>
+<td>391</td>
+</tr>
+</tbody>
+</table>
+<h4 id="十七-常用技巧与算法"><a href="#十七-常用技巧与算法" class="headerlink" title="十七. 常用技巧与算法"></a>十七. 常用技巧与算法</h4><table>
+<thead>
+<tr>
+<th>题目分类</th>
+<th>题目编号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>博弈论</td>
+<td>292</td>
+</tr>
+<tr>
+<td>分块</td>
+<td>239、164</td>
+</tr>
+<tr>
+<td>倍增法</td>
+<td>330</td>
+</tr>
+<tr>
+<td>拓展欧几里得算法</td>
+<td>365</td>
+</tr>
+<tr>
+<td>洗牌算法</td>
+<td>384</td>
+</tr>
+<tr>
+<td>找规律</td>
+<td>390、672</td>
+</tr>
+<tr>
+<td>分治法</td>
+<td>395、667</td>
+</tr>
+<tr>
+<td>排序算法</td>
+<td>147、148</td>
+</tr>
+<tr>
+<td>线性筛</td>
+<td>204</td>
+</tr>
+<tr>
+<td>摩尔投票法</td>
+<td>229</td>
+</tr>
+</tbody>
+</table>
 
             </div>
             <hr>
@@ -1044,7 +1603,7 @@
                     </span>
                     <a href="https://gaohueric.github.io" class="b-link-green">Hi 高虎</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2017/05/29/LeetCode刷题指南/" class="b-link-green">LeetCode刷题指南</a>
+                    <a href="/2021/01/31/LeetCode刷题指南/" class="b-link-green">LeetCode刷题指南</a>
                 </p>
             </div>
 
@@ -1368,31 +1927,33 @@
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2017/06/22/HttpClientUtil工具类/">
+                <a href="/2021/02/01/编程珠玑/">
                     <div class="card-image">
                         
+                        <img src="https://raw.githubusercontent.com/gaohueric/blogpicture/master/leetcode.jpg" class="responsive-img" alt="编程珠玑">
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="HttpClientUtil工具类">
-                        
-                        <span class="card-title">HttpClientUtil工具类</span>
+                        <span class="card-title">编程珠玑</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            通过封装HttpClient组成HttpClientUtil工具类,用于进行Post、Get 等多种请求.
+                            
+计算机编程充满乐趣。有时候，它是一门优雅的科学，有时候，它要去开发和使用新的软件工具。编程与人息息相关：客户实际想解决什么问题？
+
+解题模板双指针解题模板我们通过迭代数组来解决一些问题。通常，我们只需要一个指针进行迭代，即从数组中的第一个
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2017-06-22
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2021-02-01
                         </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/计算机网络/" class="post-category" target="_blank">
-                                    计算机网络
+                            <a href="/categories/数据结构与算法分析/" class="post-category" target="_blank">
+                                    数据结构与算法分析
                                 </a>
                             
                             
@@ -1402,8 +1963,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/网络/" target="_blank">
-                        <span class="chip bg-color">网络</span>
+                    <a href="/tags/算法/" target="_blank">
+                        <span class="chip bg-color">算法</span>
                     </a>
                     
                 </div>
@@ -1417,24 +1978,23 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2017/05/09/java正则表达式/">
+                <a href="/2020/08/17/线程池/">
                     <div class="card-image">
                         
+                        <img src="https://github.com/gaohueric/blogpicture/raw/master/alibaba.jpg" class="responsive-img" alt="线程池">
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="java正则表达式">
-                        
-                        <span class="card-title">java正则表达式</span>
+                        <span class="card-title">线程池</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            正则表达式是对字符串操作的一种逻辑公式,用一些特定字符及字符组合,组成一个规则字符串.
+                            在程序中，我们会用各种池化技术来缓存创建昂贵的对象，比如线程池、连接池、内存池。
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2017-05-09
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2020-08-17
                             </span>
                         <span class="publish-author">
                             
@@ -1627,7 +2187,7 @@
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">128.6k</span> 字
+                <span class="white-color">129.7k</span> 字
             
             <br>
         <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1278301656'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s9.cnzz.com/z_stat.php%3Fid%3D1278301656%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>
