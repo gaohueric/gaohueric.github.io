@@ -809,14 +809,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        6.7k
+                        8.7k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        29 分
+                        38 分
                     </div>
                     
                 
@@ -1745,6 +1745,313 @@
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
+<h4 id="541-反转字符串-II"><a href="#541-反转字符串-II" class="headerlink" title="541. 反转字符串 II"></a><a href="https://leetcode-cn.com/problems/reverse-string-ii/" target="_blank" rel="noopener">541. 反转字符串 II</a></h4><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//给定一个字符串 s 和一个整数 k，你需要对从字符串开头算起的每隔 2k 个字符的前 k 个字符进行反转。 </span>
+<span class="token comment" spellcheck="true">// 如果剩余字符少于 k 个，则将剩余字符全部反转。 </span>
+<span class="token comment" spellcheck="true">// 如果剩余字符小于 2k 但大于或等于 k 个，则反转前 k 个字符，其余字符保持原样。 </span>
+<span class="token comment" spellcheck="true">// 示例: </span>
+<span class="token comment" spellcheck="true">// 输入: s = "abcdefg", k = 2</span>
+<span class="token comment" spellcheck="true">//输出: "bacdfeg"</span>
+<span class="token comment" spellcheck="true">// 提示： </span>
+<span class="token comment" spellcheck="true">// 该字符串只包含小写英文字母。 </span>
+<span class="token comment" spellcheck="true">// 给定字符串的长度和 k 在 [1, 10000] 范围内。 </span>
+<span class="token comment" spellcheck="true">// Related Topics 字符串 </span>
+<span class="token comment" spellcheck="true">// 👍 116 👎 0</span>
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> String <span class="token function">reverseStr</span><span class="token punctuation">(</span>String s<span class="token punctuation">,</span> <span class="token keyword">int</span> k<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span> chars <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">toCharArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> start <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>start<span class="token operator">&lt;</span>chars<span class="token punctuation">.</span>length<span class="token punctuation">;</span>start <span class="token operator">=</span> start<span class="token operator">+</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token operator">*</span>k<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">int</span> i<span class="token operator">=</span> start<span class="token punctuation">;</span>
+            <span class="token keyword">int</span> j<span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">min</span><span class="token punctuation">(</span>start<span class="token operator">+</span>k<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span>chars<span class="token punctuation">.</span>length<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">while</span> <span class="token punctuation">(</span>i<span class="token operator">&lt;</span>j<span class="token punctuation">)</span><span class="token punctuation">{</span>
+                <span class="token keyword">char</span> temp <span class="token operator">=</span> chars<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                chars<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> chars<span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                chars<span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> temp<span class="token punctuation">;</span>
+                i<span class="token operator">++</span><span class="token punctuation">;</span>
+                j<span class="token operator">--</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span>chars<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h4 id="557-反转字符串中的单词-III"><a href="#557-反转字符串中的单词-III" class="headerlink" title="557. 反转字符串中的单词 III"></a><a href="https://leetcode-cn.com/problems/reverse-words-in-a-string-iii/" target="_blank" rel="noopener">557. 反转字符串中的单词 III</a></h4><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//给定一个字符串，你需要反转字符串中每个单词的字符顺序，同时仍保留空格和单词的初始顺序。 </span>
+<span class="token comment" spellcheck="true">// 示例： </span>
+<span class="token comment" spellcheck="true">// 输入："Let's take LeetCode contest"</span>
+<span class="token comment" spellcheck="true">//输出："s'teL ekat edoCteeL tsetnoc"</span>
+<span class="token comment" spellcheck="true">// 提示： </span>
+<span class="token comment" spellcheck="true">// 在字符串中，每个单词由单个空格分隔，并且字符串中不会有任何额外的空格。 </span>
+<span class="token comment" spellcheck="true">// Related Topics 字符串 </span>
+<span class="token comment" spellcheck="true">// 👍 274 👎 0</span>
+<span class="token comment" spellcheck="true">//暴力破解</span>
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> String <span class="token function">reverseWords</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>s<span class="token operator">==</span>null <span class="token operator">||</span> s<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">==</span><span class="token number">0</span> <span class="token operator">||</span> s<span class="token operator">==</span><span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token string">""</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        String<span class="token punctuation">[</span><span class="token punctuation">]</span> ans <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">" "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        StringBuilder result <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>ans<span class="token punctuation">.</span>length<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+           String s1 <span class="token operator">=</span> ans<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+           <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>j<span class="token operator">&lt;</span>s1<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>j<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+               result<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>s1<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>s1<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">1</span><span class="token operator">-</span>j<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+           <span class="token punctuation">}</span>
+           <span class="token keyword">if</span><span class="token punctuation">(</span>i <span class="token operator">!=</span>ans<span class="token punctuation">.</span>length<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+               result<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">" "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+           <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> result<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h4 id="151-翻转字符串里的单词"><a href="#151-翻转字符串里的单词" class="headerlink" title="151. 翻转字符串里的单词"></a><a href="https://leetcode-cn.com/problems/reverse-words-in-a-string/" target="_blank" rel="noopener">151. 翻转字符串里的单词</a></h4><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//给定一个字符串，逐个翻转字符串中的每个单词。 </span>
+<span class="token comment" spellcheck="true">// 说明： </span>
+<span class="token comment" spellcheck="true">// 无空格字符构成一个 单词 。 </span>
+<span class="token comment" spellcheck="true">// 输入字符串可以在前面或者后面包含多余的空格，但是反转后的字符不能包括。 </span>
+<span class="token comment" spellcheck="true">// 如果两个单词间有多余的空格，将反转后单词间的空格减少到只含一个。 </span>
+<span class="token comment" spellcheck="true">// 示例 1： </span>
+<span class="token comment" spellcheck="true">// 输入："the sky is blue"</span>
+<span class="token comment" spellcheck="true">//输出："blue is sky the"</span>
+<span class="token comment" spellcheck="true">// 示例 2： </span>
+<span class="token comment" spellcheck="true">// 输入："  hello world!  "</span>
+<span class="token comment" spellcheck="true">//输出："world! hello"</span>
+<span class="token comment" spellcheck="true">//解释：输入字符串可以在前面或者后面包含多余的空格，但是反转后的字符不能包括。</span>
+<span class="token comment" spellcheck="true">// 示例 3： </span>
+<span class="token comment" spellcheck="true">// 输入："a good   example"</span>
+<span class="token comment" spellcheck="true">//输出："example good a"</span>
+<span class="token comment" spellcheck="true">//解释：如果两个单词间有多余的空格，将反转后单词间的空格减少到只含一个。</span>
+<span class="token comment" spellcheck="true">// 示例 4： </span>
+<span class="token comment" spellcheck="true">// 输入：s = "  Bob    Loves  Alice   "</span>
+<span class="token comment" spellcheck="true">//输出："Alice Loves Bob"</span>
+<span class="token comment" spellcheck="true">// 示例 5： </span>
+<span class="token comment" spellcheck="true">// 输入：s = "Alice does not even like bob"</span>
+<span class="token comment" spellcheck="true">//输出："bob like even not does Alice"</span>
+<span class="token comment" spellcheck="true">// 提示： </span>
+<span class="token comment" spellcheck="true">// 1 &lt;= s.length &lt;= 104 </span>
+<span class="token comment" spellcheck="true">// s 包含英文大小写字母、数字和空格 ' ' </span>
+<span class="token comment" spellcheck="true">// s 中 至少存在一个 单词 </span>
+<span class="token comment" spellcheck="true">// 进阶： </span>
+<span class="token comment" spellcheck="true">// 请尝试使用 O(1) 额外空间复杂度的原地解法。 </span>
+<span class="token comment" spellcheck="true">// Related Topics 字符串 </span>
+<span class="token comment" spellcheck="true">// 👍 281 👎 0</span>
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> String <span class="token function">reverseWords</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     <span class="token keyword">if</span><span class="token punctuation">(</span>s <span class="token operator">==</span> null <span class="token operator">||</span> s<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+         <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+     <span class="token punctuation">}</span>
+     StringBuilder result <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     String<span class="token punctuation">[</span><span class="token punctuation">]</span> s1 <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">" "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span>s1<span class="token punctuation">.</span>length<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>i<span class="token operator">>=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">--</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+         <span class="token keyword">if</span><span class="token punctuation">(</span>s1<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">==</span> null <span class="token operator">||</span> s1<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+             <span class="token keyword">continue</span><span class="token punctuation">;</span>
+         <span class="token punctuation">}</span>
+         result<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>s1<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">" "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token punctuation">}</span>
+     <span class="token keyword">return</span> result<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h4 id="387-字符串中的第一个唯一字符"><a href="#387-字符串中的第一个唯一字符" class="headerlink" title="387. 字符串中的第一个唯一字符"></a><a href="https://leetcode-cn.com/problems/first-unique-character-in-a-string/" target="_blank" rel="noopener">387. 字符串中的第一个唯一字符</a></h4><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//给定一个字符串，找到它的第一个不重复的字符，并返回它的索引。如果不存在，则返回 -1。 </span>
+<span class="token comment" spellcheck="true">// 示例： </span>
+<span class="token comment" spellcheck="true">// s = "leetcode"</span>
+<span class="token comment" spellcheck="true">//返回 0</span>
+<span class="token comment" spellcheck="true">//s = "loveleetcode"</span>
+<span class="token comment" spellcheck="true">//返回 2</span>
+<span class="token comment" spellcheck="true">// 提示：你可以假定该字符串只包含小写字母。 </span>
+<span class="token comment" spellcheck="true">// Related Topics 哈希表 字符串 </span>
+<span class="token comment" spellcheck="true">// 👍 351 👎 0</span>
+<span class="token comment" spellcheck="true">//暴露解法 超时</span>
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">firstUniqChar</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>s<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+         <span class="token keyword">int</span> count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+         <span class="token keyword">char</span> ans <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> j<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>j<span class="token operator">&lt;</span>s<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>j<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+           <span class="token keyword">if</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>j<span class="token punctuation">)</span> <span class="token operator">==</span> ans<span class="token punctuation">)</span><span class="token punctuation">{</span>
+               count<span class="token operator">++</span><span class="token punctuation">;</span>
+           <span class="token punctuation">}</span>
+         <span class="token punctuation">}</span>
+         <span class="token keyword">if</span><span class="token punctuation">(</span>count <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+             <span class="token keyword">return</span> i<span class="token punctuation">;</span>
+         <span class="token punctuation">}</span>
+     <span class="token punctuation">}</span>
+     <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">//HashMap 计数</span>
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">firstUniqChar</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Map<span class="token operator">&lt;</span>Character<span class="token punctuation">,</span> Integer<span class="token operator">></span> map <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> s<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            Integer integer <span class="token operator">=</span> map<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>null <span class="token operator">==</span> integer <span class="token operator">||</span> integer <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">,</span> integer <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> s<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>map<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> i<span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h4 id="389-找不同"><a href="#389-找不同" class="headerlink" title="389. 找不同"></a><a href="https://leetcode-cn.com/problems/find-the-difference/" target="_blank" rel="noopener">389. 找不同</a></h4><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//给定两个字符串 s 和 t，它们只包含小写字母。 </span>
+<span class="token comment" spellcheck="true">// 字符串 t 由字符串 s 随机重排，然后在随机位置添加一个字母。 </span>
+<span class="token comment" spellcheck="true">// 请找出在 t 中被添加的字母。 </span>
+<span class="token comment" spellcheck="true">// 示例 1： </span>
+<span class="token comment" spellcheck="true">// 输入：s = "abcd", t = "abcde"</span>
+<span class="token comment" spellcheck="true">//输出："e"</span>
+<span class="token comment" spellcheck="true">//解释：'e' 是那个被添加的字母。</span>
+<span class="token comment" spellcheck="true">// 示例 2： </span>
+<span class="token comment" spellcheck="true">// 输入：s = "", t = "y"</span>
+<span class="token comment" spellcheck="true">//输出："y"</span>
+<span class="token comment" spellcheck="true">// 示例 3： </span>
+<span class="token comment" spellcheck="true">// 输入：s = "a", t = "aa"</span>
+<span class="token comment" spellcheck="true">//输出："a"</span>
+<span class="token comment" spellcheck="true">// 示例 4： </span>
+<span class="token comment" spellcheck="true">// 输入：s = "ae", t = "aea"</span>
+<span class="token comment" spellcheck="true">//输出："a"</span>
+<span class="token comment" spellcheck="true">// 提示： </span>
+<span class="token comment" spellcheck="true">// 0 &lt;= s.length &lt;= 1000 </span>
+<span class="token comment" spellcheck="true">// t.length == s.length + 1 </span>
+<span class="token comment" spellcheck="true">// s 和 t 只包含小写字母 </span>
+<span class="token comment" spellcheck="true">// Related Topics 位运算 哈希表 </span>
+<span class="token comment" spellcheck="true">// 👍 235 👎 0</span>
+<span class="token comment" spellcheck="true">//解题思路1：HashMap 分别统计s、t字母个数，遍历t,如果字母个数不相等，则返回字母。</span>
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">char</span> <span class="token function">findTheDifference</span><span class="token punctuation">(</span>String s<span class="token punctuation">,</span> String t<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Map<span class="token operator">&lt;</span>Character<span class="token punctuation">,</span>Integer<span class="token operator">></span> map <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>s<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            Integer integer <span class="token operator">=</span> map<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>null <span class="token operator">==</span> integer <span class="token operator">||</span> integer <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">,</span> integer <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        Map<span class="token operator">&lt;</span>Character<span class="token punctuation">,</span>Integer<span class="token operator">></span> map1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>t<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            Integer integer <span class="token operator">=</span> map1<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>t<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>null <span class="token operator">==</span> integer <span class="token operator">||</span> integer <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                map1<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>t<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                map1<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>t<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">,</span> integer <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>t<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>map<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>t<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">!=</span> map1<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>t<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                <span class="token keyword">return</span> t<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token string">' '</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">//解法2：将字符串 *s* 中每个字符的 ASCII 码的值求和，得到 *A_s*；对字符串 *t* 同样的方法得到 *A_t*。两者的差值 *A_t-A_s* 即代表了被添加的字符。</span>
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">char</span> <span class="token function">findTheDifference</span><span class="token punctuation">(</span>String s<span class="token punctuation">,</span> String t<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">int</span> anst <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token keyword">int</span> anss <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+      <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>s<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+          anss <span class="token operator">=</span> anss <span class="token operator">+</span> s<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>t<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+          anst <span class="token operator">=</span> anst<span class="token operator">+</span>t<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token keyword">char</span><span class="token punctuation">)</span><span class="token punctuation">(</span>anst <span class="token operator">-</span> anss<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">//把字符串s和t合并，然后遍历合并的每个字符，判断集合set中是否有这个字符，如果有就移除，否则就加入到集合set中。最后集合set中只有一个字符，这个字符就是我们要求的。</span>
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">char</span> <span class="token function">findTheDifference</span><span class="token punctuation">(</span>String s<span class="token punctuation">,</span> String t<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Set<span class="token operator">&lt;</span>Character<span class="token operator">></span> set <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashSet</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span> charArr <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span>t<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toCharArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> charArr<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>set<span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span>charArr<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+                set<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span>charArr<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">else</span>
+                set<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>charArr<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token keyword">char</span><span class="token punctuation">)</span> set<span class="token punctuation">.</span><span class="token function">toArray</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>    
+</code></pre>
+<h4 id="383-赎金信"><a href="#383-赎金信" class="headerlink" title="383. 赎金信"></a><a href="https://leetcode-cn.com/problems/ransom-note/" target="_blank" rel="noopener">383. 赎金信</a></h4><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//给定一个赎金信 (ransom) 字符串和一个杂志(magazine)字符串，判断第一个字符串 ransom 能不能由第二个字符串 magazines 里面</span>
+<span class="token comment" spellcheck="true">//的字符构成。如果可以构成，返回 true ；否则返回 false。 </span>
+<span class="token comment" spellcheck="true">// (题目说明：为了不暴露赎金信字迹，要从杂志上搜索各个需要的字母，组成单词来表达意思。杂志字符串中的每个字符只能在赎金信字符串中使用一次。) </span>
+<span class="token comment" spellcheck="true">// 注意： </span>
+<span class="token comment" spellcheck="true">// 你可以假设两个字符串均只含有小写字母。 </span>
+<span class="token comment" spellcheck="true">// canConstruct("a", "b") -> false</span>
+<span class="token comment" spellcheck="true">//canConstruct("aa", "ab") -> false</span>
+<span class="token comment" spellcheck="true">//canConstruct("aa", "aab") -> true</span>
+<span class="token comment" spellcheck="true">// Related Topics 字符串 </span>
+<span class="token comment" spellcheck="true">// 👍 135 👎 0</span>
+<span class="token comment" spellcheck="true">//HashMap 分别统计赎金与杂志里的字符个数，如果杂志里没有赎金里的字符或者赎金里的字符个数大于杂志里的字符个数，返回false,不然返回true</span>
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">canConstruct</span><span class="token punctuation">(</span>String ransomNote<span class="token punctuation">,</span> String magazine<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        HashMap<span class="token operator">&lt;</span>Character<span class="token punctuation">,</span> Integer<span class="token operator">></span> mMap <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        HashMap<span class="token operator">&lt;</span>Character<span class="token punctuation">,</span> Integer<span class="token operator">></span> rMap <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> magazine<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            Integer count <span class="token operator">=</span> mMap<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>magazine<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>count <span class="token operator">==</span> null <span class="token operator">||</span> count <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                mMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>magazine<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                mMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>magazine<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">,</span> count <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> ransomNote<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            Integer count <span class="token operator">=</span> rMap<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>ransomNote<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>count <span class="token operator">==</span> null <span class="token operator">||</span> count <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                rMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>ransomNote<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                rMap<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span>ransomNote<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">,</span> count <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> ransomNote<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">char</span> ans <span class="token operator">=</span> ransomNote<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>mMap<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>ans<span class="token punctuation">)</span> <span class="token operator">==</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>mMap<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>ans<span class="token punctuation">)</span> <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> rMap<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>ans<span class="token punctuation">)</span> <span class="token operator">!=</span> null<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>rMap<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>ans<span class="token punctuation">)</span> <span class="token operator">></span> mMap<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>ans<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h4 id="242-有效的字母异位词"><a href="#242-有效的字母异位词" class="headerlink" title="242. 有效的字母异位词"></a><a href="https://leetcode-cn.com/problems/valid-anagram/" target="_blank" rel="noopener">242. 有效的字母异位词</a></h4><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。 </span>
+<span class="token comment" spellcheck="true">// 示例 1: </span>
+<span class="token comment" spellcheck="true">// 输入: s = "anagram", t = "nagaram"</span>
+<span class="token comment" spellcheck="true">//输出: true</span>
+<span class="token comment" spellcheck="true">// 示例 2: </span>
+<span class="token comment" spellcheck="true">//</span>
+<span class="token comment" spellcheck="true">// 输入: s = "rat", t = "car"</span>
+<span class="token comment" spellcheck="true">//输出: false </span>
+<span class="token comment" spellcheck="true">//</span>
+<span class="token comment" spellcheck="true">// 说明: </span>
+<span class="token comment" spellcheck="true">//你可以假设字符串只包含小写字母。 </span>
+<span class="token comment" spellcheck="true">//</span>
+<span class="token comment" spellcheck="true">// 进阶: </span>
+<span class="token comment" spellcheck="true">//如果输入字符串包含 unicode 字符怎么办？你能否调整你的解法来应对这种情况？ </span>
+<span class="token comment" spellcheck="true">// Related Topics 排序 哈希表 </span>
+<span class="token comment" spellcheck="true">// 👍 345 👎 0</span>
+
+
+<span class="token comment" spellcheck="true">//leetcode submit region begin(Prohibit modification and deletion)</span>
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isAnagram</span><span class="token punctuation">(</span>String s<span class="token punctuation">,</span> String t<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">//leetcode submit region end(Prohibit modification and deletion)</span>
+</code></pre>
 
             </div>
             <hr>
@@ -2481,7 +2788,7 @@
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">130.6k</span> 字
+                <span class="white-color">132.6k</span> 字
             
             <br>
         <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1278301656'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s9.cnzz.com/z_stat.php%3Fid%3D1278301656%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>
