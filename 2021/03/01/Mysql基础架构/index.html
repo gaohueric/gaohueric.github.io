@@ -13,7 +13,7 @@
 
 通过把 MySQL 拆解一下，看看里面都有哪些“零件”，借由这个拆解过程，对 MySQL 有更深入的理解。这样当我们碰到 MySQL 的一些异常或者问题时，就能够直戳本质，更为快速地定位并解决问题。
 
-">
+MySQL基础架构示意图：">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -810,7 +810,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        74
+                        385
                     </div>
                     
 
@@ -838,6 +838,14 @@
 <blockquote>
 <p>通过把 MySQL 拆解一下，看看里面都有哪些“零件”，借由这个拆解过程，对 MySQL 有更深入的理解。这样当我们碰到 MySQL 的一些异常或者问题时，就能够直戳本质，更为快速地定位并解决问题。</p>
 </blockquote>
+<p>MySQL基础架构示意图：能看到SQL 语句在 MySQL 的各个功能模块中的执行过程</p>
+<p><img src="https://github.com/gaohueric/blogpicture/raw/master/0d2070e8f84c4801adbfa03bda1f98d9.png" alt=""></p>
+<p>MySQL可以分为Service层和存储引擎层两部分。</p>
+<p>Server 层包括连接器、查询缓存、分析器、优化器、执行器，所有跨存储引擎的功能都在这一层实现，比如存储过程、触发器、视图等。</p>
+<p>而存储引擎层负责数据的存储和提取。其架构模式是插件式的，支持 InnoDB、MyISAM、Memory 等多个存储引擎。现在最常用的存储引擎是 InnoDB</p>
+<h3 id="MySQL日志系统"><a href="#MySQL日志系统" class="headerlink" title="MySQL日志系统"></a>MySQL日志系统</h3><h5 id="重要的日志模块：redo-log"><a href="#重要的日志模块：redo-log" class="headerlink" title="重要的日志模块：redo log"></a>重要的日志模块：redo log</h5><p>作用：确保事务的持久性。<br>防止在发生故障的时间点，尚有脏页未写入磁盘，在重启mysql服务的时候，根据redo log进行重做，从而达到事务的持久性这一特.</p>
+<p>InnoDB 使用 Redo Log 来保证数据的一致性和可持久性，它采用 WAL 机制，即先写日志再写数据。具体来说，InnoDB 进行写操作时，先将数据操作记录在 log buffer 中，然后将 log buffer 中的数据刷到磁盘 log file 中，后续数据再落到数据 ibd 文件这一步骤由 checkpoint 来保证</p>
+<p><img src="https://github.com/gaohueric/blogpicture/raw/master/b075250cad8d9f6c791a52b6a600f69c.jpg" alt=""></p>
 
             </div>
             <hr>
@@ -1575,7 +1583,7 @@
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">141.3k</span> 字
+                <span class="white-color">141.7k</span> 字
             
             <br>
         <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1278301656'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s9.cnzz.com/z_stat.php%3Fid%3D1278301656%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>
