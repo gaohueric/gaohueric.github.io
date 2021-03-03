@@ -13,8 +13,7 @@
 计算机编程充满乐趣。有时候，它是一门优雅的科学，有时候，它要去开发和使用新的软件工具。编程与人息息相关：客户实际想解决什么问题？
 
 
-[toc]
-解题模板双指针解题模板我们通过迭代数组来解决一些问题。通常，我们只需要一个指针进行迭代，即从">
+解题模板双指针解题模板我们通过迭代数组来解决一些问题。通常，我们只需要一个指针进行迭代，即从数组中的第一">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -811,14 +810,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        13.2k
+                        17.4k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        58 分
+                        77 分
                     </div>
                     
                 
@@ -839,7 +838,6 @@
 <p>计算机编程充满乐趣。有时候，它是一门优雅的科学，有时候，它要去开发和使用新的软件工具。编程与人息息相关：客户实际想解决什么问题？</p>
 <a id="more"></a>
 </blockquote>
-<p>[toc]</p>
 <h3 id="解题模板"><a href="#解题模板" class="headerlink" title="解题模板"></a>解题模板</h3><h4 id="双指针解题模板"><a href="#双指针解题模板" class="headerlink" title="双指针解题模板"></a>双指针解题模板</h4><p>我们通过迭代数组来解决一些问题。通常，我们只需要一个指针进行迭代，即从数组中的第一个元素开始，最后一个元素结束。然而，有时我们会使用两个指针进行迭代。<br><img src="https://raw.githubusercontent.com/gaohueric/blogpicture/master/bfdf27723d1b26ee06a56adbf6206fb9d1f7446e297ce05e74e0275b268cd945-1.png" alt=""></p>
 <p>示例<br>让我们从一个经典问题开始：</p>
 <blockquote>
@@ -2692,6 +2690,582 @@ class Solution {
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
+<h4 id="38-外观数列"><a href="#38-外观数列" class="headerlink" title="38. 外观数列"></a><a href="https://leetcode-cn.com/problems/count-and-say/" target="_blank" rel="noopener">38. 外观数列</a></h4><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//给定一个正整数 n ，输出外观数列的第 n 项。 </span>
+<span class="token comment" spellcheck="true">// 「外观数列」是一个整数序列，从数字 1 开始，序列中的每一项都是对前一项的描述。 </span>
+<span class="token comment" spellcheck="true">// 你可以将其视作是由递归公式定义的数字字符串序列： </span>
+<span class="token comment" spellcheck="true">// countAndSay(1) = "1" </span>
+<span class="token comment" spellcheck="true">// countAndSay(n) 是对 countAndSay(n-1) 的描述，然后转换成另一个数字字符串。 </span>
+<span class="token comment" spellcheck="true">// 前五项如下： </span>
+<span class="token comment" spellcheck="true">//1.     1</span>
+<span class="token comment" spellcheck="true">//2.     11</span>
+<span class="token comment" spellcheck="true">//3.     21</span>
+<span class="token comment" spellcheck="true">//4.     1211</span>
+<span class="token comment" spellcheck="true">//5.     111221</span>
+<span class="token comment" spellcheck="true">//第一项是数字 1 </span>
+<span class="token comment" spellcheck="true">//描述前一项，这个数是 1 即 “ 一 个 1 ”，记作 "11"</span>
+<span class="token comment" spellcheck="true">//描述前一项，这个数是 11 即 “ 二 个 1 ” ，记作 "21"</span>
+<span class="token comment" spellcheck="true">//描述前一项，这个数是 21 即 “ 一 个 2 + 一 个 1 ” ，记作 "1211"</span>
+<span class="token comment" spellcheck="true">//描述前一项，这个数是 1211 即 “ 一 个 1 + 一 个 2 + 二 个 1 ” ，记作 "111221"</span>
+<span class="token comment" spellcheck="true">// 要 描述 一个数字字符串，首先要将字符串分割为 最小 数量的组，每个组都由连续的最多 相同字符 组成。然后对于每个组，先描述字符的数量，然后描述字符，形成</span>
+<span class="token comment" spellcheck="true">//一个描述组。要将描述转换为数字字符串，先将每组中的字符数量用数字替换，再将所有描述组连接起来。 </span>
+<span class="token comment" spellcheck="true">// 例如，数字字符串 "3322251" 的描述如下图： </span>
+<span class="token comment" spellcheck="true">// 示例 1： </span>
+<span class="token comment" spellcheck="true">//输入：n = 1</span>
+<span class="token comment" spellcheck="true">//输出："1"</span>
+<span class="token comment" spellcheck="true">//解释：这是一个基本样例。</span>
+<span class="token comment" spellcheck="true">// 示例 2： </span>
+<span class="token comment" spellcheck="true">//输入：n = 4</span>
+<span class="token comment" spellcheck="true">//输出："1211"</span>
+<span class="token comment" spellcheck="true">//解释：</span>
+<span class="token comment" spellcheck="true">//countAndSay(1) = "1"</span>
+<span class="token comment" spellcheck="true">//countAndSay(2) = 读 "1" = 一 个 1 = "11"</span>
+<span class="token comment" spellcheck="true">//countAndSay(3) = 读 "11" = 二 个 1 = "21"</span>
+<span class="token comment" spellcheck="true">//countAndSay(4) = 读 "21" = 一 个 2 + 一 个 1 = "12" + "11" = "1211"</span>
+<span class="token comment" spellcheck="true">// 提示： </span>
+<span class="token comment" spellcheck="true">// 1 &lt;= n &lt;= 30 </span>
+<span class="token comment" spellcheck="true">// Related Topics 字符串 </span>
+<span class="token comment" spellcheck="true">// 👍 644 👎 0</span>
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> String <span class="token function">countAndSay</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h4 id="443-压缩字符串"><a href="#443-压缩字符串" class="headerlink" title="443. 压缩字符串"></a><a href="https://leetcode-cn.com/problems/string-compression/" target="_blank" rel="noopener">443. 压缩字符串</a></h4><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//给定一组字符，使用原地算法将其压缩。 </span>
+<span class="token comment" spellcheck="true">// 压缩后的长度必须始终小于或等于原数组长度。 </span>
+<span class="token comment" spellcheck="true">// 数组的每个元素应该是长度为1 的字符（不是 int 整数类型）。 </span>
+<span class="token comment" spellcheck="true">// 在完成原地修改输入数组后，返回数组的新长度。 </span>
+<span class="token comment" spellcheck="true">// 进阶： </span>
+<span class="token comment" spellcheck="true">//你能否仅使用O(1) 空间解决问题？ </span>
+<span class="token comment" spellcheck="true">// 示例 1： </span>
+<span class="token comment" spellcheck="true">// 输入：</span>
+<span class="token comment" spellcheck="true">//["a","a","b","b","c","c","c"]</span>
+<span class="token comment" spellcheck="true">//输出：</span>
+<span class="token comment" spellcheck="true">//返回 6 ，输入数组的前 6 个字符应该是：["a","2","b","2","c","3"]</span>
+<span class="token comment" spellcheck="true">//说明：</span>
+<span class="token comment" spellcheck="true">//"aa" 被 "a2" 替代。"bb" 被 "b2" 替代。"ccc" 被 "c3" 替代。</span>
+<span class="token comment" spellcheck="true">// 示例 2： </span>
+<span class="token comment" spellcheck="true">// 输入：</span>
+<span class="token comment" spellcheck="true">//["a"]</span>
+<span class="token comment" spellcheck="true">//输出：</span>
+<span class="token comment" spellcheck="true">//返回 1 ，输入数组的前 1 个字符应该是：["a"]</span>
+<span class="token comment" spellcheck="true">//解释：</span>
+<span class="token comment" spellcheck="true">//没有任何字符串被替代。</span>
+<span class="token comment" spellcheck="true">// 示例 3： </span>
+<span class="token comment" spellcheck="true">// 输入：</span>
+<span class="token comment" spellcheck="true">//["a","b","b","b","b","b","b","b","b","b","b","b","b"]</span>
+<span class="token comment" spellcheck="true">//输出：</span>
+<span class="token comment" spellcheck="true">//返回 4 ，输入数组的前4个字符应该是：["a","b","1","2"]。</span>
+<span class="token comment" spellcheck="true">//解释：</span>
+<span class="token comment" spellcheck="true">//由于字符 "a" 不重复，所以不会被压缩。"bbbbbbbbbbbb" 被 “b12” 替代。</span>
+<span class="token comment" spellcheck="true">//注意每个数字在数组中都有它自己的位置。</span>
+<span class="token comment" spellcheck="true">// 提示： </span>
+<span class="token comment" spellcheck="true">// 所有字符都有一个ASCII值在[35, 126]区间内。 </span>
+<span class="token comment" spellcheck="true">// 1 &lt;= len(chars) &lt;= 1000。 </span>
+<span class="token comment" spellcheck="true">// Related Topics 字符串 </span>
+<span class="token comment" spellcheck="true">// 👍 165 👎 0</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">compress</span><span class="token punctuation">(</span><span class="token keyword">char</span><span class="token punctuation">[</span><span class="token punctuation">]</span> chars<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h4 id="8-字符串转换整数-atoi"><a href="#8-字符串转换整数-atoi" class="headerlink" title="8. 字符串转换整数 (atoi)"></a><a href="https://leetcode-cn.com/problems/string-to-integer-atoi/" target="_blank" rel="noopener">8. 字符串转换整数 (atoi)</a></h4><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//请你来实现一个 myAtoi(string s) 函数，使其能将字符串转换成一个 32 位有符号整数（类似 C/C++ 中的 atoi 函数）。</span>
+<span class="token comment" spellcheck="true">// 函数 myAtoi(string s) 的算法如下：</span>
+<span class="token comment" spellcheck="true">// 读入字符串并丢弃无用的前导空格</span>
+<span class="token comment" spellcheck="true">// 检查下一个字符（假设还未到字符末尾）为正还是负号，读取该字符（如果有）。 确定最终结果是负数还是正数。 如果两者都不存在，则假定结果为正。</span>
+<span class="token comment" spellcheck="true">// 读入下一个字符，直到到达下一个非数字字符或到达输入的结尾。字符串的其余部分将被忽略。</span>
+<span class="token comment" spellcheck="true">// 将前面步骤读入的这些数字转换为整数（即，"123" -> 123， "0032" -> 32）。如果没有读入数字，则整数为 0 。必要时更改符号（从步骤</span>
+<span class="token comment" spellcheck="true">//2 开始）。</span>
+<span class="token comment" spellcheck="true">// 如果整数数超过 32 位有符号整数范围 [−231, 231 − 1] ，需要截断这个整数，使其保持在这个范围内。具体来说，小于 −231 的整数应该被固</span>
+<span class="token comment" spellcheck="true">//定为 −231 ，大于 231 − 1 的整数应该被固定为 231 − 1 。</span>
+<span class="token comment" spellcheck="true">// 返回整数作为最终结果。</span>
+<span class="token comment" spellcheck="true">// 注意：</span>
+<span class="token comment" spellcheck="true">//输入：s = "42"</span>
+<span class="token comment" spellcheck="true">//输出：42</span>
+<span class="token comment" spellcheck="true">//解释：加粗的字符串为已经读入的字符，插入符号是当前读取的字符。</span>
+<span class="token comment" spellcheck="true">//第 1 步："42"（当前没有读入字符，因为没有前导空格）</span>
+<span class="token comment" spellcheck="true">//         ^</span>
+<span class="token comment" spellcheck="true">//第 2 步："42"（当前没有读入字符，因为这里不存在 '-' 或者 '+'）</span>
+<span class="token comment" spellcheck="true">//         ^</span>
+<span class="token comment" spellcheck="true">//第 3 步："42"（读入 "42"）</span>
+<span class="token comment" spellcheck="true">//           ^</span>
+<span class="token comment" spellcheck="true">//解析得到整数 42 。</span>
+<span class="token comment" spellcheck="true">//由于 "42" 在范围 [-231, 231 - 1] 内，最终结果为 42 。</span>
+<span class="token comment" spellcheck="true">//</span>
+<span class="token comment" spellcheck="true">// 示例 2：</span>
+<span class="token comment" spellcheck="true">//输入：s = "   -42"</span>
+<span class="token comment" spellcheck="true">//输出：-42</span>
+<span class="token comment" spellcheck="true">//解释：</span>
+<span class="token comment" spellcheck="true">//第 1 步："   -42"（读入前导空格，但忽视掉）</span>
+<span class="token comment" spellcheck="true">//            ^</span>
+<span class="token comment" spellcheck="true">//第 2 步："   -42"（读入 '-' 字符，所以结果应该是负数）</span>
+<span class="token comment" spellcheck="true">//             ^</span>
+<span class="token comment" spellcheck="true">//第 3 步："   -42"（读入 "42"）</span>
+<span class="token comment" spellcheck="true">//               ^</span>
+<span class="token comment" spellcheck="true">//解析得到整数 -42 。</span>
+<span class="token comment" spellcheck="true">//由于 "-42" 在范围 [-231, 231 - 1] 内，最终结果为 -42 。</span>
+<span class="token comment" spellcheck="true">// 示例 3：</span>
+<span class="token comment" spellcheck="true">//输入：s = "4193 with words"</span>
+<span class="token comment" spellcheck="true">//输出：4193</span>
+<span class="token comment" spellcheck="true">//解释：</span>
+<span class="token comment" spellcheck="true">//第 1 步："4193 with words"（当前没有读入字符，因为没有前导空格）</span>
+<span class="token comment" spellcheck="true">//         ^</span>
+<span class="token comment" spellcheck="true">//第 2 步："4193 with words"（当前没有读入字符，因为这里不存在 '-' 或者 '+'）</span>
+<span class="token comment" spellcheck="true">//         ^</span>
+<span class="token comment" spellcheck="true">//第 3 步："4193 with words"（读入 "4193"；由于下一个字符不是一个数字，所以读入停止）</span>
+<span class="token comment" spellcheck="true">//             ^</span>
+<span class="token comment" spellcheck="true">//解析得到整数 4193 。</span>
+<span class="token comment" spellcheck="true">//由于 "4193" 在范围 [-231, 231 - 1] 内，最终结果为 4193 。</span>
+<span class="token comment" spellcheck="true">// 示例 4：</span>
+<span class="token comment" spellcheck="true">//输入：s = "words and 987"</span>
+<span class="token comment" spellcheck="true">//输出：0</span>
+<span class="token comment" spellcheck="true">//解释：</span>
+<span class="token comment" spellcheck="true">//第 1 步："words and 987"（当前没有读入字符，因为没有前导空格）</span>
+<span class="token comment" spellcheck="true">//         ^</span>
+<span class="token comment" spellcheck="true">//第 2 步："words and 987"（当前没有读入字符，因为这里不存在 '-' 或者 '+'）</span>
+<span class="token comment" spellcheck="true">//         ^</span>
+<span class="token comment" spellcheck="true">//第 3 步："words and 987"（由于当前字符 'w' 不是一个数字，所以读入停止）</span>
+<span class="token comment" spellcheck="true">//         ^</span>
+<span class="token comment" spellcheck="true">//解析得到整数 0 ，因为没有读入任何数字。</span>
+<span class="token comment" spellcheck="true">//由于 0 在范围 [-231, 231 - 1] 内，最终结果为 0 。</span>
+<span class="token comment" spellcheck="true">// 示例 5：</span>
+<span class="token comment" spellcheck="true">//输入：s = "-91283472332"</span>
+<span class="token comment" spellcheck="true">//输出：-2147483648</span>
+<span class="token comment" spellcheck="true">//解释：</span>
+<span class="token comment" spellcheck="true">//第 1 步："-91283472332"（当前没有读入字符，因为没有前导空格）</span>
+<span class="token comment" spellcheck="true">//         ^</span>
+<span class="token comment" spellcheck="true">//第 2 步："-91283472332"（读入 '-' 字符，所以结果应该是负数）</span>
+<span class="token comment" spellcheck="true">//          ^</span>
+<span class="token comment" spellcheck="true">//第 3 步："-91283472332"（读入 "91283472332"）</span>
+<span class="token comment" spellcheck="true">//                     ^</span>
+<span class="token comment" spellcheck="true">//解析得到整数 -91283472332 。</span>
+<span class="token comment" spellcheck="true">//由于 -91283472332 小于范围 [-231, 231 - 1] 的下界，最终结果被截断为 -231 = -2147483648 。</span>
+<span class="token comment" spellcheck="true">// 提示：</span>
+<span class="token comment" spellcheck="true">// 0 &lt;= s.length &lt;= 200</span>
+<span class="token comment" spellcheck="true">// s 由英文字母（大写和小写）、数字（0-9）、' '、'+'、'-' 和 '.' 组成</span>
+<span class="token comment" spellcheck="true">// Related Topics 数学 字符串</span>
+<span class="token comment" spellcheck="true">// 👍 1006 👎 0</span>
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">myAtoi</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        StringBuilder sb <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">try</span><span class="token punctuation">{</span>
+            String sStr <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> sStr<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>i<span class="token operator">==</span><span class="token number">0</span> <span class="token operator">&amp;&amp;</span><span class="token punctuation">(</span>sStr<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">'-'</span> <span class="token operator">||</span> sStr<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token string">'+'</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    sb<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>sStr<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token keyword">continue</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span>Character<span class="token punctuation">.</span><span class="token function">isDigit</span><span class="token punctuation">(</span>sStr<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    sb<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>sStr<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">break</span><span class="token punctuation">;</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>sb<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token number">0</span> <span class="token operator">||</span> <span class="token punctuation">(</span>sb<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">==</span><span class="token number">1</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>sb<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span><span class="token string">"+"</span><span class="token punctuation">)</span> <span class="token operator">||</span> sb<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span><span class="token string">"-"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">return</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>sb<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">Exception</span> e<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>sb<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span><span class="token string">"+"</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token operator">!</span>sb<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span><span class="token string">"-"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                <span class="token keyword">return</span> <span class="token number">2147483647</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>sb<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span><span class="token string">"-"</span><span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token operator">!</span>sb<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span><span class="token string">"+"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">2147483648</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h4 id="13-罗马数字转整数"><a href="#13-罗马数字转整数" class="headerlink" title="13. 罗马数字转整数"></a><a href="https://leetcode-cn.com/problems/roman-to-integer/" target="_blank" rel="noopener">13. 罗马数字转整数</a></h4><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//罗马数字包含以下七种字符: I， V， X， L，C，D 和 M。 </span>
+<span class="token comment" spellcheck="true">//字符          数值</span>
+<span class="token comment" spellcheck="true">//I             1</span>
+<span class="token comment" spellcheck="true">//V             5</span>
+<span class="token comment" spellcheck="true">//X             10</span>
+<span class="token comment" spellcheck="true">//L             50</span>
+<span class="token comment" spellcheck="true">//C             100</span>
+<span class="token comment" spellcheck="true">//D             500</span>
+<span class="token comment" spellcheck="true">//M             1000 </span>
+<span class="token comment" spellcheck="true">// 例如， 罗马数字 2 写做 II ，即为两个并列的 1。12 写做 XII ，即为 X + II 。 27 写做 XXVII, 即为 XX + V + I</span>
+<span class="token comment" spellcheck="true">//I 。 </span>
+<span class="token comment" spellcheck="true">// 通常情况下，罗马数字中小的数字在大的数字的右边。但也存在特例，例如 4 不写做 IIII，而是 IV。数字 1 在数字 5 的左边，所表示的数等于大数 5</span>
+<span class="token comment" spellcheck="true">// 减小数 1 得到的数值 4 。同样地，数字 9 表示为 IX。这个特殊的规则只适用于以下六种情况： </span>
+<span class="token comment" spellcheck="true">// I 可以放在 V (5) 和 X (10) 的左边，来表示 4 和 9。 </span>
+<span class="token comment" spellcheck="true">// X 可以放在 L (50) 和 C (100) 的左边，来表示 40 和 90。 </span>
+<span class="token comment" spellcheck="true">// C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。 </span>
+<span class="token comment" spellcheck="true">// 给定一个罗马数字，将其转换成整数。输入确保在 1 到 3999 的范围内。 </span>
+<span class="token comment" spellcheck="true">// 示例 1: </span>
+<span class="token comment" spellcheck="true">//输入: "III"</span>
+<span class="token comment" spellcheck="true">//输出: 3 </span>
+<span class="token comment" spellcheck="true">// 示例 2: </span>
+<span class="token comment" spellcheck="true">//输入: "IV"</span>
+<span class="token comment" spellcheck="true">//输出: 4 </span>
+<span class="token comment" spellcheck="true">// 示例 3: </span>
+<span class="token comment" spellcheck="true">//输入: "IX"</span>
+<span class="token comment" spellcheck="true">//输出: 9 </span>
+<span class="token comment" spellcheck="true">// 示例 4: </span>
+<span class="token comment" spellcheck="true">//输入: "LVIII"</span>
+<span class="token comment" spellcheck="true">//输出: 58</span>
+<span class="token comment" spellcheck="true">//解释: L = 50, V= 5, III = 3.</span>
+<span class="token comment" spellcheck="true">// 示例 5: </span>
+<span class="token comment" spellcheck="true">//输入: "MCMXCIV"</span>
+<span class="token comment" spellcheck="true">//输出: 1994</span>
+<span class="token comment" spellcheck="true">//解释: M = 1000, CM = 900, XC = 90, IV = 4. </span>
+<span class="token comment" spellcheck="true">// 提示： </span>
+<span class="token comment" spellcheck="true">// 1 &lt;= s.length &lt;= 15 </span>
+<span class="token comment" spellcheck="true">// s 仅含字符 ('I', 'V', 'X', 'L', 'C', 'D', 'M') </span>
+<span class="token comment" spellcheck="true">// 题目数据保证 s 是一个有效的罗马数字，且表示整数在范围 [1, 3999] 内 </span>
+<span class="token comment" spellcheck="true">// 题目所给测试用例皆符合罗马数字书写规则，不会出现跨位等情况。 </span>
+<span class="token comment" spellcheck="true">// IL 和 IM 这样的例子并不符合题目要求，49 应该写作 XLIX，999 应该写作 CMXCIX 。 </span>
+<span class="token comment" spellcheck="true">// 关于罗马数字的详尽书写规则，可以参考 罗马数字 - Mathematics 。 </span>
+<span class="token comment" spellcheck="true">// </span>
+<span class="token comment" spellcheck="true">// Related Topics 数学 字符串 </span>
+<span class="token comment" spellcheck="true">// 👍 1215 👎 0</span>
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">romanToInt</span><span class="token punctuation">(</span>String s<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        Map<span class="token operator">&lt;</span>Character<span class="token punctuation">,</span> Integer<span class="token operator">></span> map <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">'I'</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">'V'</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">'X'</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">'L'</span><span class="token punctuation">,</span> <span class="token number">50</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">'C'</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">'D'</span><span class="token punctuation">,</span> <span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">'M'</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> count <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> s<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>i <span class="token operator">&lt;</span> s<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span>map<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> map<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                count <span class="token operator">=</span> count <span class="token operator">+</span> <span class="token punctuation">(</span>map<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">-</span> map<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                i<span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                count <span class="token operator">=</span> count <span class="token operator">+</span> map<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> count<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h4 id="12-整数转罗马数字"><a href="#12-整数转罗马数字" class="headerlink" title="12. 整数转罗马数字"></a><a href="https://leetcode-cn.com/problems/integer-to-roman/" target="_blank" rel="noopener">12. 整数转罗马数字</a></h4><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//罗马数字包含以下七种字符： I， V， X， L，C，D 和 M。 </span>
+<span class="token comment" spellcheck="true">//字符          数值</span>
+<span class="token comment" spellcheck="true">//I             1</span>
+<span class="token comment" spellcheck="true">//V             5</span>
+<span class="token comment" spellcheck="true">//X             10</span>
+<span class="token comment" spellcheck="true">//L             50</span>
+<span class="token comment" spellcheck="true">//C             100</span>
+<span class="token comment" spellcheck="true">//D             500</span>
+<span class="token comment" spellcheck="true">//M             1000 </span>
+<span class="token comment" spellcheck="true">// 例如， 罗马数字 2 写做 II ，即为两个并列的 1。12 写做 XII ，即为 X + II 。 27 写做 XXVII, 即为 XX + V + I</span>
+<span class="token comment" spellcheck="true">//I 。 </span>
+<span class="token comment" spellcheck="true">// 通常情况下，罗马数字中小的数字在大的数字的右边。但也存在特例，例如 4 不写做 IIII，而是 IV。数字 1 在数字 5 的左边，所表示的数等于大数 5</span>
+<span class="token comment" spellcheck="true">// 减小数 1 得到的数值 4 。同样地，数字 9 表示为 IX。这个特殊的规则只适用于以下六种情况： </span>
+<span class="token comment" spellcheck="true">// I 可以放在 V (5) 和 X (10) 的左边，来表示 4 和 9。 </span>
+<span class="token comment" spellcheck="true">// X 可以放在 L (50) 和 C (100) 的左边，来表示 40 和 90。 </span>
+<span class="token comment" spellcheck="true">// C 可以放在 D (500) 和 M (1000) 的左边，来表示 400 和 900。 </span>
+<span class="token comment" spellcheck="true">// 给定一个整数，将其转为罗马数字。输入确保在 1 到 3999 的范围内。 </span>
+<span class="token comment" spellcheck="true">// 示例 1: </span>
+<span class="token comment" spellcheck="true">//输入: 3</span>
+<span class="token comment" spellcheck="true">//输出: "III" </span>
+<span class="token comment" spellcheck="true">// 示例 2: </span>
+<span class="token comment" spellcheck="true">//输入: 4</span>
+<span class="token comment" spellcheck="true">//输出: "IV" </span>
+<span class="token comment" spellcheck="true">// 示例 3: </span>
+<span class="token comment" spellcheck="true">//输入: 9</span>
+<span class="token comment" spellcheck="true">//输出: "IX" </span>
+<span class="token comment" spellcheck="true">// 示例 4: </span>
+<span class="token comment" spellcheck="true">//输入: 58</span>
+<span class="token comment" spellcheck="true">//输出: "LVIII"</span>
+<span class="token comment" spellcheck="true">//解释: L = 50, V = 5, III = 3.</span>
+<span class="token comment" spellcheck="true">// 示例 5: </span>
+<span class="token comment" spellcheck="true">//输入: 1994</span>
+<span class="token comment" spellcheck="true">//输出: "MCMXCIV"</span>
+<span class="token comment" spellcheck="true">//解释: M = 1000, CM = 900, XC = 90, IV = 4. </span>
+<span class="token comment" spellcheck="true">// 提示： </span>
+<span class="token comment" spellcheck="true">// 1 &lt;= num &lt;= 3999 </span>
+<span class="token comment" spellcheck="true">// Related Topics 数学 字符串 </span>
+<span class="token comment" spellcheck="true">// 👍 502 👎 0</span>
+<span class="token comment" spellcheck="true">//穷举</span>
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> String <span class="token function">intToRoman</span><span class="token punctuation">(</span><span class="token keyword">int</span> num<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+    StringBuilder sb <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> mNum <span class="token operator">=</span>  num<span class="token operator">/</span><span class="token number">1000</span><span class="token punctuation">;</span>
+    num <span class="token operator">=</span> num <span class="token operator">-</span> <span class="token punctuation">(</span>mNum<span class="token operator">*</span><span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>mNum<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        sb<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">"M"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">int</span> cmNum <span class="token operator">=</span> num<span class="token operator">/</span><span class="token number">900</span><span class="token punctuation">;</span>
+    num <span class="token operator">=</span> num <span class="token operator">-</span> <span class="token punctuation">(</span>cmNum<span class="token operator">*</span><span class="token number">900</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>cmNum<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        sb<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">"CM"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">int</span> dNum <span class="token operator">=</span> num<span class="token operator">/</span><span class="token number">500</span><span class="token punctuation">;</span>
+    num <span class="token operator">=</span> num <span class="token operator">-</span> <span class="token punctuation">(</span>dNum<span class="token operator">*</span><span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+   <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>dNum<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        sb<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">"D"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">int</span> cdNum <span class="token operator">=</span> num<span class="token operator">/</span><span class="token number">400</span><span class="token punctuation">;</span>
+    num <span class="token operator">=</span> num <span class="token operator">-</span> <span class="token punctuation">(</span>cdNum<span class="token operator">*</span><span class="token number">400</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>cdNum<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        sb<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">"CD"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">int</span> cNum <span class="token operator">=</span> num<span class="token operator">/</span><span class="token number">100</span><span class="token punctuation">;</span>
+    num <span class="token operator">=</span> num <span class="token operator">-</span> <span class="token punctuation">(</span>cNum<span class="token operator">*</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>cNum<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        sb<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">"C"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+
+    <span class="token keyword">int</span> xcNum <span class="token operator">=</span> num<span class="token operator">/</span><span class="token number">90</span><span class="token punctuation">;</span>
+    num <span class="token operator">=</span> num <span class="token operator">-</span> <span class="token punctuation">(</span>xcNum<span class="token operator">*</span><span class="token number">90</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>xcNum<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        sb<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">"XC"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">int</span> lNum <span class="token operator">=</span> num<span class="token operator">/</span><span class="token number">50</span><span class="token punctuation">;</span>
+    num <span class="token operator">=</span> num <span class="token operator">-</span> <span class="token punctuation">(</span>lNum<span class="token operator">*</span><span class="token number">50</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>lNum<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        sb<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">"L"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+
+    <span class="token keyword">int</span> xlNum <span class="token operator">=</span> num<span class="token operator">/</span><span class="token number">40</span><span class="token punctuation">;</span>
+    num <span class="token operator">=</span> num <span class="token operator">-</span> <span class="token punctuation">(</span>xlNum<span class="token operator">*</span><span class="token number">40</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>xlNum<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        sb<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">"XL"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+
+    <span class="token keyword">int</span> xNum <span class="token operator">=</span> num<span class="token operator">/</span><span class="token number">10</span><span class="token punctuation">;</span>
+    num <span class="token operator">=</span> num<span class="token operator">-</span><span class="token punctuation">(</span>xNum<span class="token operator">*</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>xNum<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        sb<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">"X"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+
+    <span class="token keyword">int</span> ixNum <span class="token operator">=</span> num<span class="token operator">/</span><span class="token number">9</span><span class="token punctuation">;</span>
+    num <span class="token operator">=</span> num <span class="token operator">-</span> <span class="token punctuation">(</span>ixNum<span class="token operator">*</span><span class="token number">9</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>ixNum<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        sb<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">"IX"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>  
+
+    <span class="token keyword">int</span> vNum <span class="token operator">=</span> num<span class="token operator">/</span><span class="token number">5</span><span class="token punctuation">;</span>
+    num <span class="token operator">=</span> num <span class="token operator">-</span> <span class="token punctuation">(</span>vNum<span class="token operator">*</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>vNum<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        sb<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">"V"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>  
+
+
+    <span class="token keyword">int</span> ivNum <span class="token operator">=</span> num<span class="token operator">/</span><span class="token number">4</span><span class="token punctuation">;</span>
+    num <span class="token operator">=</span> num <span class="token operator">-</span> <span class="token punctuation">(</span>ivNum<span class="token operator">*</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>ivNum<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        sb<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">"IV"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>  
+    <span class="token keyword">int</span> iNum <span class="token operator">=</span> num<span class="token operator">/</span><span class="token number">1</span><span class="token punctuation">;</span>
+    num <span class="token operator">=</span> num <span class="token operator">-</span> <span class="token punctuation">(</span>ivNum<span class="token operator">*</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>iNum<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        sb<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">"I"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>  
+    <span class="token keyword">return</span> sb<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">//优化</span>
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> String <span class="token function">intToRoman</span><span class="token punctuation">(</span><span class="token keyword">int</span> num<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> nums <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1000</span><span class="token punctuation">,</span><span class="token number">900</span><span class="token punctuation">,</span><span class="token number">500</span><span class="token punctuation">,</span><span class="token number">400</span><span class="token punctuation">,</span><span class="token number">100</span><span class="token punctuation">,</span><span class="token number">90</span><span class="token punctuation">,</span><span class="token number">50</span><span class="token punctuation">,</span><span class="token number">40</span><span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">,</span><span class="token number">9</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+     String<span class="token punctuation">[</span><span class="token punctuation">]</span> ans <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"M"</span><span class="token punctuation">,</span><span class="token string">"CM"</span><span class="token punctuation">,</span><span class="token string">"D"</span><span class="token punctuation">,</span><span class="token string">"CD"</span><span class="token punctuation">,</span><span class="token string">"C"</span><span class="token punctuation">,</span><span class="token string">"XC"</span><span class="token punctuation">,</span><span class="token string">"L"</span><span class="token punctuation">,</span><span class="token string">"XL"</span><span class="token punctuation">,</span><span class="token string">"X"</span><span class="token punctuation">,</span><span class="token string">"IX"</span><span class="token punctuation">,</span><span class="token string">"V"</span><span class="token punctuation">,</span><span class="token string">"IV"</span><span class="token punctuation">,</span><span class="token string">"I"</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+     StringBuilder sb <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>nums<span class="token punctuation">.</span>length<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+         <span class="token keyword">while</span><span class="token punctuation">(</span>num<span class="token operator">>=</span>nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">{</span> 
+           num <span class="token operator">=</span> num <span class="token operator">-</span> nums<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+           sb<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>ans<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token punctuation">}</span>
+     <span class="token punctuation">}</span>
+     <span class="token keyword">return</span> sb<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h4 id="273-整数转换英文表示"><a href="#273-整数转换英文表示" class="headerlink" title="273. 整数转换英文表示"></a><a href="https://leetcode-cn.com/problems/integer-to-english-words/" target="_blank" rel="noopener">273. 整数转换英文表示</a></h4><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//将非负整数 num 转换为其对应的英文表示。 </span>
+<span class="token comment" spellcheck="true">// 示例 1： </span>
+<span class="token comment" spellcheck="true">//输入：num = 123</span>
+<span class="token comment" spellcheck="true">//输出："One Hundred Twenty Three"</span>
+<span class="token comment" spellcheck="true">// 示例 2： </span>
+<span class="token comment" spellcheck="true">//输入：num = 12345</span>
+<span class="token comment" spellcheck="true">//输出："Twelve Thousand Three Hundred Forty Five"</span>
+<span class="token comment" spellcheck="true">// 示例 3： </span>
+<span class="token comment" spellcheck="true">//输入：num = 1234567</span>
+<span class="token comment" spellcheck="true">//输出："One Million Two Hundred Thirty Four Thousand Five Hundred Sixty Seven"</span>
+<span class="token comment" spellcheck="true">// 示例 4： </span>
+<span class="token comment" spellcheck="true">//输入：num = 1234567891</span>
+<span class="token comment" spellcheck="true">//输出："One Billion Two Hundred Thirty Four Million Five Hundred Sixty Seven Thous</span>
+<span class="token comment" spellcheck="true">//and Eight Hundred Ninety One"</span>
+<span class="token comment" spellcheck="true">// 提示： </span>
+<span class="token comment" spellcheck="true">// 0 &lt;= num &lt;= 231 - 1 </span>
+<span class="token comment" spellcheck="true">// Related Topics 数学 字符串 </span>
+<span class="token comment" spellcheck="true">// 👍 134 👎 0</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> String <span class="token function">numberToWords</span><span class="token punctuation">(</span><span class="token keyword">int</span> num<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h4 id="165-比较版本号"><a href="#165-比较版本号" class="headerlink" title="165. 比较版本号"></a><a href="https://leetcode-cn.com/problems/compare-version-numbers/" target="_blank" rel="noopener">165. 比较版本号</a></h4><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//给你两个版本号 version1 和 version2 ，请你比较它们。 </span>
+<span class="token comment" spellcheck="true">// 版本号由一个或多个修订号组成，各修订号由一个 '.' 连接。每个修订号由 多位数字 组成，可能包含 前导零 。每个版本号至少包含一个字符。修订号从左到右编</span>
+<span class="token comment" spellcheck="true">//号，下标从 0 开始，最左边的修订号下标为 0 ，下一个修订号下标为 1 ，以此类推。例如，2.5.33 和 0.1 都是有效的版本号。 </span>
+<span class="token comment" spellcheck="true">// 比较版本号时，请按从左到右的顺序依次比较它们的修订号。比较修订号时，只需比较 忽略任何前导零后的整数值 。也就是说，修订号 1 和修订号 001 相等 。</span>
+<span class="token comment" spellcheck="true">//如果版本号没有指定某个下标处的修订号，则该修订号视为 0 。例如，版本 1.0 小于版本 1.1 ，因为它们下标为 0 的修订号相同，而下标为 1 的修订号分别</span>
+<span class="token comment" spellcheck="true">//为 0 和 1 ，0 &lt; 1 。 </span>
+<span class="token comment" spellcheck="true">// 返回规则如下： </span>
+<span class="token comment" spellcheck="true">// 如果 version1 > version2 返回 1， </span>
+<span class="token comment" spellcheck="true">// 如果 version1 &lt; version2 返回 -1， </span>
+<span class="token comment" spellcheck="true">// 除此之外返回 0。 </span>
+<span class="token comment" spellcheck="true">// 示例 1： </span>
+<span class="token comment" spellcheck="true">//输入：version1 = "1.01", version2 = "1.001"</span>
+<span class="token comment" spellcheck="true">//输出：0</span>
+<span class="token comment" spellcheck="true">//解释：忽略前导零，"01" 和 "001" 都表示相同的整数 "1"</span>
+<span class="token comment" spellcheck="true">// 示例 2： </span>
+<span class="token comment" spellcheck="true">//输入：version1 = "1.0", version2 = "1.0.0"</span>
+<span class="token comment" spellcheck="true">//输出：0</span>
+<span class="token comment" spellcheck="true">//解释：version1 没有指定下标为 2 的修订号，即视为 "0"</span>
+<span class="token comment" spellcheck="true">// 示例 3：  </span>
+<span class="token comment" spellcheck="true">//输入：version1 = "0.1", version2 = "1.1"</span>
+<span class="token comment" spellcheck="true">//输出：-1</span>
+<span class="token comment" spellcheck="true">//解释：version1 中下标为 0 的修订号是 "0"，version2 中下标为 0 的修订号是 "1" 。0 &lt; 1，所以 version1 &lt; ve</span>
+<span class="token comment" spellcheck="true">//rsion2</span>
+<span class="token comment" spellcheck="true">// 示例 4： </span>
+<span class="token comment" spellcheck="true">//输入：version1 = "1.0.1", version2 = "1"</span>
+<span class="token comment" spellcheck="true">//输出：1</span>
+<span class="token comment" spellcheck="true">// 示例 5： </span>
+<span class="token comment" spellcheck="true">//输入：version1 = "7.5.2.4", version2 = "7.5.3"</span>
+<span class="token comment" spellcheck="true">//输出：-1</span>
+<span class="token comment" spellcheck="true">// 提示： </span>
+<span class="token comment" spellcheck="true">// 1 &lt;= version1.length, version2.length &lt;= 500 </span>
+<span class="token comment" spellcheck="true">// version1 和 version2 仅包含数字和 '.' </span>
+<span class="token comment" spellcheck="true">// version1 和 version2 都是 有效版本号 </span>
+<span class="token comment" spellcheck="true">// version1 和 version2 的所有修订号都可以存储在 32 位整数 中 </span>
+<span class="token comment" spellcheck="true">// Related Topics 字符串 </span>
+<span class="token comment" spellcheck="true">// 👍 139 👎 0</span>
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">compareVersion</span><span class="token punctuation">(</span>String version1<span class="token punctuation">,</span> String version2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        String<span class="token punctuation">[</span><span class="token punctuation">]</span> ans <span class="token operator">=</span>  version1<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">"\\."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        String<span class="token punctuation">[</span><span class="token punctuation">]</span> ans1<span class="token operator">=</span>  version2<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">"\\."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> size <span class="token operator">=</span>  Math<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>ans<span class="token punctuation">.</span>length<span class="token punctuation">,</span>ans1<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> ans5 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>ans<span class="token punctuation">.</span>length<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>ans<span class="token punctuation">.</span>length<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            ans5<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>ans<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> ans6 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span>ans1<span class="token punctuation">.</span>length<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>ans1<span class="token punctuation">.</span>length<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            ans6<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>ans1<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> ans3 <span class="token operator">=</span> Arrays<span class="token punctuation">.</span><span class="token function">copyOf</span><span class="token punctuation">(</span>ans5<span class="token punctuation">,</span> size<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> ans4 <span class="token operator">=</span> Arrays<span class="token punctuation">.</span><span class="token function">copyOf</span><span class="token punctuation">(</span>ans6<span class="token punctuation">,</span> size<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>size<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>ans3<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">></span>Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>ans4<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                <span class="token keyword">return</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>ans3<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">&lt;</span>Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>ans4<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>ans3<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">==</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>ans4<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                <span class="token keyword">continue</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">//精简版</span>
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">compareVersion</span><span class="token punctuation">(</span>String version1<span class="token punctuation">,</span> String version2<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        String<span class="token punctuation">[</span><span class="token punctuation">]</span> ans <span class="token operator">=</span>  version1<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">"\\."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        String<span class="token punctuation">[</span><span class="token punctuation">]</span> ans1<span class="token operator">=</span>  version2<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">"\\."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> size <span class="token operator">=</span>  Math<span class="token punctuation">.</span><span class="token function">max</span><span class="token punctuation">(</span>ans<span class="token punctuation">.</span>length<span class="token punctuation">,</span>ans1<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>size<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">int</span> j <span class="token operator">=</span> i<span class="token operator">&lt;</span>ans<span class="token punctuation">.</span>length<span class="token operator">?</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>ans<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span><span class="token number">0</span><span class="token punctuation">;</span>
+            <span class="token keyword">int</span> k <span class="token operator">=</span> i<span class="token operator">&lt;</span>ans1<span class="token punctuation">.</span>length<span class="token operator">?</span>Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>ans1<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span><span class="token number">0</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>j<span class="token operator">!=</span>k<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token keyword">return</span> j<span class="token operator">></span>k<span class="token operator">?</span><span class="token number">1</span><span class="token operator">:</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h4 id="481-神奇字符串"><a href="#481-神奇字符串" class="headerlink" title="481. 神奇字符串"></a><a href="https://leetcode-cn.com/problems/magical-string/" target="_blank" rel="noopener">481. 神奇字符串</a></h4><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//神奇的字符串 S 只包含 '1' 和 '2'，并遵守以下规则： </span>
+<span class="token comment" spellcheck="true">// 字符串 S 是神奇的，因为串联字符 '1' 和 '2' 的连续出现次数会生成字符串 S 本身。 </span>
+<span class="token comment" spellcheck="true">// 字符串 S 的前几个元素如下：S = “1221121221221121122 ......” </span>
+<span class="token comment" spellcheck="true">// 如果我们将 S 中连续的 1 和 2 进行分组，它将变成： </span>
+<span class="token comment" spellcheck="true">// 1 22 11 2 1 22 1 22 11 2 11 22 ...... </span>
+<span class="token comment" spellcheck="true">// 并且每个组中 '1' 或 '2' 的出现次数分别是： </span>
+<span class="token comment" spellcheck="true">// 1 2 2 1 1 2 1 2 2 1 2 2 ...... </span>
+<span class="token comment" spellcheck="true">// 你可以看到上面的出现次数就是 S 本身。 </span>
+<span class="token comment" spellcheck="true">// 给定一个整数 N 作为输入，返回神奇字符串 S 中前 N 个数字中的 '1' 的数目。 </span>
+<span class="token comment" spellcheck="true">// 注意：N 不会超过 100,000。 </span>
+<span class="token comment" spellcheck="true">// 示例： </span>
+<span class="token comment" spellcheck="true">// 输入：6</span>
+<span class="token comment" spellcheck="true">//输出：3</span>
+<span class="token comment" spellcheck="true">//解释：神奇字符串 S 的前 6 个元素是 “12211”，它包含三个 1，因此返回 3。</span>
+<span class="token comment" spellcheck="true">// 👍 43 👎 0</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">magicalString</span><span class="token punctuation">(</span><span class="token keyword">int</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="子序列"><a href="#子序列" class="headerlink" title="子序列"></a>子序列</h3><h4 id="392-判断子序列"><a href="#392-判断子序列" class="headerlink" title="392. 判断子序列"></a><a href="https://leetcode-cn.com/problems/is-subsequence/" target="_blank" rel="noopener">392. 判断子序列</a></h4><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//给定字符串 s 和 t ，判断 s 是否为 t 的子序列。</span>
+<span class="token comment" spellcheck="true">// 字符串的一个子序列是原始字符串删除一些（也可以不删除）字符而不改变剩余字符相对位置形成的新字符串。（例如，"ace"是"abcde"的一个子序列，而"ae</span>
+<span class="token comment" spellcheck="true">//c"不是）。</span>
+<span class="token comment" spellcheck="true">// 进阶：</span>
+<span class="token comment" spellcheck="true">// 如果有大量输入的 S，称作 S1, S2, ... , Sk 其中 k >= 10亿，你需要依次检查它们是否为 T 的子序列。在这种情况下，你会怎样改变代</span>
+<span class="token comment" spellcheck="true">//码？</span>
+<span class="token comment" spellcheck="true">// 致谢：</span>
+<span class="token comment" spellcheck="true">// 特别感谢 @pbrother 添加此问题并且创建所有测试用例。</span>
+<span class="token comment" spellcheck="true">// 示例 1：</span>
+<span class="token comment" spellcheck="true">//输入：s = "abc", t = "ahbgdc"</span>
+<span class="token comment" spellcheck="true">//输出：true</span>
+<span class="token comment" spellcheck="true">// 示例 2：</span>
+<span class="token comment" spellcheck="true">//输入：s = "axc", t = "ahbgdc"</span>
+<span class="token comment" spellcheck="true">//输出：false</span>
+<span class="token comment" spellcheck="true">// 提示：</span>
+<span class="token comment" spellcheck="true">// 0 &lt;= s.length &lt;= 100</span>
+<span class="token comment" spellcheck="true">// 0 &lt;= t.length &lt;= 10^4</span>
+<span class="token comment" spellcheck="true">// 两个字符串都只由小写字符组成。</span>
+<span class="token comment" spellcheck="true">// Related Topics 贪心算法 二分查找 动态规划</span>
+<span class="token comment" spellcheck="true">// 👍 397 👎 0</span>
+<span class="token comment" spellcheck="true">//直接查找拼接</span>
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isSubsequence</span><span class="token punctuation">(</span>String s<span class="token punctuation">,</span> String t<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">int</span> j<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+      StringBuilder sb <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringBuilder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>t<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+          <span class="token keyword">if</span><span class="token punctuation">(</span>j<span class="token operator">&lt;</span>s<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> t<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token operator">==</span> s<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>j<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+              sb<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>t<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+              j<span class="token operator">++</span><span class="token punctuation">;</span>
+          <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">return</span> sb<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">//解法二</span>
+</code></pre>
 
             </div>
             <hr>
@@ -3164,50 +3738,43 @@ class Solution {
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
-            </div>
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/02/01/编程珠玑/">
+                <a href="/2021/03/01/Mysql基础架构/">
                     <div class="card-image">
                         
-                        <img src="https://raw.githubusercontent.com/gaohueric/blogpicture/master/leetcode.jpg" class="responsive-img" alt="编程珠玑">
+                        <img src="https://raw.githubusercontent.com/gaohueric/blogpicture/master/fbd3dd18e6412f7be297667156c8158a.jpg" class="responsive-img" alt="MySQL基础架构">
                         
-                        <span class="card-title">编程珠玑</span>
+                        <span class="card-title">MySQL基础架构</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
-计算机编程充满乐趣。有时候，它是一门优雅的科学，有时候，它要去开发和使用新的软件工具。编程与人息息相关：客户实际想解决什么问题？
-
-
-[toc]
-解题模板双指针解题模板我们通过迭代数组来解决一些问题。通常，我们只需要一个指针进行迭代，即从
+                            通常我们看到的只是输入一条语句，返回一个结果，却不知道这条语句在 MySQL 内部的执行过程
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-02-01
-                            </span>
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2021-03-01
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/数据结构与算法分析/" class="post-category" target="_blank">
-                                    数据结构与算法分析
+                            <a href="/categories/Java/" class="post-category" target="_blank">
+                                    Java
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/算法/" target="_blank">
-                        <span class="chip bg-color">算法</span>
+                    <a href="/tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
                     </a>
                     
                 </div>
@@ -3430,7 +3997,7 @@ class Solution {
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">137.1k</span> 字
+                <span class="white-color">141.3k</span> 字
             
             <br>
         <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1278301656'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s9.cnzz.com/z_stat.php%3Fid%3D1278301656%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>
