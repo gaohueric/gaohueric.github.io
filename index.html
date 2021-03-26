@@ -864,19 +864,8 @@ $(function () {
 
     let carouselIntervalId;
     
-    // Loop to call the next cover article picture.
-    let autoCarousel = function() {
-        carouselIntervalId = setInterval(function () {
-            coverSlider.carousel('next');
-        }, 60000);
-    };
-    autoCarousel();
-    
 
     let restartPlay = function () {
-        
-        clearInterval(carouselIntervalId);
-        autoCarousel();
         
     };
 
