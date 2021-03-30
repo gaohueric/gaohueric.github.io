@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://gaohueric.github.io/"/>
-  <updated>2021-03-29T05:59:14.670Z</updated>
+  <updated>2021-03-03T11:43:47.299Z</updated>
   <id>https://gaohueric.github.io/</id>
   
   <author>
@@ -15,28 +15,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>数据结构之插入排序</title>
-    <link href="https://gaohueric.github.io/2021/03/09/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E6%A0%88/"/>
-    <id>https://gaohueric.github.io/2021/03/09/数据结构-栈/</id>
-    <published>2021-03-09T12:07:58.000Z</published>
-    <updated>2021-03-29T05:59:14.670Z</updated>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;栈实际上也是线性表，只不过是一种特殊的线性表。其特殊性在于栈的基本操作是线性表操作的子集，他们的操作受限于线性表，可称为限定性的数据结构。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="数据结构与算法分析" scheme="https://gaohueric.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/"/>
-    
-    
-      <category term="数据结构" scheme="https://gaohueric.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
-    
-  </entry>
   
   <entry>
     <title>MySQL基础架构</title>
@@ -505,6 +483,36 @@
     
     
       <category term="Java" scheme="https://gaohueric.github.io/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>深入理解 Java 线程池：ThreadPoolExecutor</title>
+    <link href="https://gaohueric.github.io/2018/02/18/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3-Java-%E7%BA%BF%E7%A8%8B%E6%B1%A0%EF%BC%9AThreadPoolExecutor/"/>
+    <id>https://gaohueric.github.io/2018/02/18/深入理解-Java-线程池：ThreadPoolExecutor/</id>
+    <published>2018-02-18T11:06:58.000Z</published>
+    <updated>2020-08-12T08:46:20.772Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;线程池介绍&lt;/p&gt;
+&lt;p&gt;在web开发中，服务器需要接受并处理请求，所以会为一个请求来分配一个线程进行处理，如果每次请求都创建一个线程的话实现起来非常简便，但是存在一个问题。&lt;/p&gt;
+&lt;p&gt;如果并发请求数量非常多，但每个线程执行的时间很短，这样就会频繁的创建和销毁线程，如此
+        
+      
+    
+    </summary>
+    
+      <category term="Java" scheme="https://gaohueric.github.io/categories/Java/"/>
+    
+    
+      <category term="多线程" scheme="https://gaohueric.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+      <category term="并发编程" scheme="https://gaohueric.github.io/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
     
   </entry>
   
