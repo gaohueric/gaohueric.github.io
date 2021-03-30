@@ -1191,31 +1191,6 @@
     
     
     <entry>
-      <title>数据结构之插入排序</title>
-      <link href="/2016/08/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/"/>
-      <url>/2016/08/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/</url>
-      
-        <content type="html"><![CDATA[<p><strong>基本思想：</strong>在要排序的一组数中，假设前面(n-1)[n&gt;=2] 个数已经是排好顺序的，现在要把第n个数插到前面的有序数中，使得这n个数也是排好顺序的。如此反复循环，直到全部排好顺序。</p><a id="more"></a><p>插入排序是最简单的排序算法，插入排序最差的复杂度是O（n^2）效率比较低适合少量数据进行排序，但是实现起来比较简单。在一组无序元素中选取第二位插入排序的key值，并用key值与其前面临近的元素做比较，如果大于key值就将其值后移一下，继续上key值与前面的做比较并重复移动位置。如果key前面的值都小于key就将key值后面的元素值赋值给key重复上述动作。（其根本就是在一个最小的有序序列中不断的插入数据且使其保持有序）</p><h4 id="算法步骤："><a href="#算法步骤：" class="headerlink" title="算法步骤："></a><strong>算法步骤</strong>：</h4><p>1).从第一个元素开始，该元素可以认为已经被排序<br>2).取出下一个元素，在已经排序的元素序列中从后向前扫描<br>3).如果该元素（已排序）大于新元素，将该元素移到下一个位置<br>4).重复步骤3，直到找到已排序的元素小于或者等于新元素的位置<br>5).将新元素插入到该位置后<br>6).重复步骤2~5</p><p><img src="http://7xv8gw.com1.z0.glb.clouddn.com/256304_1438053862147_1.jpg" alt=""></p><p><img src="http://7xv8gw.com1.z0.glb.clouddn.com/%E7%9B%B4%E6%8E%A5%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F%E6%B5%81%E7%A8%8B%E5%9B%BE.png" alt=""></p><h4 id="算法实现-java"><a href="#算法实现-java" class="headerlink" title="算法实现(java):"></a>算法实现(java):</h4><pre><code>public class InsertSort {    public static void main(String[] args) {        int[] a={5,2,9,61};        insertSort(a);        for(int i=0;i&lt;a.length;i++){            System.out.println(a[i]);        }    }    public static void insertSort(int[] a){        int i,j,key;        for(j=1;j&lt;a.length;j++){            key=a[j]; //选第二个数为key,与前一个数比较            i=j-1;            while(i&gt;=0 &amp;&amp; a[i]&gt;key){                a[i+1]=a[i];                i--;            }            a[i+1]=key;        }    }}</code></pre><h4 id="算法分析："><a href="#算法分析：" class="headerlink" title="算法分析："></a>算法分析：</h4><p><strong>时间复杂度：</strong></p><p>在最好情况下，即要排序的数组本身就是有序的，则其时间复杂度为Θ(n)；<br>在最坏的情况下，其时间复杂度为Θ(n2)。</p><p><strong>空间复杂度：</strong></p><p>很明显，其空间复杂度为Θ(1)。</p><p><strong>稳定性：</strong></p><p>冒泡排序是稳定的</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 数据结构与算法分析 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> 数据结构 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>数据结构之冒泡排序</title>
       <link href="/2016/08/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/"/>
       <url>/2016/08/02/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/</url>
