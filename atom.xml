@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://gaohueric.github.io/"/>
-  <updated>2021-03-03T11:43:47.299Z</updated>
+  <updated>2021-04-24T16:16:05.695Z</updated>
   <id>https://gaohueric.github.io/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>数据库事务</title>
+    <link href="https://gaohueric.github.io/2021/04/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1/"/>
+    <id>https://gaohueric.github.io/2021/04/24/数据库事务/</id>
+    <published>2021-04-24T15:58:49.000Z</published>
+    <updated>2021-04-24T16:16:05.695Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h3&gt;&lt;p&gt;数据库事务( transaction)是访问并可能操作各种&lt;a href=&quot;https://baike.baidu.com/item/数据项/3227309&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;数据项&lt;/a&gt;的一个数据库操作&lt;a href=&quot;https://baike.baidu.com/item/序列/1302588&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;序列&lt;/a&gt;，这些操作要么全部执行,要么全部不执行，是一个不可分割的工作单位。事务由事务开始与事务结束之间执行的全部数据库操作组成。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="数据库" scheme="https://gaohueric.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+      <category term="数据库" scheme="https://gaohueric.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+  </entry>
   
   <entry>
     <title>MySQL基础架构</title>
@@ -49,7 +69,7 @@
     <link href="https://gaohueric.github.io/2021/02/01/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/"/>
     <id>https://gaohueric.github.io/2021/02/01/编程珠玑/</id>
     <published>2021-02-01T13:32:14.000Z</published>
-    <updated>2021-04-21T06:29:06.862Z</updated>
+    <updated>2021-04-24T15:56:44.131Z</updated>
     
     <summary type="html">
     
@@ -96,7 +116,7 @@
     <link href="https://gaohueric.github.io/2020/08/17/%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
     <id>https://gaohueric.github.io/2020/08/17/线程池/</id>
     <published>2020-08-17T05:03:26.000Z</published>
-    <updated>2020-10-15T08:54:58.074Z</updated>
+    <updated>2020-10-15T08:54:58.000Z</updated>
     
     <summary type="html">
     
@@ -124,7 +144,7 @@
     <link href="https://gaohueric.github.io/2019/11/17/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B8%93%E6%A0%8F/"/>
     <id>https://gaohueric.github.io/2019/11/17/数据结构与算法专栏/</id>
     <published>2019-11-17T11:09:03.000Z</published>
-    <updated>2020-08-12T08:46:20.772Z</updated>
+    <updated>2020-08-12T08:46:20.000Z</updated>
     
     <summary type="html">
     
@@ -151,7 +171,7 @@
     <link href="https://gaohueric.github.io/2019/02/15/Java%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/"/>
     <id>https://gaohueric.github.io/2019/02/15/Java类加载机制详解/</id>
     <published>2019-02-15T08:27:22.000Z</published>
-    <updated>2020-08-12T08:46:20.768Z</updated>
+    <updated>2020-08-12T08:46:20.000Z</updated>
     
     <summary type="html">
     
@@ -177,7 +197,7 @@
     <link href="https://gaohueric.github.io/2019/01/16/%E6%96%B0%E4%B8%80%E4%BB%A3%E6%B5%81%E5%BC%8F%E8%AE%A1%E7%AE%97%E5%BC%95%E6%93%8E-Flink/"/>
     <id>https://gaohueric.github.io/2019/01/16/新一代流式计算引擎-Flink/</id>
     <published>2019-01-16T04:38:06.000Z</published>
-    <updated>2020-08-12T08:46:20.772Z</updated>
+    <updated>2020-08-12T08:46:20.000Z</updated>
     
     <summary type="html">
     
@@ -200,7 +220,7 @@
     <link href="https://gaohueric.github.io/2019/01/10/HashMap%E5%AE%8C%E5%85%A8%E8%A7%A3%E8%AF%BB/"/>
     <id>https://gaohueric.github.io/2019/01/10/HashMap完全解读/</id>
     <published>2019-01-10T11:57:24.000Z</published>
-    <updated>2020-08-12T08:46:20.768Z</updated>
+    <updated>2020-08-12T08:46:20.000Z</updated>
     
     <summary type="html">
     
@@ -222,7 +242,7 @@
     <link href="https://gaohueric.github.io/2019/01/07/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%89%B9%E6%80%A7%E8%A7%A3%E8%AF%BB/"/>
     <id>https://gaohueric.github.io/2019/01/07/多线程特性解读/</id>
     <published>2019-01-07T08:33:26.000Z</published>
-    <updated>2020-08-12T08:46:20.768Z</updated>
+    <updated>2020-08-12T08:46:20.000Z</updated>
     
     <summary type="html">
     
@@ -246,7 +266,7 @@
     <link href="https://gaohueric.github.io/2019/01/06/Synchronized%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90/"/>
     <id>https://gaohueric.github.io/2019/01/06/Synchronized深度解析/</id>
     <published>2019-01-06T14:02:58.000Z</published>
-    <updated>2020-08-12T08:46:20.768Z</updated>
+    <updated>2020-08-12T08:46:20.000Z</updated>
     
     <summary type="html">
     
@@ -271,7 +291,7 @@
     <link href="https://gaohueric.github.io/2019/01/02/HDFS%E7%AE%80%E4%BB%8B%E5%8F%8A%E5%85%B6%E5%8A%9F%E8%83%BD/"/>
     <id>https://gaohueric.github.io/2019/01/02/HDFS简介及其功能/</id>
     <published>2019-01-02T03:24:56.000Z</published>
-    <updated>2020-08-12T08:46:20.768Z</updated>
+    <updated>2020-08-12T08:46:20.000Z</updated>
     
     <summary type="html">
     
@@ -299,7 +319,7 @@
     <link href="https://gaohueric.github.io/2019/01/01/synchronized%E5%92%8CReentrantLock%E5%8C%BA%E5%88%AB/"/>
     <id>https://gaohueric.github.io/2019/01/01/synchronized和ReentrantLock区别/</id>
     <published>2019-01-01T12:25:24.000Z</published>
-    <updated>2020-08-12T08:46:20.768Z</updated>
+    <updated>2020-08-12T08:46:20.000Z</updated>
     
     <summary type="html">
     
@@ -321,7 +341,7 @@
     <link href="https://gaohueric.github.io/2018/11/22/Kafka%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
     <id>https://gaohueric.github.io/2018/11/22/Kafka消息中间件/</id>
     <published>2018-11-22T08:14:55.000Z</published>
-    <updated>2020-08-12T08:46:20.768Z</updated>
+    <updated>2020-08-12T08:46:20.000Z</updated>
     
     <summary type="html">
     
@@ -347,7 +367,7 @@
     <link href="https://gaohueric.github.io/2018/08/17/%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4Java%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C/"/>
     <id>https://gaohueric.github.io/2018/08/17/阿里巴巴Java开发手册/</id>
     <published>2018-08-17T05:03:26.000Z</published>
-    <updated>2020-10-15T08:54:58.074Z</updated>
+    <updated>2020-10-15T08:54:58.000Z</updated>
     
     <summary type="html">
     
@@ -368,7 +388,7 @@
     <link href="https://gaohueric.github.io/2018/07/29/MapReduce%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B/"/>
     <id>https://gaohueric.github.io/2018/07/29/MapReduce编程模型/</id>
     <published>2018-07-29T04:59:39.000Z</published>
-    <updated>2020-08-12T08:46:20.768Z</updated>
+    <updated>2020-08-12T08:46:20.000Z</updated>
     
     <summary type="html">
     
@@ -423,7 +443,7 @@
     <link href="https://gaohueric.github.io/2018/05/21/Storm%E8%AF%A6%E8%A7%A3%E4%B8%8E%E9%9B%86%E7%BE%A4%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
     <id>https://gaohueric.github.io/2018/05/21/Storm详解与集群环境搭建/</id>
     <published>2018-05-20T18:55:47.000Z</published>
-    <updated>2020-08-12T08:46:20.768Z</updated>
+    <updated>2020-08-12T08:46:20.000Z</updated>
     
     <summary type="html">
     
@@ -449,7 +469,7 @@
     <link href="https://gaohueric.github.io/2018/05/21/Hadoop%E8%AF%A6%E8%A7%A3/"/>
     <id>https://gaohueric.github.io/2018/05/21/Hadoop详解/</id>
     <published>2018-05-20T18:21:44.000Z</published>
-    <updated>2020-08-12T08:46:20.768Z</updated>
+    <updated>2020-08-12T08:46:20.000Z</updated>
     
     <summary type="html">
     
@@ -469,7 +489,7 @@
     <link href="https://gaohueric.github.io/2018/05/01/Java8%E4%B8%AD%E7%9A%84Streams-API%E8%AF%A6%E8%A7%A3/"/>
     <id>https://gaohueric.github.io/2018/05/01/Java8中的Streams-API详解/</id>
     <published>2018-05-01T04:41:46.000Z</published>
-    <updated>2020-08-12T08:46:20.768Z</updated>
+    <updated>2020-08-12T08:46:20.000Z</updated>
     
     <summary type="html">
     
@@ -483,36 +503,6 @@
     
     
       <category term="Java" scheme="https://gaohueric.github.io/tags/Java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>深入理解 Java 线程池：ThreadPoolExecutor</title>
-    <link href="https://gaohueric.github.io/2018/02/18/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3-Java-%E7%BA%BF%E7%A8%8B%E6%B1%A0%EF%BC%9AThreadPoolExecutor/"/>
-    <id>https://gaohueric.github.io/2018/02/18/深入理解-Java-线程池：ThreadPoolExecutor/</id>
-    <published>2018-02-18T11:06:58.000Z</published>
-    <updated>2020-08-12T08:46:20.772Z</updated>
-    
-    <summary type="html">
-    
-      
-      
-        
-        
-          &lt;p&gt;线程池介绍&lt;/p&gt;
-&lt;p&gt;在web开发中，服务器需要接受并处理请求，所以会为一个请求来分配一个线程进行处理，如果每次请求都创建一个线程的话实现起来非常简便，但是存在一个问题。&lt;/p&gt;
-&lt;p&gt;如果并发请求数量非常多，但每个线程执行的时间很短，这样就会频繁的创建和销毁线程，如此
-        
-      
-    
-    </summary>
-    
-      <category term="Java" scheme="https://gaohueric.github.io/categories/Java/"/>
-    
-    
-      <category term="多线程" scheme="https://gaohueric.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
-    
-      <category term="并发编程" scheme="https://gaohueric.github.io/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
     
   </entry>
   

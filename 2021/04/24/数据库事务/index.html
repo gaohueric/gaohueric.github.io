@@ -6,10 +6,13 @@
 
 <head><meta name="generator" content="Hexo 3.8.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="search, Hi 高虎">
+    <meta name="keywords" content="数据库事务, Hi 高虎">
     <meta name="baidu-site-verification" content="fmlEuI34ir">
     <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
-    <meta name="description" content="search | Hi 高虎">
+    <meta name="description" content="简介数据库事务( transaction)是访问并可能操作各种数据项的一个数据库操作序列，这些操作要么全部执行,要么全部不执行，是一个不可分割的工作单位。事务由事务开始与事务结束之间执行的全部数据库操作组成。
+
+事务的特性：ACID
+A，也">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +20,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>search | Hi 高虎</title>
+    <title>数据库事务 | Hi 高虎</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -650,13 +653,13 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://github.com/gaohueric/blogpicture/raw/master/alibaba.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        search
+                        数据库事务
                     </div>
                 </div>
             </div>
@@ -766,12 +769,25 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/数据库/" target="_blank">
+                                <span class="chip bg-color">数据库</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/数据库/" class="post-category" target="_blank">
+                                数据库
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -779,7 +795,7 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2016-07-28
+                    2021-04-24
                 </div>
 
                 <div class="post-author info-break-policy">
@@ -793,7 +809,7 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        0
+                        389
                     </div>
                     
 
@@ -817,7 +833,15 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>数据库事务( transaction)是访问并可能操作各种<a href="https://baike.baidu.com/item/数据项/3227309" target="_blank" rel="noopener">数据项</a>的一个数据库操作<a href="https://baike.baidu.com/item/序列/1302588" target="_blank" rel="noopener">序列</a>，这些操作要么全部执行,要么全部不执行，是一个不可分割的工作单位。事务由事务开始与事务结束之间执行的全部数据库操作组成。</p>
+<a id="more"></a>
+<h3 id="事务的特性：ACID"><a href="#事务的特性：ACID" class="headerlink" title="事务的特性：ACID"></a>事务的特性：ACID</h3><ol>
+<li>A，也就是原子性（Atomicity）。原子的概念就是不可分割，你可以把它理解为组成物质的基本单位，也是我们进行数据处理操作的基本单位。</li>
+<li>C，就是一致性（Consistency）。一致性指的就是数据库在进行事务操作后，会由原来的一致状态，变成另一种一致的状态。也就是说当事务提交后，或者当事务发生回滚后，数据库的完整性约束不能被破坏。</li>
+<li>I，就是隔离性（Isolation）。它指的是每个事务都是彼此独立的，不会受到其他事务的执行影响。也就是说一个事务在提交之前，对其他事务都是不可见的。</li>
+<li>D，指的是持久性（Durability）。事务提交之后对数据的修改是持久性的，即使在系统出故障的情况下，比如系统崩溃或者存储介质发生故障，数据的修改依然是有效的。因为当事务完成，数据库的日志就会被更新，这时可以通过日志，让系统恢复到最后一次成功的更新状态。</li>
+</ol>
+
             </div>
             <hr>
 
@@ -967,7 +991,7 @@
                     </span>
                     <a href="https://gaohueric.github.io" class="b-link-green">Hi 高虎</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/search/index.html" class="b-link-green">search</a>
+                    <a href="/2021/04/24/数据库事务/" class="b-link-green">数据库事务</a>
                 </p>
             </div>
 
@@ -1292,31 +1316,45 @@
                 <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
             </div>
             <div class="card">
-                <a href="/search/index.html">
+                <a href="/2021/04/24/数据库事务/">
                     <div class="card-image">
                         
+                        <img src="https://github.com/gaohueric/blogpicture/raw/master/alibaba.jpg" class="responsive-img" alt="数据库事务">
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="search">
-                        
-                        <span class="card-title">search</span>
+                        <span class="card-title">数据库事务</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            阿里巴巴Java开发手册、阐述编程规约、异常处理、单元测试、安全规约等.
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2016-07-28
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-04-24
                             </span>
                         <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/数据库/" class="post-category" target="_blank">
+                                    数据库
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
 
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/数据库/" target="_blank">
+                        <span class="chip bg-color">数据库</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
@@ -1324,34 +1362,47 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="fa fa-dot-circle-o"></i>
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/search/index.html">
+                <a href="/2021/03/01/Mysql基础架构/">
                     <div class="card-image">
                         
+                        <img src="https://raw.githubusercontent.com/gaohueric/blogpicture/master/fbd3dd18e6412f7be297667156c8158a.jpg" class="responsive-img" alt="MySQL基础架构">
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="search">
-                        
-                        <span class="card-title">search</span>
+                        <span class="card-title">MySQL基础架构</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            通常我们看到的只是输入一条语句，返回一个结果，却不知道这条语句在 MySQL 内部的执行过程
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2016-07-28
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-03-01
                             </span>
                         <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Java/" class="post-category" target="_blank">
+                                    Java
+                                </a>
+                            
                             
                         </span>
                     </div>
                 </div>
-
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                </div>
                 
             </div>
         </div>
