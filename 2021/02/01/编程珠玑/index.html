@@ -810,14 +810,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        35.4k
+                        36k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        161 分
+                        164 分
                     </div>
                     
                 
@@ -6381,7 +6381,104 @@ class Solution {
 <span class="token punctuation">}</span>
 
 </code></pre>
+<h4 id="142-环形链表-II"><a href="#142-环形链表-II" class="headerlink" title="142. 环形链表 II"></a><a href="https://leetcode-cn.com/problems/linked-list-cycle-ii/" target="_blank" rel="noopener">142. 环形链表 II</a></h4><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//给定一个链表，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。</span>
+<span class="token comment" spellcheck="true">// 为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。注意，po</span>
+<span class="token comment" spellcheck="true">//s 仅仅是用于标识环的情况，并不会作为参数传递到函数中。</span>
+<span class="token comment" spellcheck="true">// 说明：不允许修改给定的链表。</span>
+<span class="token comment" spellcheck="true">// 进阶：</span>
+<span class="token comment" spellcheck="true">// 你是否可以使用 O(1) 空间解决此题？</span>
+<span class="token comment" spellcheck="true">// 示例 1：</span>
+<span class="token comment" spellcheck="true">//输入：head = [3,2,0,-4], pos = 1</span>
+<span class="token comment" spellcheck="true">//输出：返回索引为 1 的链表节点</span>
+<span class="token comment" spellcheck="true">//解释：链表中有一个环，其尾部连接到第二个节点。</span>
+<span class="token comment" spellcheck="true">// 示例 2：</span>
+<span class="token comment" spellcheck="true">//输入：head = [1,2], pos = 0</span>
+<span class="token comment" spellcheck="true">//输出：返回索引为 0 的链表节点</span>
+<span class="token comment" spellcheck="true">//解释：链表中有一个环，其尾部连接到第一个节点。</span>
+<span class="token comment" spellcheck="true">// 示例 3：</span>
+<span class="token comment" spellcheck="true">//输入：head = [1], pos = -1</span>
+<span class="token comment" spellcheck="true">//输出：返回 null</span>
+<span class="token comment" spellcheck="true">//解释：链表中没有环。</span>
+<span class="token comment" spellcheck="true">// 提示：</span>
+<span class="token comment" spellcheck="true">// 链表中节点的数目范围在范围 [0, 104] 内</span>
+<span class="token comment" spellcheck="true">// -105 &lt;= Node.val &lt;= 105</span>
+<span class="token comment" spellcheck="true">// pos 的值为 -1 或者链表中的一个有效索引</span>
+<span class="token comment" spellcheck="true">// Related Topics 链表 双指针</span>
+<span class="token comment" spellcheck="true">// 👍 976 👎 0</span>
+<span class="token comment" spellcheck="true">/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> ListNode <span class="token function">detectCycle</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        ListNode curr <span class="token operator">=</span> head<span class="token punctuation">;</span>
+        Set<span class="token operator">&lt;</span>ListNode<span class="token operator">></span> set <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashSet</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">while</span><span class="token punctuation">(</span>curr <span class="token operator">!=</span> null <span class="token operator">&amp;&amp;</span> curr<span class="token punctuation">.</span>next <span class="token operator">!=</span>null<span class="token punctuation">)</span><span class="token punctuation">{</span>
+         <span class="token keyword">if</span><span class="token punctuation">(</span>set<span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span>curr<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+             <span class="token keyword">return</span> curr<span class="token punctuation">;</span>
+         <span class="token punctuation">}</span>
+         set<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>curr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+         curr <span class="token operator">=</span> curr<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> null<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 
+
+</code></pre>
+<h4 id="143-重排链表"><a href="#143-重排链表" class="headerlink" title="143. 重排链表"></a><a href="https://leetcode-cn.com/problems/reorder-list/" target="_blank" rel="noopener">143. 重排链表</a></h4><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//给定一个单链表 L：L0→L1→…→Ln-1→Ln ，</span>
+<span class="token comment" spellcheck="true">//将其重新排列后变为： L0→Ln→L1→Ln-1→L2→Ln-2→…</span>
+<span class="token comment" spellcheck="true">// 你不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。</span>
+<span class="token comment" spellcheck="true">// 示例 1:</span>
+<span class="token comment" spellcheck="true">// 给定链表 1->2->3->4, 重新排列为 1->4->2->3.</span>
+<span class="token comment" spellcheck="true">// 示例 2:</span>
+<span class="token comment" spellcheck="true">// 给定链表 1->2->3->4->5, 重新排列为 1->5->2->4->3.</span>
+<span class="token comment" spellcheck="true">// Related Topics 链表</span>
+<span class="token comment" spellcheck="true">// 👍 572 👎 0</span>
+<span class="token comment" spellcheck="true">/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */</span>
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">reorderList</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span>head <span class="token operator">==</span> null<span class="token punctuation">)</span><span class="token punctuation">{</span>
+          <span class="token keyword">return</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      List<span class="token operator">&lt;</span>ListNode<span class="token operator">></span> list <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      ListNode curr <span class="token operator">=</span> head<span class="token punctuation">;</span>
+      <span class="token keyword">while</span><span class="token punctuation">(</span>curr <span class="token operator">!=</span> null<span class="token punctuation">)</span><span class="token punctuation">{</span>
+          list<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>curr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          curr <span class="token operator">=</span> curr<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+      <span class="token keyword">int</span> j<span class="token operator">=</span>list<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+      <span class="token keyword">while</span><span class="token punctuation">(</span>i<span class="token operator">&lt;</span>j<span class="token punctuation">)</span><span class="token punctuation">{</span>
+         list<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">=</span> list<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>j<span class="token punctuation">)</span><span class="token punctuation">;</span>
+         i<span class="token operator">++</span><span class="token punctuation">;</span>
+         list<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>j<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">=</span> list<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+         j<span class="token operator">--</span><span class="token punctuation">;</span>
+         <span class="token keyword">if</span><span class="token punctuation">(</span>i<span class="token operator">==</span>j<span class="token punctuation">)</span><span class="token punctuation">{</span>
+             <span class="token keyword">break</span><span class="token punctuation">;</span>
+         <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+      list<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">.</span>next <span class="token operator">=</span> null<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h4 id="457-环形数组是否存在循环"><a href="#457-环形数组是否存在循环" class="headerlink" title="457. 环形数组是否存在循环"></a><a href="https://leetcode-cn.com/problems/circular-array-loop/" target="_blank" rel="noopener">457. 环形数组是否存在循环</a></h4>
             </div>
             <hr>
 
@@ -7112,7 +7209,7 @@ class Solution {
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">159.8k</span> 字
+                <span class="white-color">161.1k</span> 字
             
             <br>
         <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1278301656'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s9.cnzz.com/z_stat.php%3Fid%3D1278301656%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>

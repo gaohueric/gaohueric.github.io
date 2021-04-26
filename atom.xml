@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://gaohueric.github.io/"/>
-  <updated>2021-04-24T16:16:05.695Z</updated>
+  <updated>2021-04-26T16:50:36.941Z</updated>
   <id>https://gaohueric.github.io/</id>
   
   <author>
@@ -21,11 +21,11 @@
     <link href="https://gaohueric.github.io/2021/04/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1/"/>
     <id>https://gaohueric.github.io/2021/04/24/数据库事务/</id>
     <published>2021-04-24T15:58:49.000Z</published>
-    <updated>2021-04-24T16:16:05.695Z</updated>
+    <updated>2021-04-26T16:50:36.941Z</updated>
     
     <summary type="html">
     
-      &lt;h3 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h3&gt;&lt;p&gt;数据库事务( transaction)是访问并可能操作各种&lt;a href=&quot;https://baike.baidu.com/item/数据项/3227309&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;数据项&lt;/a&gt;的一个数据库操作&lt;a href=&quot;https://baike.baidu.com/item/序列/1302588&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;序列&lt;/a&gt;，这些操作要么全部执行,要么全部不执行，是一个不可分割的工作单位。事务由事务开始与事务结束之间执行的全部数据库操作组成。&lt;/p&gt;
+      &lt;h3 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h3&gt;&lt;p&gt;数据库事务( transaction)是访问并可能操作各种&lt;a href=&quot;https://baike.baidu.com/item/数据项/3227309&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;数据项&lt;/a&gt;的一个数据库操作&lt;a href=&quot;https://baike.baidu.com/item/序列/1302588&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;序列&lt;/a&gt;，这些操作要么全部执行,要么全部不执行，是一个不可分割的工作单位。事务由事务开始与事务结束之间执行的全部数据库操作组成。
     
     </summary>
     
@@ -69,7 +69,7 @@
     <link href="https://gaohueric.github.io/2021/02/01/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/"/>
     <id>https://gaohueric.github.io/2021/02/01/编程珠玑/</id>
     <published>2021-02-01T13:32:14.000Z</published>
-    <updated>2021-04-24T15:56:44.131Z</updated>
+    <updated>2021-04-26T16:50:36.949Z</updated>
     
     <summary type="html">
     

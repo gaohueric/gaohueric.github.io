@@ -10,9 +10,8 @@
     <meta name="baidu-site-verification" content="fmlEuI34ir">
     <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
     <meta name="description" content="简介数据库事务( transaction)是访问并可能操作各种数据项的一个数据库操作序列，这些操作要么全部执行,要么全部不执行，是一个不可分割的工作单位。事务由事务开始与事务结束之间执行的全部数据库操作组成。
-
 事务的特性：ACID
-A，也">
+A，也就">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -809,14 +808,14 @@ A，也">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        389
+                        1.2k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        1 分
+                        3 分
                     </div>
                     
                 
@@ -833,14 +832,26 @@ A，也">
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>数据库事务( transaction)是访问并可能操作各种<a href="https://baike.baidu.com/item/数据项/3227309" target="_blank" rel="noopener">数据项</a>的一个数据库操作<a href="https://baike.baidu.com/item/序列/1302588" target="_blank" rel="noopener">序列</a>，这些操作要么全部执行,要么全部不执行，是一个不可分割的工作单位。事务由事务开始与事务结束之间执行的全部数据库操作组成。</p>
-<a id="more"></a>
+                <h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>数据库事务( transaction)是访问并可能操作各种<a href="https://baike.baidu.com/item/数据项/3227309" target="_blank" rel="noopener">数据项</a>的一个数据库操作<a href="https://baike.baidu.com/item/序列/1302588" target="_blank" rel="noopener">序列</a>，这些操作要么全部执行,要么全部不执行，是一个不可分割的工作单位。事务由事务开始与事务结束之间执行的全部数据库操作组成。<a id="more"></a></p>
 <h3 id="事务的特性：ACID"><a href="#事务的特性：ACID" class="headerlink" title="事务的特性：ACID"></a>事务的特性：ACID</h3><ol>
 <li>A，也就是原子性（Atomicity）。原子的概念就是不可分割，你可以把它理解为组成物质的基本单位，也是我们进行数据处理操作的基本单位。</li>
 <li>C，就是一致性（Consistency）。一致性指的就是数据库在进行事务操作后，会由原来的一致状态，变成另一种一致的状态。也就是说当事务提交后，或者当事务发生回滚后，数据库的完整性约束不能被破坏。</li>
 <li>I，就是隔离性（Isolation）。它指的是每个事务都是彼此独立的，不会受到其他事务的执行影响。也就是说一个事务在提交之前，对其他事务都是不可见的。</li>
 <li>D，指的是持久性（Durability）。事务提交之后对数据的修改是持久性的，即使在系统出故障的情况下，比如系统崩溃或者存储介质发生故障，数据的修改依然是有效的。因为当事务完成，数据库的日志就会被更新，这时可以通过日志，让系统恢复到最后一次成功的更新状态。</li>
 </ol>
+<h3 id="数据库隔离级别"><a href="#数据库隔离级别" class="headerlink" title="数据库隔离级别"></a>数据库隔离级别</h3><p><strong>事务并发可能存在的异常有哪些？</strong></p>
+<p>1、脏读: 读到了其他事务还没有提交的数据。</p>
+<p>例子：A事务读取B事务尚未提交的数据，此时如果B事务发生错误并执行回滚操作，那么A事务读取到的数据就是脏数据。就好像原本的数据比较干净、纯粹，此时由于B事务更改了它，这个数据变得不再纯粹。这个时候A事务立即读取了这个脏数据，但事务B良心发现，又用回滚把数据恢复成原来干净、纯粹的样子，而事务A却什么都不知道，最终结果就是事务A读取了此次的脏数据，称为脏读。</p>
+<p>2、不可重复读：前后多次读取，数据内容不一致</p>
+<p>例子：事务A在执行读取操作，由整个事务A比较大，前后读取同一条数据需要经历很长的时间 。而在事务A第一次读取数据，比如此时读取了小明的年龄为20岁，事务B执行更改操作，将小明的年龄更改为30岁，此时事务A第二次读取到小明的年龄时，发现其年龄是30岁，和之前的数据不一样了，也就是数据不重复了，系统不可以读取到重复的数据，成为不可重复读。</p>
+<p>3：幻读：前后多次读取，数据总量不一致</p>
+<p>事务A在执行读取操作，需要两次统计数据的总量，前一次查询数据总量后，此时事务B执行了新增数据的操作并提交后，这个时候事务A读取的数据总量和之前统计的不一样，就像产生了幻觉一样，平白无故的多了几条数据，成为幻读。</p>
+<p><strong>事务的四种隔离级别</strong></p>
+<p>1、读未提交：也就是允许读到未提交的内容，这种情况下查询是不会使用锁的，可能会产生脏读、不可重复读、幻读等情况。</p>
+<p>2、读已提交：读已提交就是只能读到已经提交的内容，可以避免脏读的产生，属于RDBMS中常见的默认隔离级别（比如说Oracle和SQL Server），但如果想要避免不可重复读或者幻读，就需要我们在SQL查询的时候编写带加锁的SQL语句。</p>
+<p>3、可重复读，保证一个事务在相同查询条件下两次查询得到的数据结果是一致的，可以避免不可重复读和脏读，但无法避免幻读。MySQL默认的隔离级别就是可重复读。</p>
+<p>4、可串行化，将事务进行串行化，也就是在一个队列中按照顺序执行，可串行化是最高级别的隔离等级，可以解决事务读取中所有可能出现的异常情况，但是它牺牲了系统的并发性。</p>
+<p><img src="https://raw.githubusercontent.com/gaohueric/blogpicture/master/%E6%88%AA%E5%B1%8F2021-04-26%2023.53.34.png" alt=""></p>
 
             </div>
             <hr>
@@ -1574,7 +1585,7 @@ A，也">
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">159.8k</span> 字
+                <span class="white-color">161.1k</span> 字
             
             <br>
         <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1278301656'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s9.cnzz.com/z_stat.php%3Fid%3D1278301656%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>
