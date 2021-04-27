@@ -810,14 +810,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        36k
+                        36.1k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        164 分
+                        165 分
                     </div>
                     
                 
@@ -6478,7 +6478,49 @@ class Solution {
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h4 id="457-环形数组是否存在循环"><a href="#457-环形数组是否存在循环" class="headerlink" title="457. 环形数组是否存在循环"></a><a href="https://leetcode-cn.com/problems/circular-array-loop/" target="_blank" rel="noopener">457. 环形数组是否存在循环</a></h4>
+<h4 id="234-回文链表"><a href="#234-回文链表" class="headerlink" title="234. 回文链表"></a><a href="https://leetcode-cn.com/problems/palindrome-linked-list/" target="_blank" rel="noopener">234. 回文链表</a></h4><pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">//请判断一个链表是否为回文链表。</span>
+<span class="token comment" spellcheck="true">// 示例 1:</span>
+<span class="token comment" spellcheck="true">// 输入: 1->2</span>
+<span class="token comment" spellcheck="true">//输出: false</span>
+<span class="token comment" spellcheck="true">// 示例 2:</span>
+<span class="token comment" spellcheck="true">// 输入: 1->2->2->1</span>
+<span class="token comment" spellcheck="true">//输出: true</span>
+<span class="token comment" spellcheck="true">// 进阶：</span>
+<span class="token comment" spellcheck="true">//你能否用 O(n) 时间复杂度和 O(1) 空间复杂度解决此题？</span>
+<span class="token comment" spellcheck="true">// Related Topics 链表 双指针</span>
+<span class="token comment" spellcheck="true">// 👍 956 👎 0</span>
+<span class="token comment" spellcheck="true">/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */</span>
+<span class="token keyword">class</span> <span class="token class-name">Solution</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">isPalindrome</span><span class="token punctuation">(</span>ListNode head<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     List<span class="token operator">&lt;</span>ListNode<span class="token operator">></span> list <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+     ListNode curr <span class="token operator">=</span> head<span class="token punctuation">;</span>
+     <span class="token keyword">while</span><span class="token punctuation">(</span>curr <span class="token operator">!=</span> null<span class="token punctuation">)</span><span class="token punctuation">{</span>
+         list<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>curr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+         curr <span class="token operator">=</span> curr<span class="token punctuation">.</span>next<span class="token punctuation">;</span>
+     <span class="token punctuation">}</span>
+     <span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+     <span class="token keyword">int</span> j <span class="token operator">=</span> list<span class="token punctuation">.</span><span class="token function">size</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+     <span class="token keyword">while</span><span class="token punctuation">(</span>i<span class="token operator">&lt;</span>j<span class="token punctuation">)</span><span class="token punctuation">{</span>
+         <span class="token keyword">if</span><span class="token punctuation">(</span>list<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">.</span>val <span class="token operator">!=</span> list<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>j<span class="token punctuation">)</span><span class="token punctuation">.</span>val<span class="token punctuation">)</span><span class="token punctuation">{</span>
+             <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+         <span class="token punctuation">}</span>
+         i<span class="token operator">++</span><span class="token punctuation">;</span>
+         j<span class="token operator">--</span><span class="token punctuation">;</span>
+     <span class="token punctuation">}</span>
+     <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h4 id="287-寻找重复数"><a href="#287-寻找重复数" class="headerlink" title="287. 寻找重复数"></a><a href="https://leetcode-cn.com/problems/find-the-duplicate-number/" target="_blank" rel="noopener">287. 寻找重复数</a></h4>
             </div>
             <hr>
 
@@ -7209,7 +7251,7 @@ class Solution {
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">161.1k</span> 字
+                <span class="white-color">161.6k</span> 字
             
             <br>
         <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1278301656'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s9.cnzz.com/z_stat.php%3Fid%3D1278301656%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>

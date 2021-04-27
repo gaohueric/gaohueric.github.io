@@ -794,7 +794,7 @@ A，也就">
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-04-24
+                    2020-04-24
                 </div>
 
                 <div class="post-author info-break-policy">
@@ -808,14 +808,14 @@ A，也就">
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        1.2k
+                        1.5k
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        3 分
+                        5 分
                     </div>
                     
                 
@@ -852,6 +852,18 @@ A，也就">
 <p>3、可重复读，保证一个事务在相同查询条件下两次查询得到的数据结果是一致的，可以避免不可重复读和脏读，但无法避免幻读。MySQL默认的隔离级别就是可重复读。</p>
 <p>4、可串行化，将事务进行串行化，也就是在一个队列中按照顺序执行，可串行化是最高级别的隔离等级，可以解决事务读取中所有可能出现的异常情况，但是它牺牲了系统的并发性。</p>
 <p><img src="https://raw.githubusercontent.com/gaohueric/blogpicture/master/%E6%88%AA%E5%B1%8F2021-04-26%2023.53.34.png" alt=""></p>
+<h3 id="事物隔离的实现"><a href="#事物隔离的实现" class="headerlink" title="事物隔离的实现"></a>事物隔离的实现</h3><p>在 MySQL 中，实际上每条记录在更新的时候都会同时记录一条回滚操作。记录上的最新值，通过回滚操作，都可以得到前一个状态的值。</p>
+<p>假设一个值从 1 被按顺序改成了 2、3、4，在回滚日志里面就会有类似下面的记录。</p>
+<p><img src="https://raw.githubusercontent.com/gaohueric/blogpicture/master/d9c313809e5ac148fc39feff532f0fee.png" alt=""></p>
+<p>事务隔离的实现：每条记录在更新的时候都会同时记录一条回滚操作。同一条记录在系统中可以存在多个版本，这就是数据库的多版本并发控制（MVCC）</p>
+<p>事务启动方式：一、显式启动事务语句，begin或者start transaction,提交commit，回滚rollback；二、set autocommit=0，该命令会把这个线程的自动提交关掉。这样只要执行一个select语句，事务就启动，并不会自动提交，直到主动执行commit或rollback或断开连接。</p>
+<h3 id="常见数据库事物面试题"><a href="#常见数据库事物面试题" class="headerlink" title="常见数据库事物面试题"></a>常见数据库事物面试题</h3><ul>
+<li>介绍一下数据库的事务</li>
+<li>Mysql 有哪些隔离级别</li>
+<li>Mysql 什么情况会造成脏读、可重复读、幻读？如何解决。</li>
+<li>Mysql 在可重复读的隔离级别下会不会有幻读的情况，为什么？</li>
+<li>Mysql 事务是如何实现的。</li>
+</ul>
 
             </div>
             <hr>
@@ -1002,7 +1014,7 @@ A，也就">
                     </span>
                     <a href="https://gaohueric.github.io" class="b-link-green">Hi 高虎</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2021/04/24/数据库事务/" class="b-link-green">数据库事务</a>
+                    <a href="/2020/04/24/数据库事务/" class="b-link-green">数据库事务</a>
                 </p>
             </div>
 
@@ -1324,76 +1336,26 @@ A，也就">
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
-            </div>
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2021/04/24/数据库事务/">
+                <a href="/2020/08/17/线程池/">
                     <div class="card-image">
                         
-                        <img src="https://github.com/gaohueric/blogpicture/raw/master/alibaba.jpg" class="responsive-img" alt="数据库事务">
+                        <img src="https://github.com/gaohueric/blogpicture/raw/master/alibaba.jpg" class="responsive-img" alt="线程池">
                         
-                        <span class="card-title">数据库事务</span>
+                        <span class="card-title">线程池</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            阿里巴巴Java开发手册、阐述编程规约、异常处理、单元测试、安全规约等.
+                            在程序中，我们会用各种池化技术来缓存创建昂贵的对象，比如线程池、连接池、内存池。
                         
                     </div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-04-24
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fa fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/数据库/" class="post-category" target="_blank">
-                                    数据库
-                                </a>
-                            
-                            
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2020-08-17
                         </span>
-                    </div>
-                </div>
-
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/数据库/" target="_blank">
-                        <span class="chip bg-color">数据库</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2021/03/01/Mysql基础架构/">
-                    <div class="card-image">
-                        
-                        <img src="https://raw.githubusercontent.com/gaohueric/blogpicture/master/fbd3dd18e6412f7be297667156c8158a.jpg" class="responsive-img" alt="MySQL基础架构">
-                        
-                        <span class="card-title">MySQL基础架构</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            通常我们看到的只是输入一条语句，返回一个结果，却不知道这条语句在 MySQL 内部的执行过程
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-03-01
-                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -1411,6 +1373,54 @@ A，也就">
                     
                     <a href="/tags/Java/" target="_blank">
                         <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2019/11/17/数据结构与算法专栏/">
+                    <div class="card-image">
+                        
+                        <img src="https://raw.githubusercontent.com/gaohueric/blogpicture/master/shuju.jpg" class="responsive-img" alt="数据结构与算法专栏">
+                        
+                        <span class="card-title">数据结构与算法专栏</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            掌握了数据结构与算法，你看待问题的深度，解决问题的角度就会完全不一样
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-11-17
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/数据结构与算法分析/" class="post-category" target="_blank">
+                                    数据结构与算法分析
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/数据结构与算法分析/" target="_blank">
+                        <span class="chip bg-color">数据结构与算法分析</span>
                     </a>
                     
                 </div>
@@ -1585,7 +1595,7 @@ A，也就">
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">161.1k</span> 字
+                <span class="white-color">161.6k</span> 字
             
             <br>
         <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1278301656'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s9.cnzz.com/z_stat.php%3Fid%3D1278301656%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>
