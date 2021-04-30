@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://gaohueric.github.io/"/>
-  <updated>2021-03-03T11:43:47.299Z</updated>
+  <updated>2021-04-27T09:39:38.256Z</updated>
   <id>https://gaohueric.github.io/</id>
   
   <author>
@@ -15,6 +15,20 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>数据库索引</title>
+    <link href="https://gaohueric.github.io/2021/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/"/>
+    <id>https://gaohueric.github.io/2021/04/27/数据库索引/</id>
+    <published>2021-04-27T09:39:38.000Z</published>
+    <updated>2021-04-27T09:39:38.256Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>MySQL基础架构</title>
@@ -481,28 +495,6 @@
     
     
       <category term="大数据" scheme="https://gaohueric.github.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java8中的Streams API详解</title>
-    <link href="https://gaohueric.github.io/2018/05/01/Java8%E4%B8%AD%E7%9A%84Streams-API%E8%AF%A6%E8%A7%A3/"/>
-    <id>https://gaohueric.github.io/2018/05/01/Java8中的Streams-API详解/</id>
-    <published>2018-05-01T04:41:46.000Z</published>
-    <updated>2020-08-12T08:46:20.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;h4 id=&quot;什么是流&quot;&gt;&lt;a href=&quot;#什么是流&quot; class=&quot;headerlink&quot; title=&quot;什么是流&quot;&gt;&lt;/a&gt;什么是流&lt;/h4&gt;&lt;blockquote&gt;
-&lt;p&gt;Stream 不是集合元素，它不是数据结构并不保存数据，它是有关算法和计算的，它更像一个高级版本的 Iterator。原始版本的 Iterator，用户只能显式地一个一个遍历元素并对其执行某些操作；高级版本的 Stream，用户只要给出需要对其包含的元素执行什么操作，比如 “过滤掉长度大于 10 的字符串”、“获取每个字符串的首字母”等，Stream 会隐式地在内部进行遍历，做出相应的数据转换。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="Java" scheme="https://gaohueric.github.io/categories/Java/"/>
-    
-    
-      <category term="Java" scheme="https://gaohueric.github.io/tags/Java/"/>
     
   </entry>
   
