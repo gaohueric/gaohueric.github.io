@@ -1,4 +1,3 @@
-https://gaohueric.github.io/2021/05/01/阿里巴巴Java开发手册/
 https://gaohueric.github.io/2021/04/27/数据库索引/
 https://gaohueric.github.io/2021/03/01/Mysql基础架构/
 https://gaohueric.github.io/2021/02/01/编程珠玑/
@@ -14,6 +13,7 @@ https://gaohueric.github.io/2019/01/06/Synchronized深度解析/
 https://gaohueric.github.io/2019/01/02/HDFS简介及其功能/
 https://gaohueric.github.io/2019/01/01/synchronized和ReentrantLock区别/
 https://gaohueric.github.io/2018/11/22/Kafka消息中间件/
+https://gaohueric.github.io/2018/08/17/阿里巴巴Java开发手册/
 https://gaohueric.github.io/2018/07/29/MapReduce编程模型/
 https://gaohueric.github.io/2018/07/10/Redis使用总结/
 https://gaohueric.github.io/2018/05/21/Storm详解与集群环境搭建/
