@@ -9,8 +9,9 @@
     <meta name="keywords" content="HashMap完全解读, Hi 高虎">
     <meta name="baidu-site-verification" content="fmlEuI34ir">
     <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
-    <meta name="description" content="HashMap解读概念： 什么是HashMap
-基于哈希表的Map接口实现.此实现提供所有可选的映射操作,并允许使用null值和null键.除了非同步和允许使用null外,HashMap 类与HashTable 大致相同,此类不保证映射的顺">
+    <meta name="description" content="
+HashMap解读概念： 什么是HashMap
+基于哈希表的Map接口实现.此实现提供所有可选的映射操作,并允许使用null值和null键.除了非同步和允许使用null外,HashMap 类与HashTable 大致相同,此类不保证映射的">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -831,7 +832,8 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h4 id="HashMap解读"><a href="#HashMap解读" class="headerlink" title="HashMap解读"></a>HashMap解读</h4><h5 id="概念：-什么是HashMap"><a href="#概念：-什么是HashMap" class="headerlink" title="概念： 什么是HashMap"></a>概念： 什么是HashMap</h5><blockquote>
+                <!-- toc -->
+<h4 id="HashMap解读"><a href="#HashMap解读" class="headerlink" title="HashMap解读"></a>HashMap解读</h4><h5 id="概念：-什么是HashMap"><a href="#概念：-什么是HashMap" class="headerlink" title="概念： 什么是HashMap"></a>概念： 什么是HashMap</h5><blockquote>
 <p>基于哈希表的Map接口实现.此实现提供所有可选的映射操作,并允许使用null值和null键.除了非同步和允许使用null外,HashMap 类与HashTable 大致相同,此类不保证映射的顺序,特别是它不保证该顺序亘久不变,此实现假定哈希函数将元素适当地分布在各桶之间,可为基本操作（get 和 put）提供稳定的性能.迭代 collection 视图所需的时间与 HashMap 实例的“容量”（桶的数量）及其大小（键-值映射关系数）成比例.所以,如果迭代性能很重要,则不要将初始容量设置得太高（或将加载因子设置得太低）.</p>
 </blockquote>
 <a id="more"></a>
@@ -862,8 +864,8 @@
         map <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 </code></pre>
-<p><code>`</code></p>
-</li>
+<pre><code>
+</code></pre></li>
 <li><p>调用HashSet的add方法时，实际上是向HashMap中增加了一行(key-value对)，该行的key就是向HashSet增加的那个对象，该行的value就是一个Object类型的常量</p>
 <pre class=" language-java"><code class="language-java"><span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> Object PRESENT <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Object</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
 <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">add</span><span class="token punctuation">(</span>E e<span class="token punctuation">)</span> <span class="token punctuation">{</span> 
@@ -2037,7 +2039,7 @@
 
             
                 &nbsp; | &nbsp;字数统计:&nbsp;
-                <span class="white-color">161.6k</span> 字
+                <span class="white-color">161.9k</span> 字
             
             <br>
         <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1278301656'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s9.cnzz.com/z_stat.php%3Fid%3D1278301656%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>
