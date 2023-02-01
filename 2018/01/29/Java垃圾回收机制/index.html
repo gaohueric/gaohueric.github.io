@@ -1,0 +1,1971 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    <!-- shw2018 洪卫  modify 2019.08.15-->
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Java垃圾回收机制, Hi 高虎">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="Java垃圾回收机制Java的自动内存管理只要针对对象内存的回收和对象内存的分配，同时，java自动内存管理最核心的功能时堆内存中对象的分配与回收。
+JDK1.8之前的堆内存示意图：
+
+从图示可以看出来，堆内存分为新生代，老年代，和永久代，">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Java垃圾回收机制 | Hi 高虎</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <style type="text/css">
+        
+            
+            code[class*="language-"],
+            pre[class*="language-"] {
+                white-space: pre !important;
+            }
+
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Hi 高虎</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="" class="waves-effect waves-light">
+            
+            <i class="fa fas fa-list"></i>
+            
+            <span>清单</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于我</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/contact" class="waves-effect waves-light">
+            
+            <i class="fa fa-envelope"></i>
+            
+            <span>留言板</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性 洪卫 shw2018 modify 2019.09.17  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/tags" class="waves-effect waves-light">
+              
+                <i class="fa fa-tags"></i>
+              
+              <span>标签</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+              <a href="" class="waves-effect waves-light">
+                
+                  <i class="fa fas fa-list"></i>
+                
+                <span>清单</span>
+                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+              </a>
+
+            <ul class="sub-nav menus_item_child ">
+              
+                <li> 
+                  <a href="/musics" >
+                    
+                      <i class="fa fas fa-music" style="margin-top: -20px;"></i>
+                    
+                    <span>音乐</span>
+                  </a>
+                </li>
+              
+                <li> 
+                  <a href="/movies" >
+                    
+                      <i class="fa fas fa-film" style="margin-top: -20px;"></i>
+                    
+                    <span>电影</span>
+                  </a>
+                </li>
+              
+                <li> 
+                  <a href="/gitbook" >
+                    
+                      <i class="fa fas fa-book" style="margin-top: -20px;"></i>
+                    
+                    <span>书单</span>
+                  </a>
+                </li>
+              
+                <li> 
+                  <a href="/galleries" >
+                    
+                      <i class="fa fas fa-image" style="margin-top: -20px;"></i>
+                    
+                    <span>相册</span>
+                  </a>
+                </li>
+               
+            </ul>
+          
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/about" class="waves-effect waves-light">
+              
+                <i class="fa fa-user-circle-o"></i>
+              
+              <span>关于我</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/contact" class="waves-effect waves-light">
+              
+                <i class="fa fa-envelope"></i>
+              
+              <span>留言板</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/friends" class="waves-effect waves-light">
+              
+                <i class="fa fa-address-book"></i>
+              
+              <span>友情链接</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Hi 高虎</div>
+        <div class="logo-desc">
+            
+            天空没有痕迹,风雨已在心中
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fas fa-list"></i>
+                
+                清单
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于我
+            </a>
+        </li>
+        
+        <li>
+            <a href="/contact" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-envelope"></i>
+                
+                留言板
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/gaohueric" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性 洪卫 shw2018 modify 2019.09.17  -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/tags" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-tags"></i>
+                        
+                        标签
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="javascript:;">
+                            
+                            <i class="fa fa-fw fas fa-list"></i>
+                            
+                            清单
+                            <span class="m-icon"><i class="fa fa-chevron-right"></i></span>
+                    </a>
+                <ul>
+                  
+                    <li> 
+                      <a href="/musics" >
+                           
+                            <i class="fa fas fa-music" style="left: 18px; position: absolute;"></i>
+                       
+                       <span>音乐</span>
+                      </a>
+                    </li>
+                  
+                    <li> 
+                      <a href="/movies" >
+                           
+                            <i class="fa fas fa-film" style="left: 18px; position: absolute;"></i>
+                       
+                       <span>电影</span>
+                      </a>
+                    </li>
+                  
+                    <li> 
+                      <a href="/gitbook" >
+                           
+                            <i class="fa fas fa-book" style="left: 18px; position: absolute;"></i>
+                       
+                       <span>书单</span>
+                      </a>
+                    </li>
+                  
+                    <li> 
+                      <a href="/galleries" >
+                           
+                            <i class="fa fas fa-image" style="left: 18px; position: absolute;"></i>
+                       
+                       <span>相册</span>
+                      </a>
+                    </li>
+                   
+                </ul>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/about" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-user-circle-o"></i>
+                        
+                        关于我
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/contact" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-envelope"></i>
+                        
+                        留言板
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/friends" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-address-book"></i>
+                        
+                        友情链接
+                    </a>
+              
+            </li>
+        
+
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/gaohueric" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/gaohueric" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+        
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://raw.githubusercontent.com/gaohueric/blogpicture/master/46b64dc5812a178e90ed2b05f66f5c13.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Java垃圾回收机制
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- shw2018 洪卫  modify 2019.08.15-->
+<!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/JVM/" target="_blank">
+                                <span class="chip bg-color">JVM</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Java/" class="post-category" target="_blank">
+                                Java
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2018-01-29
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        高虎
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        6.3k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        22 分
+                    </div>
+                    
+                
+                
+                
+                        <span id="busuanzi_container_site_pv" style='display:none'></span>
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv" ></span>
+    
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h5 id="Java垃圾回收机制"><a href="#Java垃圾回收机制" class="headerlink" title="Java垃圾回收机制"></a>Java垃圾回收机制</h5><p>Java的自动内存管理只要针对对象内存的回收和对象内存的分配，同时，java自动内存管理最核心的功能时堆内存中对象的分配与回收。</p>
+<p>JDK1.8之前的堆内存示意图：</p>
+<p><img src="https://github.com/gaohueric/blogpicture/raw/master/jvm20.jpg" alt></p>
+<p>从图示可以看出来，堆内存分为新生代，老年代，和永久代，新生代又被进一步分为：Eden区 + Survivor1区+Survivor2区。而在JDK1.8中移出整个永久代，取而代之的是一个叫元空间的区域(永久代使用的是JVM的堆内存空间，而元空间使用的是物理内存，直接受到本机的物理内存限制)</p>
+<p><img src="https://github.com/gaohueric/blogpicture/raw/master/jvm21.png" alt></p>
+<p>对象优先在eden区分配</p>
+<p>目前主流的垃圾收集器都会采用分代回收算法，因此需要将堆内存分为新生代和老年代，这样我们就可以根据各个年代的特点选择合适的垃圾收集算法。</p>
+<p>大多数情况下，对象在新生代中eden区分配，当eden区没有足够的空间进行分配时,虚拟机将发起一次Mnior GC。</p>
+<ul>
+<li>新生代GC(Mnior GC) 指发生新生代的垃圾收集动作，Minor GC非常频繁。回收速度一般也比较快</li>
+<li>老年代GC(Major GC/Full GC): 指发生在老年代的GC,出现了Major GC经常会伴随至少一次的Minor GC(并非绝对)，Major GC的速度一般都会比Minor GC的慢10倍以上。</li>
+</ul>
+<p>测试用例</p>
+<pre class=" language-java"><code class="language-java">
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">GCTest</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> allocation1<span class="token punctuation">,</span> allocation2<span class="token punctuation">;</span>
+        allocation1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">byte</span><span class="token punctuation">[</span><span class="token number">30900</span> <span class="token operator">*</span> <span class="token number">1024</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+       <span class="token comment" spellcheck="true">// allocation2 = new byte[900 * 1024];</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>添加的参数：<code>-XX:+PrintGCDetails</code> </p>
+<p>控制台打印出</p>
+<pre class=" language-java"><code class="language-java">Heap
+ PSYoungGen      total 38400K<span class="token punctuation">,</span> used 4661K <span class="token punctuation">[</span><span class="token number">0x00000000d5d80000</span><span class="token punctuation">,</span> <span class="token number">0x00000000d8800000</span><span class="token punctuation">,</span> <span class="token number">0x0000000100000000</span><span class="token punctuation">)</span>
+  eden space 33280K<span class="token punctuation">,</span> <span class="token number">14</span><span class="token operator">%</span> used <span class="token punctuation">[</span><span class="token number">0x00000000d5d80000</span><span class="token punctuation">,</span><span class="token number">0x00000000d620d580</span><span class="token punctuation">,</span><span class="token number">0x00000000d7e00000</span><span class="token punctuation">)</span>
+  from space 5120K<span class="token punctuation">,</span> <span class="token number">0</span><span class="token operator">%</span> used <span class="token punctuation">[</span><span class="token number">0x00000000d8300000</span><span class="token punctuation">,</span><span class="token number">0x00000000d8300000</span><span class="token punctuation">,</span><span class="token number">0x00000000d8800000</span><span class="token punctuation">)</span>
+  to   space 5120K<span class="token punctuation">,</span> <span class="token number">0</span><span class="token operator">%</span> used <span class="token punctuation">[</span><span class="token number">0x00000000d7e00000</span><span class="token punctuation">,</span><span class="token number">0x00000000d7e00000</span><span class="token punctuation">,</span><span class="token number">0x00000000d8300000</span><span class="token punctuation">)</span>
+ ParOldGen       total 87552K<span class="token punctuation">,</span> used 30900K <span class="token punctuation">[</span><span class="token number">0x0000000081800000</span><span class="token punctuation">,</span> <span class="token number">0x0000000086d80000</span><span class="token punctuation">,</span> <span class="token number">0x00000000d5d80000</span><span class="token punctuation">)</span>
+  object space 87552K<span class="token punctuation">,</span> <span class="token number">35</span><span class="token operator">%</span> used <span class="token punctuation">[</span><span class="token number">0x0000000081800000</span><span class="token punctuation">,</span><span class="token number">0x000000008362d010</span><span class="token punctuation">,</span><span class="token number">0x0000000086d80000</span><span class="token punctuation">)</span>
+ Metaspace       used 3496K<span class="token punctuation">,</span> capacity 4498K<span class="token punctuation">,</span> committed 4864K<span class="token punctuation">,</span> reserved 1056768K
+  <span class="token keyword">class</span> <span class="token class-name">space</span>    used 387K<span class="token punctuation">,</span> capacity 390K<span class="token punctuation">,</span> committed 512K<span class="token punctuation">,</span> reserved 1048576K
+</code></pre>
+<h5 id="大对象直接进入老年代"><a href="#大对象直接进入老年代" class="headerlink" title="大对象直接进入老年代"></a>大对象直接进入老年代</h5><p>大对象就是需要大量连续内存空间的对象(比如： 字符串、数组)</p>
+<p>为了避免为大对象分配内存时由于分配担保机制带来的复制而降低效率。</p>
+<h5 id="长期存活的对象将进入老年代"><a href="#长期存活的对象将进入老年代" class="headerlink" title="长期存活的对象将进入老年代"></a>长期存活的对象将进入老年代</h5><p>既然虚拟机采用了分代收集的实想来管理内存，那么内存回收时就必需能识别哪些对象应放在新生代，哪些对象应放在老年代中，为了实现这一点，虚拟机给每个对象一个对象年龄(Age)计数器</p>
+<p>如果对象在eden出生并经过第一次Minor GC 后仍然能够存活，并且能被Survivor容纳的话，将被移动到Survivor空间中，并将对象年龄设为1,对象在Survivor中每熬过一次MinorGC，年龄就增加1岁，当它的年龄增加到一定程度(默认为15岁)，就会被晋升到老年代中，对象晋升到老年代的年龄阀值，可以通过参数 -XX:MaxTenuringThreshold来设置</p>
+<h5 id="动态对象年龄判定"><a href="#动态对象年龄判定" class="headerlink" title="动态对象年龄判定"></a>动态对象年龄判定</h5><p>为了更好的适应不同程序的内存情况，虚拟机不是永远要求对象年龄必须达到某个值才能进入老年代，如果Survivor空间中相同年龄所有对象大小的总和大于Survivor空间的一半，年龄大于或等于该年龄的对象就可以直接进入老年代，无需达到要求的年龄。</p>
+<h5 id="判定对象是否已经死亡"><a href="#判定对象是否已经死亡" class="headerlink" title="判定对象是否已经死亡"></a>判定对象是否已经死亡</h5><p><img src="https://github.com/gaohueric/blogpicture/raw/master/jvm25.jpg" alt></p>
+<h5 id="引用计数法"><a href="#引用计数法" class="headerlink" title="引用计数法"></a>引用计数法</h5><p>给对象添加一个引用计数器，每当有一个地方引用它，计数器就加1;当引用失效，计数器就减一，任何时候计数器为0的对象就是不可能在被使用的。</p>
+<p>这个方法实现简单，效率高，但是目前主流的虚拟机中并没有选择这个算法来管理内存，其最主要的原因是它很难解决对象之间相互循环引用的问题，所谓对象之间的相互引用问题，如下列代码所示，除了对象objA 和objB相互引用着对方之外，这两个对象之间再无任何引用，但是他们因为相互引用对方，导致它们的引用计数器都不为0，于是引用计数器算法无法通知GC回收。</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ReferenceCountingGc</span> <span class="token punctuation">{</span>
+    Object instance <span class="token operator">=</span> null<span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        ReferenceCountingGc objA <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ReferenceCountingGc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        ReferenceCountingGc objB <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ReferenceCountingGc</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        objA<span class="token punctuation">.</span>instance <span class="token operator">=</span> objB<span class="token punctuation">;</span>
+        objB<span class="token punctuation">.</span>instance <span class="token operator">=</span> objA<span class="token punctuation">;</span>
+        objA <span class="token operator">=</span> null<span class="token punctuation">;</span>
+        objB <span class="token operator">=</span> null<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>可达性分析算法</p>
+<p>这个算法的基本思想就是通过一系列的称为GC Roots 的对象作为起点，从这些节点开始向下搜索，节点所走过的路径称为引用链，当一个对象到GC Roots没有任何引用链相连的话，就证明此对象不可用。</p>
+<p><img src="https://github.com/gaohueric/blogpicture/raw/master/jvm26.jpg" alt></p>
+<h4 id="谈一谈引用"><a href="#谈一谈引用" class="headerlink" title="谈一谈引用"></a>谈一谈引用</h4><blockquote>
+<p> 问题： 强引用、软引用、弱引用、幻象引用有什么区别？具体使用场景是什么？</p>
+</blockquote>
+<p>不同的引用类型，主要体现的是<strong>对象不同的可达性（reachable）状态和对垃圾收集的影响</strong>。</p>
+<p>所谓<strong>强引用</strong>（”Strong” Reference），就是我们最常见的普通对象引用，只要还有强引用指向一个对象，就能表明对象还“活着”，垃圾收集器不会碰这种对象。对于一个普通的对象，如果没有其他的引用关系，只要超过了引用的作用域或者显式地将相应（强）引用赋值为 null，就是可以被垃圾收集的了，当然具体回收时机还是要看垃圾收集策略。</p>
+<p><strong>软引用</strong>（SoftReference），是一种相对强引用弱化一些的引用，可以让对象豁免一些垃圾收集，只有当 JVM 认为内存不足时，才会去试图回收软引用指向的对象。JVM 会确保在抛出 OutOfMemoryError 之前，清理软引用指向的对象。软引用通常用来实现内存敏感的缓存，如果还有空闲内存，就可以暂时保留缓存，当内存不足时清理掉，这样就保证了使用缓存的同时，不会耗尽内存。</p>
+<p><strong>弱引用</strong>（WeakReference）并不能使对象豁免垃圾收集，仅仅是提供一种访问在弱引用状态下对象的途径。这就可以用来构建一种没有特定约束的关系，比如，维护一种非强制性的映射关系，如果试图获取时对象还在，就使用它，否则重现实例化。它同样是很多缓存实现的选择。</p>
+<p>对于<strong>幻象引用</strong>，有时候也翻译成虚引用，你不能通过它访问对象。幻象引用仅仅是提供了一种确保对象被 finalize 以后，做某些事情的机制，比如，通常用来做所谓的 Post-Mortem 清理机制，我在专栏上一讲中介绍的 Java 平台自身 Cleaner 机制等，也有人利用幻象引用监控对象的创建和销毁。</p>
+<h5 id="对象可达性状态流转分析"><a href="#对象可达性状态流转分析" class="headerlink" title="对象可达性状态流转分析"></a>对象可达性状态流转分析</h5><p>首先，请你看下面流程图，我这里简单总结了对象生命周期和不同可达性状态，以及不同状态可能的改变关系，可能未必 100% 严谨，来阐述下可达性的变化。</p>
+<p>​    <img src="https://github.com/gaohueric/blogpicture/raw/master/jvm27.png" alt></p>
+<p>上图的具体状态，这是 Java 定义的不同可达性级别（reachability level），具体如下：</p>
+<ul>
+<li>强可达（Strongly Reachable），就是当一个对象可以有一个或多个线程可以不通过各种引用访问到的情况。比如，我们新创建一个对象，那么创建它的线程对它就是强可达。</li>
+<li>软可达（Softly Reachable），就是当我们只能通过软引用才能访问到对象的状态。</li>
+<li>弱可达（Weakly Reachable），类似前面提到的，就是无法通过强引用或者软引用访问，只能通过弱引用访问时的状态。这是十分临近 finalize 状态的时机，当弱引用被清除的时候，就符合 finalize 的条件了。</li>
+<li>幻象可达（Phantom Reachable），上面流程图已经很直观了，就是没有强、软、弱引用关联，并且 finalize 过了，只有幻象引用指向这个对象的时候。</li>
+<li>当然，还有一个最后的状态，就是不可达（unreachable），意味着对象可以被清除了。</li>
+</ul>
+<p>判断对象可达性，是 JVM 垃圾收集器决定如何处理对象的一部分考虑。</p>
+<p>所有引用类型，都是抽象类 java.lang.ref.Reference 的子类，你可能注意到它提供了 get() 方法：</p>
+<pre class=" language-java"><code class="language-java">T           <span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span>           Returns <span class="token keyword">this</span> reference object's reference
+</code></pre>
+<p>除了幻象引用（因为 get 永远返回 null），如果对象还没有被销毁，都可以通过 get 方法获取原有对象。这意味着，利用软引用和弱引用，我们可以将访问到的对象，重新指向强引用，也就是人为的改变了对象的可达性状态！这也是为什么我在上面图里有些地方画了双向箭头。</p>
+<p>所以，对于软引用、弱引用之类，垃圾收集器可能会存在二次确认的问题，以保证处于弱引用状态的对象，没有改变为强引用。</p>
+<p>但是，你觉得这里有没有可能出现什么问题呢？</p>
+<p>不错，如果我们错误的保持了强引用（比如，赋值给了 static 变量），那么对象可能就没有机会变回类似弱引用的可达性状态了，就会产生内存泄漏。所以，检查弱引用指向对象是否被垃圾收集，也是诊断是否有特定内存泄漏的一个思路，如果我们的框架使用到弱引用又怀疑有内存泄漏，就可以从这个角度检查。</p>
+<h5 id="引用队列（ReferenceQueue）使用"><a href="#引用队列（ReferenceQueue）使用" class="headerlink" title="引用队列（ReferenceQueue）使用"></a>引用队列（ReferenceQueue）使用</h5><p>谈到各种引用的编程，就必然要提到引用队列。我们在创建各种引用并关联到响应对象时，可以选择是否需要关联引用队列，JVM 会在特定时机将引用 enqueue 到队列里，我们可以从队列里获取引用（remove 方法在这里实际是有获取的意思）进行相关后续逻辑。尤其是幻象引用，get 方法只返回 null，如果再不指定引用队列，基本就没有意义了。看看下面的示例代码。利用引用队列，我们可以在对象处于相应状态时（对于幻象引用，就是前面说的被 finalize 了，处于幻象可达状态），执行后期处理逻辑。</p>
+<pre><code>Object counter = new Object();
+ReferenceQueue refQueue = new ReferenceQueue&lt;&gt;();
+PhantomReference&lt;Object&gt; p = new PhantomReference&lt;&gt;(counter, refQueue);
+counter = null;
+System.gc();
+try {
+    // Remove 是一个阻塞方法，可以指定 timeout，或者选择一直阻塞
+    Reference&lt;Object&gt; ref = refQueue.remove(1000L);
+    if (ref != null) {
+        // do something
+    }
+} catch (InterruptedException e) {
+    // Handle it
+}
+</code></pre><h5 id="显式地影响软引用垃圾收集"><a href="#显式地影响软引用垃圾收集" class="headerlink" title="显式地影响软引用垃圾收集"></a>显式地影响软引用垃圾收集</h5><p>前面泛泛提到了引用对垃圾收集的影响，尤其是软引用，到底 JVM 内部是怎么处理它的，其实并不是非常明确。那么我们能不能使用什么方法来影响软引用的垃圾收集呢？</p>
+<p>答案是有的。软引用通常会在最后一次引用后，还能保持一段时间，默认值是根据堆剩余空间计算的（以 M bytes 为单位）。从 Java 1.3.1 开始，提供了 -XX:SoftRefLRUPolicyMSPerMB 参数，我们可以以毫秒（milliseconds）为单位设置。比如，下面这个示例就是设置为 3 秒（3000 毫秒）。</p>
+<pre class=" language-java"><code class="language-java"><span class="token operator">-</span>XX<span class="token operator">:</span>SoftRefLRUPolicyMSPerMB<span class="token operator">=</span><span class="token number">3000</span>
+</code></pre>
+<p>这个剩余空间，其实会受不同 JVM 模式影响，对于 Client 模式，比如通常的 Windows 32 bit JDK，剩余空间是计算当前堆里空闲的大小，所以更加倾向于回收；而对于 server 模式 JVM，则是根据 -Xmx 指定的最大值来计算。</p>
+<p>本质上，这个行为还是个黑盒，取决于 JVM 实现，即使是上面提到的参数，在新版的 JDK 上也未必有效，另外 Client 模式的 JDK 已经逐步退出历史舞台。所以在我们应用时，可以参考类似设置，但不要过于依赖它。</p>
+<h5 id="诊断-JVM-引用情况"><a href="#诊断-JVM-引用情况" class="headerlink" title="诊断 JVM 引用情况"></a>诊断 JVM 引用情况</h5><p>如果你怀疑应用存在引用（或 finalize）导致的回收问题，可以有很多工具或者选项可供选择，比如 HotSpot JVM 自身便提供了明确的选项（PrintReferenceGC）去获取相关信息，我指定了下面选项去使用 JDK 8 运行一个样例应用：</p>
+<pre class=" language-java"><code class="language-java"><span class="token operator">-</span>XX<span class="token operator">:</span><span class="token operator">+</span>PrintGCDetails <span class="token operator">-</span>XX<span class="token operator">:</span><span class="token operator">+</span>PrintGCTimeStamps <span class="token operator">-</span>XX<span class="token operator">:</span><span class="token operator">+</span>PrintReferenceGC
+</code></pre>
+<p>这是 JDK 8 使用 ParrallelGC 收集的垃圾收集日志，各种引用数量非常清晰。</p>
+<pre class=" language-java"><code class="language-java"><span class="token number">0.403</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token function">GC</span> <span class="token punctuation">(</span>Allocation Failure<span class="token punctuation">)</span> <span class="token number">0.871</span><span class="token operator">:</span> <span class="token punctuation">[</span>SoftReference<span class="token punctuation">,</span> <span class="token number">0</span> refs<span class="token punctuation">,</span> <span class="token number">0.0000393</span> secs<span class="token punctuation">]</span><span class="token number">0.871</span><span class="token operator">:</span> <span class="token punctuation">[</span>WeakReference<span class="token punctuation">,</span> <span class="token number">8</span> refs<span class="token punctuation">,</span> <span class="token number">0.0000138</span> secs<span class="token punctuation">]</span><span class="token number">0.871</span><span class="token operator">:</span> <span class="token punctuation">[</span>FinalReference<span class="token punctuation">,</span> <span class="token number">4</span> refs<span class="token punctuation">,</span> <span class="token number">0.0000094</span> secs<span class="token punctuation">]</span><span class="token number">0.871</span><span class="token operator">:</span> <span class="token punctuation">[</span>PhantomReference<span class="token punctuation">,</span> <span class="token number">0</span> refs<span class="token punctuation">,</span> <span class="token number">0</span> refs<span class="token punctuation">,</span> <span class="token number">0.0000085</span> secs<span class="token punctuation">]</span><span class="token number">0.871</span><span class="token operator">:</span> <span class="token punctuation">[</span>JNI Weak Reference<span class="token punctuation">,</span> <span class="token number">0.0000071</span> secs<span class="token punctuation">]</span><span class="token punctuation">[</span>PSYoungGen<span class="token operator">:</span> 76272K<span class="token operator">-</span><span class="token operator">></span><span class="token function">10720K</span><span class="token punctuation">(</span>141824K<span class="token punctuation">)</span><span class="token punctuation">]</span> 128286K<span class="token operator">-</span><span class="token operator">></span><span class="token function">128422K</span><span class="token punctuation">(</span>316928K<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">0.4683919</span> secs<span class="token punctuation">]</span> <span class="token punctuation">[</span>Times<span class="token operator">:</span> user<span class="token operator">=</span><span class="token number">1.17</span> sys<span class="token operator">=</span><span class="token number">0.03</span><span class="token punctuation">,</span> real<span class="token operator">=</span><span class="token number">0.47</span> secs<span class="token punctuation">]</span>
+</code></pre>
+<p><strong>注意：JDK 9 对 JVM 和垃圾收集日志进行了广泛的重构</strong>，类似 PrintGCTimeStamps 和 PrintReferenceGC 已经不再存在，我在专栏后面的垃圾收集主题里会更加系统的阐述。</p>
+<h5 id="Reachability-Fence"><a href="#Reachability-Fence" class="headerlink" title="Reachability Fence"></a>Reachability Fence</h5><p>除了我前面介绍的几种基本引用类型，我们也可以通过底层 API 来达到强引用的效果，这就是所谓的设置<strong>reachability fence</strong>。</p>
+<p>为什么需要这种机制呢？考虑一下这样的场景，按照 Java 语言规范，如果一个对象没有指向强引用，就符合垃圾收集的标准，有些时候，对象本身并没有强引用，但是也许它的部分属性还在被使用，这样就导致诡异的问题，所以我们需要一个方法，在没有强引用情况下，通知 JVM 对象是在被使用的。说起来有点绕，我们来看看 Java 9 中提供的案例。</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Resource</span> <span class="token punctuation">{</span>
+ <span class="token keyword">private</span> <span class="token keyword">static</span> ExternalResource<span class="token punctuation">[</span><span class="token punctuation">]</span> externalResourceArray <span class="token operator">=</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+ <span class="token keyword">int</span> myIndex<span class="token punctuation">;</span> <span class="token function">Resource</span><span class="token punctuation">(</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     myIndex <span class="token operator">=</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+     externalResourceArray<span class="token punctuation">[</span>myIndex<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">;</span>
+     <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+ <span class="token punctuation">}</span>
+ <span class="token keyword">protected</span> <span class="token keyword">void</span> <span class="token function">finalize</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+     externalResourceArray<span class="token punctuation">[</span>myIndex<span class="token punctuation">]</span> <span class="token operator">=</span> null<span class="token punctuation">;</span>
+     <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+ <span class="token punctuation">}</span>
+ <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">action</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+ <span class="token keyword">try</span> <span class="token punctuation">{</span>
+     <span class="token comment" spellcheck="true">// 需要被保护的代码</span>
+     <span class="token keyword">int</span> i <span class="token operator">=</span> myIndex<span class="token punctuation">;</span>
+     Resource<span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span>externalResourceArray<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span> <span class="token keyword">finally</span> <span class="token punctuation">{</span>
+     <span class="token comment" spellcheck="true">// 调用 reachbilityFence，明确保障对象 strongly reachable</span>
+     Reference<span class="token punctuation">.</span><span class="token function">reachabilityFence</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+ <span class="token punctuation">}</span>
+ <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">update</span><span class="token punctuation">(</span>ExternalResource ext<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    ext<span class="token punctuation">.</span>status <span class="token operator">=</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">;</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>方法 action 的执行，依赖于对象的部分属性，所以被特定保护了起来。否则，如果我们在代码中像下面这样调用，那么就可能会出现困扰，因为没有强引用指向我们创建出来的 Resource 对象，JVM 对它进行 finalize 操作是完全合法的。</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">new</span> <span class="token class-name">Resource</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">action</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>类似的书写结构，在异步编程中似乎是很普遍的，因为异步编程中往往不会用传统的“执行 -&gt; 返回 -&gt; 使用”的结构。</p>
+<p>在 Java 9 之前，实现类似类似功能相对比较繁琐，有的时候需要采取一些比较隐晦的小技巧。幸好，java.lang.ref.Reference 给我们提供了新方法，它是 JEP 193: Variable Handles 的一部分，将 Java 平台底层的一些能力暴露出来：</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">reachabilityFence</span><span class="token punctuation">(</span>Object ref<span class="token punctuation">)</span>
+</code></pre>
+<p>在 JDK 源码中，reachabilityFence 大多使用在 Executors 或者类似新的 HTTP/2 客户端代码中，大部分都是异步调用的情况。编程中，可以按照上面这个例子，将需要 reachability 保障的代码段利用 try-finally 包围起来，在 finally 里明确声明对象强可达。</p>
+<h4 id="垃圾收集算法"><a href="#垃圾收集算法" class="headerlink" title="垃圾收集算法"></a>垃圾收集算法</h4><h5 id="标记清除算法"><a href="#标记清除算法" class="headerlink" title="标记清除算法"></a>标记清除算法</h5><p>算法分为“标记”和“清除”阶段：首先标记出所有需要回收的对象，在标记完成后统一回收所有被标记的对象。它是最基础的收集算法，效率也很高，但是会带来两个明显的问题：</p>
+<ul>
+<li>效率问题</li>
+<li>空间问题(标记清除后会产生大量不连续的内存碎片)</li>
+</ul>
+<p><img src="https://github.com/gaohueric/blogpicture/raw/master/jvm27.jpg" alt></p>
+<h5 id="复制算法"><a href="#复制算法" class="headerlink" title="复制算法"></a>复制算法</h5><p>为了解决效率问题，复制收集算法出现了，它可以将内存分为大小相同的两块，每次使用其中的一块，当这一块的内存使用完后，就将还存活的对象复制到另一块去，然后再把使用的空间一次清理掉，这样使每次的内存回收都是对内存区间的一半进行回收。</p>
+<p><img src="https://github.com/gaohueric/blogpicture/raw/master/jvm28.jpg" alt></p>
+<h5 id="标记整理算法"><a href="#标记整理算法" class="headerlink" title="标记整理算法"></a>标记整理算法</h5><p>根据老年代的特点特出了一种标记算法，标记过程仍然与 标记清除算法一样，但后续步骤不是直接对可回收对象回收，而是让所有存活的对象向一端移动，然后直接清理掉端边界以外的内存。</p>
+<p><img src="https://github.com/gaohueric/blogpicture/raw/master/jvm29.jpg" alt></p>
+<h5 id="分代收集算法"><a href="#分代收集算法" class="headerlink" title="分代收集算法"></a>分代收集算法</h5><p>当前虚拟机的垃圾收集都采用分代收集算法，这种算法没有什么新的思想，只是根据对象存活周期的不同将内存分为几块，一般将java堆分为新生代和老年代，这样我们就 可以 根据各个年代的特点选择合适的垃圾收集算法。</p>
+<p>比如 在新生代中，每次收集都会有大量的对象死去，所以选择复制算法，只需要付出少量对象的复制成本就可以完成每次垃圾收集，而老年代的对象存活几率比较高，而且没有额外的空间对它进行分配担保，所以我们必须选择标记清除或标记整理算法进行垃圾收集。</p>
+<h4 id="垃圾收集器"><a href="#垃圾收集器" class="headerlink" title="垃圾收集器"></a>垃圾收集器</h4><h5 id="Serial收集器"><a href="#Serial收集器" class="headerlink" title="Serial收集器"></a>Serial收集器</h5><p>Serial(串行)收集器是最基本、历史最悠久的垃圾收集器了，该收集器是一个单线程收集器，它的单线程的意义不仅仅意味着它只会使用一条垃圾收集线程去完成垃圾收集工作，更重要的是它在进行垃圾收集工作的时候必须暂停其它所有的工作线程(“Stop The World”) 直到它收集结束。</p>
+<p><img src="https://github.com/gaohueric/blogpicture/raw/master/jvm99.jpg" alt></p>
+<p><strong>新生代采用复制算法，老年代采用标记-整理算法</strong></p>
+<p>虚拟机的设计者们当然知道Stop The World带来的不良用户体验，所以在后续的垃圾收集器设计中停顿时间在不断缩短（仍然还有停顿，寻找最优秀的垃圾收集器的过程仍然在继续）。</p>
+<p>但是Serial收集器有没有优于其他垃圾收集器的地方呢？当然有，它<strong>简单而高效（与其他收集器的单线程相比）</strong>。Serial收集器由于没有线程交互的开销，自然可以获得很高的单线程收集效率。Serial收集器对于运行在Client模式下的虚拟机来说是个不错的选择。</p>
+<h5 id="ParNew收集器"><a href="#ParNew收集器" class="headerlink" title="ParNew收集器"></a>ParNew收集器</h5><p>ParNew收集器其实就是Serial收集器的多线程版本，除了使用多线程进行垃圾收集外，其余行为(控制参数，收集算法，回收策略)和Serial收集器完全一样。</p>
+<p><img src="https://github.com/gaohueric/blogpicture/raw/master/jvm98.jpg" alt></p>
+<p><strong>新生代采用复制算法，老年代采用标记-整理算法。</strong></p>
+<p>它是许多运行在Server模式下的虚拟机的首要选择，除了Serial收集器外，只有它能与CMS收集器(真正意义上的并发收集器)配合工作。</p>
+<p>并行和并发概念：</p>
+<ul>
+<li>并行： 指多条垃圾收集线程并行工作，但此时用户线程仍然处于等待状态</li>
+<li>并发：  指用户线程与垃圾收集线程同时只需(但不一定是并行，可能会交替执行)，用户程序在继续运行，而垃圾收集器运行在另一个CPU上。</li>
+</ul>
+<h5 id="Parallel-Scavenge收集器"><a href="#Parallel-Scavenge收集器" class="headerlink" title="Parallel Scavenge收集器"></a>Parallel Scavenge收集器</h5><p>Parallel Scavenge收集器类似于ParNew收集器，那么它有什么特别之处呢？</p>
+<pre class=" language-java"><code class="language-java"><span class="token operator">-</span>XX<span class="token operator">:</span><span class="token operator">+</span>UseParallelGC 
+
+    使用Parallel收集器<span class="token operator">+</span> 老年代串行
+
+<span class="token operator">-</span>XX<span class="token operator">:</span><span class="token operator">+</span>UseParallelOldGC
+
+    使用Parallel收集器<span class="token operator">+</span> 老年代并行
+</code></pre>
+<p>Parallen Scavenge收集器关注点在吞吐量(高效利用CPU),CMS等垃圾收集器的关注点更多的是用户线程的停顿时间(提高用户体验)，所谓吞吐量就是CPU用于运行哟呼代码的时间与CPU总消耗时间的比值，Parallel Scavenge 收集器提供了很多参数供用户找到合适的停顿时间或最大的吞吐量，如果对于收集器运作不太了解的话，手工优化存在的话可以选择内存管理优化交给虚拟机去完成也是一个不错的选择。</p>
+<p><img src="https://github.com/gaohueric/blogpicture/raw/master/jvm97.jpg" alt></p>
+<p>新生代采用复制算法，老年代采用标记—整理算法</p>
+<h5 id="Serial-Old收集器"><a href="#Serial-Old收集器" class="headerlink" title="Serial Old收集器"></a>Serial Old收集器</h5><p>Serial收集器的老年代版本，它同样是一个单线程收集器，它主要有两大用途，一种用途是在JDK1.5以及以前的版本中与Parallel Scavenge收集器搭配使用，另一种用途是作为CMS收集器的后备方案。</p>
+<h5 id="Parallel-Old收集器"><a href="#Parallel-Old收集器" class="headerlink" title="Parallel Old收集器"></a>Parallel Old收集器</h5><p>Parallel Scavenge收集器的老年代版本，使用多线程和标记-整理算法，在注重吞吐量以及CPU资源的场合，都可以优先考虑Parallel Scavenge收集器和Parallel Old收集器。</p>
+<h5 id="CMS收集器"><a href="#CMS收集器" class="headerlink" title="CMS收集器"></a>CMS收集器</h5><p>CMS(Concurrent Mark Sweep) 收集器是一种以获取最短回收停顿时间为目标的收集器，它非常符合在注重用户体验的应用上使用</p>
+<p>CMS收集器是HotSpot虚拟机第一框真正意义上的并发收集器，它第一次实现了让垃圾收集线程与用户线程同时工作。</p>
+<p>从名字中的Mark Sweep 这两个词可以看出，CMS收集器是一种标记-清除算法实现的，它的运作过程相比于前面几张垃圾收集器来说更加复杂一些，整个过程分为四个步骤。</p>
+<ul>
+<li>初始标记： 暂停所有的其它线程，并记录下直接与root相连的对象，速度很快。</li>
+<li>并发标记：同时开启GC和用户线程，用一个闭包结构去记录可达对象，单在这个阶段结束，这个闭包结构并不能保证包含当前所有的可达对象，因为用户线程可能会不断的更新引用域，所以GC线程无法保证可达性分析的实时性，所以这个算法里会跟踪记录这些发生引用更新的地方。</li>
+<li>重新标记：重新标记阶段就是为了修正并发标记期间因为用户程序继续运行而导致标记产生变动的那一部分对象的标记记录，这个阶段的停顿时间一般会比初始标记阶段的时候稍长，远远比并发标记阶段短。</li>
+<li>并发清除： 开启用户线程，同时GC线程开始对位标记的区域做清扫。</li>
+</ul>
+<h5 id><a href="#" class="headerlink" title></a><img src="https://github.com/gaohueric/blogpicture/raw/master/jvm96.jpg" alt></h5><p>从它的名字就可以看出它是一款优秀的垃圾收集器，主要优点： 并发收集，低停顿，但是它有下面三个明显的缺点：</p>
+<ul>
+<li>对CPU资源敏感</li>
+<li>无法处理浮动垃圾</li>
+<li>它使用的回收算法，标记-清除算法会导致收集结束时产生大量的空间碎片。</li>
+</ul>
+<h5 id="G1收集器"><a href="#G1收集器" class="headerlink" title="G1收集器"></a>G1收集器</h5><p>Gl(Garbage-First) 是一款面向服务器的垃圾收集器，主要针对配备多颗处理器以及大容量内存的机器，以及高概率满足GC停顿时间要求的同时，还具备高吞吐量性能特征</p>
+<p>被视为JDK1.7中HotSpot虚拟机的一个重要进化特征。它具备一下特点：</p>
+<ul>
+<li><strong>并行与并发</strong>：G1能充分利用CPU、多核环境下的硬件优势，使用多个CPU（CPU或者CPU核心）来缩短Stop-The-World停顿时间。部分其他收集器原本需要停顿Java线程执行的GC动作，G1收集器仍然可以通过并发的方式让java程序继续执行。</li>
+<li><strong>分代收集</strong>：虽然G1可以不需要其他收集器配合就能独立管理整个GC堆，但是还是保留了分代的概念。</li>
+<li><strong>空间整合</strong>：与CMS的“标记–清理”算法不同，G1从整体来看是基于“标记整理”算法实现的收集器；从局部上来看是基于“复制”算法实现的。</li>
+<li><strong>可预测的停顿</strong>：这是G1相对于CMS的另一个大优势，降低停顿时间是G1 和 CMS 共同的关注点，但G1 除了追求低停顿外，还能建立可预测的停顿时间模型，能让使用者明确指定在一个长度为M毫秒的时间片段内。</li>
+</ul>
+<p>G1收集器的运作大致分为以下几个步骤：</p>
+<ul>
+<li><strong>初始标记</strong></li>
+<li><strong>并发标记</strong></li>
+<li><strong>最终标记</strong></li>
+<li><strong>筛选回收</strong></li>
+</ul>
+<p><strong>G1收集器在后台维护了一个优先列表，每次根据允许的收集时间，优先选择回收价值最大的Region(这也就是它的名字Garbage-First的由来)</strong>。这种使用Region划分内存空间以及有优先级的区域回收方式，保证了GF收集器在有限时间内可以尽可能高的收集效率（把内存化整为零）</p>
+
+            </div>
+            <hr/>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力!</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.bmp" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.bmp" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://gaohueric.github.io" class="b-link-green">Hi 高虎</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2018/01/29/Java垃圾回收机制/" class="b-link-green">Java垃圾回收机制</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: 'sEivhtbcORSdLImEVeyeRuYq-gzGzoHsz',
+        appKey: 'YDXvnpTcya3IeYf4o8fmOrzf',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'monsterid',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2018/02/18/深入理解-Java-线程池：ThreadPoolExecutor/">
+                    <div class="card-image">
+                        
+                        <img src="https://github.com/gaohueric/blogpicture/raw/master/flink.jpg" class="responsive-img" alt="深入理解 Java 线程池：ThreadPoolExecutor">
+                        
+                        <span class="card-title">深入理解 Java 线程池：ThreadPoolExecutor</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            在web开发中,服务器需要接受并处理请求,本节介绍线程池hreadPoolExecutor.
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2018-02-18
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Java/" class="post-category" target="_blank">
+                                    Java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/多线程/" target="_blank">
+                        <span class="chip bg-color">多线程</span>
+                    </a>
+                    
+                    <a href="/tags/并发编程/" target="_blank">
+                        <span class="chip bg-color">并发编程</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2018/01/22/Java内存模型/">
+                    <div class="card-image">
+                        
+                        <img src="https://raw.githubusercontent.com/gaohueric/blogpicture/master/jmm10.jpg" class="responsive-img" alt="Java内存模型">
+                        
+                        <span class="card-title">Java内存模型</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Java线程之间的通信由JMM控制,JMM决定一个线程对共享变量的写入何时对另一个线程可见.
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-01-22
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Java/" class="post-category" target="_blank">
+                                    Java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/JVM/" target="_blank">
+                        <span class="chip bg-color">JVM</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Hi 高虎<br />'
+            + '作者: 高虎<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&copy; 2016 gaohueric. 
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+                    
+                        <span id="busuanzi_container_site_pv" style='display:none'></span>
+                        总访问量: <span id="busuanzi_value_site_pv" class="white-color"></span>
+                    
+        
+                    
+                        <span id="busuanzi_container_site_uv" style='display:none'></span>
+                        人次&nbsp; | &nbsp;访客人数: <span id="busuanzi_value_site_uv" class="white-color"></span> 人
+                    
+    
+            
+
+            
+                &nbsp; | &nbsp;字数统计:&nbsp;
+                <span class="white-color">283.9k</span> 字
+            
+            <br>
+        <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1278301656'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s9.cnzz.com/z_stat.php%3Fid%3D1278301656%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>
+            
+            <br>
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/https://github.com/gaohueric" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=gaohueric@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=1085669445&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+</div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2016, 05, 12, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已勉强运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/libs/materialize/materialize.min.js"></script>
+        <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/libs/aos/aos.js"></script>
+        <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/libs/others/clicklove.js"></script>
+        
+
+        
+            <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+        
+
+        <!-- 洪卫 shw2018 add 2019.08.28 -->
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+        <!-- 鼠标点击烟花爆炸效果  洪卫 shw2018 add 2019.09.09 -->
+        
+
+        <!-- 背景雪花飘落特效洪卫 shw2018 add 2019.09.10 -->
+        
+
+        <!-- 鼠标点击文字特效 洪卫 shw2018 add 2019.09.10-->
+        
+
+        <!-- 背景雪花飘落特效 洪卫 shw2018 add 2019.09.10 -->
+        
+
+        <!-- 在线聊天工具  洪卫 shw2018 add 2019.09.11 -->
+        
+
+        <!-- 背景 canvas-nest  洪卫 shw 2018  add 2019.09.15-->
+        
+
+        <!-- 背景静止彩带  洪卫 shw 2018  add 2019.09.15-->
+        
+
+        <!-- 背景动态彩带 洪卫 shw 2018  add 2019.09.15-->
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+        
+        
+
+    </body>
+</html>

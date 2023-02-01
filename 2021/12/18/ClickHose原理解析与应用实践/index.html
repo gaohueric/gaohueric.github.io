@@ -1,0 +1,2037 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    <!-- shw2018 洪卫  modify 2019.08.15-->
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="ClickHose原理解析与应用实践, Hi 高虎">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="ClickHouse的架构概述ClickHouse的核心特性完备的DBMS功能ClickHouse拥有完备的管理功能，所以它称得上是一个 DBMS（Database Management System，数据库管理系统）
+
+DDL ：可以动态">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>ClickHose原理解析与应用实践 | Hi 高虎</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <style type="text/css">
+        
+            
+            code[class*="language-"],
+            pre[class*="language-"] {
+                white-space: pre !important;
+            }
+
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Hi 高虎</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="" class="waves-effect waves-light">
+            
+            <i class="fa fas fa-list"></i>
+            
+            <span>清单</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于我</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/contact" class="waves-effect waves-light">
+            
+            <i class="fa fa-envelope"></i>
+            
+            <span>留言板</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性 洪卫 shw2018 modify 2019.09.17  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/tags" class="waves-effect waves-light">
+              
+                <i class="fa fa-tags"></i>
+              
+              <span>标签</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+              <a href="" class="waves-effect waves-light">
+                
+                  <i class="fa fas fa-list"></i>
+                
+                <span>清单</span>
+                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+              </a>
+
+            <ul class="sub-nav menus_item_child ">
+              
+                <li> 
+                  <a href="/musics" >
+                    
+                      <i class="fa fas fa-music" style="margin-top: -20px;"></i>
+                    
+                    <span>音乐</span>
+                  </a>
+                </li>
+              
+                <li> 
+                  <a href="/movies" >
+                    
+                      <i class="fa fas fa-film" style="margin-top: -20px;"></i>
+                    
+                    <span>电影</span>
+                  </a>
+                </li>
+              
+                <li> 
+                  <a href="/gitbook" >
+                    
+                      <i class="fa fas fa-book" style="margin-top: -20px;"></i>
+                    
+                    <span>书单</span>
+                  </a>
+                </li>
+              
+                <li> 
+                  <a href="/galleries" >
+                    
+                      <i class="fa fas fa-image" style="margin-top: -20px;"></i>
+                    
+                    <span>相册</span>
+                  </a>
+                </li>
+               
+            </ul>
+          
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/about" class="waves-effect waves-light">
+              
+                <i class="fa fa-user-circle-o"></i>
+              
+              <span>关于我</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/contact" class="waves-effect waves-light">
+              
+                <i class="fa fa-envelope"></i>
+              
+              <span>留言板</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/friends" class="waves-effect waves-light">
+              
+                <i class="fa fa-address-book"></i>
+              
+              <span>友情链接</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Hi 高虎</div>
+        <div class="logo-desc">
+            
+            天空没有痕迹,风雨已在心中
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fas fa-list"></i>
+                
+                清单
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于我
+            </a>
+        </li>
+        
+        <li>
+            <a href="/contact" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-envelope"></i>
+                
+                留言板
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/gaohueric" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性 洪卫 shw2018 modify 2019.09.17  -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/tags" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-tags"></i>
+                        
+                        标签
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="javascript:;">
+                            
+                            <i class="fa fa-fw fas fa-list"></i>
+                            
+                            清单
+                            <span class="m-icon"><i class="fa fa-chevron-right"></i></span>
+                    </a>
+                <ul>
+                  
+                    <li> 
+                      <a href="/musics" >
+                           
+                            <i class="fa fas fa-music" style="left: 18px; position: absolute;"></i>
+                       
+                       <span>音乐</span>
+                      </a>
+                    </li>
+                  
+                    <li> 
+                      <a href="/movies" >
+                           
+                            <i class="fa fas fa-film" style="left: 18px; position: absolute;"></i>
+                       
+                       <span>电影</span>
+                      </a>
+                    </li>
+                  
+                    <li> 
+                      <a href="/gitbook" >
+                           
+                            <i class="fa fas fa-book" style="left: 18px; position: absolute;"></i>
+                       
+                       <span>书单</span>
+                      </a>
+                    </li>
+                  
+                    <li> 
+                      <a href="/galleries" >
+                           
+                            <i class="fa fas fa-image" style="left: 18px; position: absolute;"></i>
+                       
+                       <span>相册</span>
+                      </a>
+                    </li>
+                   
+                </ul>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/about" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-user-circle-o"></i>
+                        
+                        关于我
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/contact" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-envelope"></i>
+                        
+                        留言板
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/friends" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-address-book"></i>
+                        
+                        友情链接
+                    </a>
+              
+            </li>
+        
+
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/gaohueric" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/gaohueric" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+        
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('https://raw.githubusercontent.com/gaohueric/blogpicture/master/clickhouse.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        ClickHose原理解析与应用实践
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- shw2018 洪卫  modify 2019.08.15-->
+<!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/大数据/" target="_blank">
+                                <span class="chip bg-color">大数据</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/大数据/" class="post-category" target="_blank">
+                                大数据
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2021-12-18
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        高虎
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        4.1k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        16 分
+                    </div>
+                    
+                
+                
+                
+                        <span id="busuanzi_container_site_pv" style='display:none'></span>
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv" ></span>
+    
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h3 id="ClickHouse的架构概述"><a href="#ClickHouse的架构概述" class="headerlink" title="ClickHouse的架构概述"></a>ClickHouse的架构概述</h3><h4 id="ClickHouse的核心特性"><a href="#ClickHouse的核心特性" class="headerlink" title="ClickHouse的核心特性"></a>ClickHouse的核心特性</h4><h5 id="完备的DBMS功能"><a href="#完备的DBMS功能" class="headerlink" title="完备的DBMS功能"></a><strong>完备的DBMS功能</strong></h5><p>ClickHouse拥有完备的管理功能，所以它称得上是一个 DBMS（Database Management System，数据库管理系统）</p>
+<ul>
+<li>DDL ：可以动态地创建、修改或删除数据库、 表和视图，而无须重启服务。</li>
+<li>DML：可以动态查询、插入、修改或删除数 据。</li>
+<li>权限控制：可以按照用户粒度设置数据库或者表的操作权限，保 障数据的安全性。</li>
+<li>数据备份与恢复：提供了数据备份导出与导入恢复机制，满足生 产环境的要求。</li>
+<li>分布式管理：提供集群模式，能够自动管理多个数据库节点。</li>
+</ul>
+<h5 id="分布式存储与数据压缩"><a href="#分布式存储与数据压缩" class="headerlink" title="分布式存储与数据压缩"></a><strong>分布式存储与数据压缩</strong></h5><p>列式存储与按行存储相比，可以有效地减少查询时所需扫描地数据量，按列存储地另外一个优势是对数据压缩的友好性，列式存储是数据压缩地前提,列与列之间由不同的文件分别保存(这里主要指MergeTree表引擎)，数据默认使用LZ4算法压缩。</p>
+<p>数据压缩示例：</p>
+<pre class=" language-java"><code class="language-java">压缩前：abcdefghi_bcdefghi
+压缩后：<span class="token function">abcdefghi_</span><span class="token punctuation">(</span><span class="token number">9</span><span class="token punctuation">,</span><span class="token number">8</span><span class="token punctuation">)</span>
+</code></pre>
+<h5 id="向量化执行引擎"><a href="#向量化执行引擎" class="headerlink" title="向量化执行引擎"></a><strong>向量化执行引擎</strong></h5><p>向量化执行，可以简单地看作一项消除程序中循环的优化,为了实现向量化执行，需要利用CPU的SIMD指令。SIMD的全称是 Single Instruction Multiple Data。即用单条指令操作多条数据，通过数据并行提高性能的一种实现方式，它的原理是在CPU寄存器层面实现 数据的并行操作。</p>
+<p>存储媒介距离CPU越近，访问速度越快，使用CPU向量化执行的特性，对程序的性能提升很大，ClickHouse目前利用SSE4.2指令集实现向量化执行。</p>
+<p><img src="https://raw.githubusercontent.com/gaohueric/blogpicture/master/uTools_1639818902027.png" alt></p>
+<h5 id="关系模型与SQL查询"><a href="#关系模型与SQL查询" class="headerlink" title="关系模型与SQL查询"></a><strong>关系模型与SQL查询</strong></h5><p>ClickHouse使用关系模型 描述数据并提供了传统数据库的概念（数据库、表、视图和函数 等）完全使用SQL作为查询语言，SQL大小写敏感。</p>
+<h5 id="多样化的表引擎"><a href="#多样化的表引擎" class="headerlink" title="多样化的表引擎"></a>多样化的表引擎</h5><p>ClickHouse使用关系模型 描述数据并提供了传统数据库的概念（数据库、表、视图和函数 等），，ClickHouse 共拥有合并树、内存、文件、接口和其他6大类20多种表引擎。</p>
+<h5 id="多线程与分布式"><a href="#多线程与分布式" class="headerlink" title="多线程与分布式"></a>多线程与分布式</h5><p>多 线程处理就是通过线程级并行的方式实现了性能的提升,相比基于底 层硬件实现的向量化执行SIMD，线程级并行通常由更高层次的软件层 面控制,和向量化执行形成互补.</p>
+<p>ClickHouse在数据存取方面，既支持分区（纵向扩 展，利用多线程原理），也支持分片（横向扩展，利用分布式原 理）.</p>
+<h5 id="多主架构"><a href="#多主架构" class="headerlink" title="多主架构"></a>多主架构</h5><p>HDFS、Spark、HBase和Elasticsearch这类分布式系统，都采用了 Master-Slave主从架构，由一个管控节点作为Leader统筹全局。而 ClickHouse则采用Multi-Master多主架构，集群中的每个节点角色对 等，客户端访问任意一个节点都能得到相同的效果.</p>
+<h5 id="在线查询"><a href="#在线查询" class="headerlink" title="在线查询"></a>在线查询</h5><p>ClickHouse与其他分析型数据库对比，比如 Vertica、SparkSQL、Hive和Elasticsearch，这些分析型数据库，它们都可以支撑海量数据的查询场景，都拥有 分布式架构，都支持列存、数据分片、计算下推等特性。</p>
+<p>ClickHouse对比下的优势：适用于复杂查询，又快又开源。</p>
+<p>Vertica格高昂、SparkSQL与Hive这类系统无法保障90%的查询在1秒内返回，查询分钟级响应，Elasticsearch搜索引擎在处理亿级数据聚合查询时效率低。</p>
+<h5 id="数据分片与分布式查询"><a href="#数据分片与分布式查询" class="headerlink" title="数据分片与分布式查询"></a>数据分片与分布式查询</h5><p>数据分片是将数据进行横向切分，ClickHouse支持分片，每个分片对应ClickHouse的一个服务节点，分片的上限取决于节点数。</p>
+<p>ClickHouse提供了本地表与分布式表的概念，一张本地表相当于一份数据分片，分布式表不存储任何数据，他是本地表的访问代理，作用类似于分库中间件，借助分布式表，代理访问多个数据分片，实现分布式查询。</p>
+<h4 id="ClickHouse的架构设计"><a href="#ClickHouse的架构设计" class="headerlink" title="ClickHouse的架构设计"></a>ClickHouse的架构设计</h4><h5 id="Column与Field"><a href="#Column与Field" class="headerlink" title="Column与Field"></a>Column与Field</h5><p>Column和Field是ClickHouse数据最基础的映射单元，内存中的一列 数据由一个Column对象表示，Field对象代表一个单值，单列中的一行数据。</p>
+<h5 id="DataType"><a href="#DataType" class="headerlink" title="DataType"></a>DataType</h5><p>DataType负责数据的序列化与反序列化，IDataType接口定 义正反序列化的方法。</p>
+<h5 id="Block与Block流"><a href="#Block与Block流" class="headerlink" title="Block与Block流"></a>Block与Block流</h5><p>ClickHouse内部的数据操作是面向Block对象进行的，并且采用了 流的形式，Block对象的本质是由数据对象、数据类型和列名称组成的三元 组，即Column、DataType及列名称字符串。</p>
+<h5 id="Table"><a href="#Table" class="headerlink" title="Table"></a>Table</h5><p>使用 IStorage接口指代数据表,表引擎是ClickHouse的一个显著特性，不同 的表引擎由不同的子类实现。</p>
+<h5 id="Parser与Interpreter"><a href="#Parser与Interpreter" class="headerlink" title="Parser与Interpreter"></a>Parser与Interpreter</h5><p>Parser分析器负责创建 AST对象；而Interpreter解释器则负责解释AST，并进一步创建查询的 执行管道，它们与IStorage一起，串联起了整个数据查询的过程。</p>
+<h5 id="Functions与Aggregate-Functions"><a href="#Functions与Aggregate-Functions" class="headerlink" title="Functions与Aggregate Functions"></a>Functions与Aggregate Functions</h5><p>ClickHouse主要提供两类函数——普通函数和聚合函数。普通函 数由IFunction接口定义，拥有数十种函数实现，例如 FunctionFormatDateTime、FunctionSubstring等，聚合函数由IAggregateFunction接口定义，相比无状态的普通函 数，聚合函数是有状态的。</p>
+<h5 id="Cluster与Replication"><a href="#Cluster与Replication" class="headerlink" title="Cluster与Replication"></a>Cluster与Replication</h5><p>ClickHouse的集群由分片（Shard）组成，而每个分片又通过副本 （Replica）组成    。</p>
+<ul>
+<li>ClickHouse的1个节点只能拥有1个分片，也就是说如果要实 现1分片、1副本，则至少需要部署2个服务节点</li>
+<li>分片只是一个逻辑概念，其物理承载还是由副本承担的。</li>
+</ul>
+<h4 id="ClickHouse为何如此之快"><a href="#ClickHouse为何如此之快" class="headerlink" title="ClickHouse为何如此之快"></a>ClickHouse为何如此之快</h4><ul>
+<li>列式存储</li>
+<li>向量化引擎</li>
+<li>着眼硬件，先想后做，充分考虑硬件性能带来的提升。</li>
+<li>算法在前，抽象在后，对于常量，使用Volnitsky算法；对于 非常量，使用CPU的向量化执行SIMD，暴力优化；正则匹配使用re2 和hyperscan算法。性能是算法选择的首要考量指标。</li>
+<li>勇于尝鲜，不行就换。</li>
+<li>特定化场景、特殊优化。根据数据量的不同，场景不同，选择不同的算法进行处理。</li>
+<li>持续测试，持续改进。真实数据做测试验证，快速迭代下进行持续改进。</li>
+</ul>
+<h3 id="第三章-ClickHouse的安装与部署"><a href="#第三章-ClickHouse的安装与部署" class="headerlink" title="第三章 ClickHouse的安装与部署"></a>第三章 ClickHouse的安装与部署</h3><h5 id="ClickHouse安装过程"><a href="#ClickHouse安装过程" class="headerlink" title="ClickHouse安装过程"></a>ClickHouse安装过程</h5><p>ClickHouse可以在任何具有x86_64，AArch64或PowerPC64LE CPU架构的Linux，FreeBSD或Mac OS X上运行。</p>
+<p>官方预构建的二进制文件通常针对x86_64进行编译，并利用<code>SSE 4.2</code>指令集，因此，除非另有说明，支持它的CPU使用将成为额外的系统需求。下面是检查当前CPU是否支持SSE 4.2的命令:</p>
+<pre class=" language-java"><code class="language-java">$ grep <span class="token operator">-</span>q sse4_2 <span class="token operator">/</span>proc<span class="token operator">/</span>cpuinfo <span class="token operator">&amp;&amp;</span> echo <span class="token string">"SSE 4.2 supported"</span> <span class="token operator">||</span> echo <span class="token string">"SSE 4.2 not supported"</span>
+</code></pre>
+<p>Ubuntu的官方预编译<code>deb</code>软件包。运行以下命令来安装包:</p>
+<pre class=" language-java"><code class="language-java">sudo apt<span class="token operator">-</span>get install apt<span class="token operator">-</span>transport<span class="token operator">-</span>https ca<span class="token operator">-</span>certificates dirmngr
+sudo apt<span class="token operator">-</span>key adv <span class="token operator">--</span>keyserver hkp<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>keyserver<span class="token punctuation">.</span>ubuntu<span class="token punctuation">.</span>com<span class="token operator">:</span><span class="token number">80</span> <span class="token operator">--</span>recv E0C56BD4
+
+echo <span class="token string">"deb https://repo.clickhouse.com/deb/stable/ main/"</span> <span class="token operator">|</span> sudo tee \
+    <span class="token operator">/</span>etc<span class="token operator">/</span>apt<span class="token operator">/</span>sources<span class="token punctuation">.</span>list<span class="token punctuation">.</span>d<span class="token operator">/</span>clickhouse<span class="token punctuation">.</span>list
+sudo apt<span class="token operator">-</span>get update
+
+sudo apt<span class="token operator">-</span>get install <span class="token operator">-</span>y clickhouse<span class="token operator">-</span>server clickhouse<span class="token operator">-</span>client
+
+sudo service clickhouse<span class="token operator">-</span>server start
+clickhouse<span class="token operator">-</span>client
+
+</code></pre>
+<p>Mac下单机安装部署Clickhouse</p>
+<p>1、安装docker</p>
+<p>2、安装ClickHouse</p>
+<p>客户端：docker pull yandex/clickhouse-client<br>服务端：docker pull yandex/clickhouse-server</p>
+<p>3、命令启动镜像或者docker控制台启动</p>
+<pre><code>docker run -d --name ch-server --ulimit nofile=262144:262144 -p 8123:8123 -p 9000:9000 -p 9009:9009 yandex/clickhouse-server
+</code></pre><p>4、启动命令</p>
+<pre class=" language-java"><code class="language-java">clickhouse<span class="token operator">-</span>client
+</code></pre>
+<p>5、使用idea 连接clickhouse 做数据增删改查。</p>
+<h5 id="ClickHouse客户端的访问接口"><a href="#ClickHouse客户端的访问接口" class="headerlink" title="ClickHouse客户端的访问接口"></a>ClickHouse客户端的访问接口</h5><p>ClickHouse的底层访问接口支持TCP和HTTP两种协议，TCP协议拥有更好的性能，其默认端口为9000,而HTTP协议则拥有更好的兼容性，可以通过 REST服务的形式被广泛用于JAVA、Python等编程语言的客户端，其默 认端口为8123.</p>
+<p>ClickHouse支持标准的JDBC协议，底层基于HTTP接口通信.</p>
+<p><strong>JDBC访问ClickHouse</strong></p>
+<p>1、引入Maven依赖</p>
+<pre class=" language-xml"><code class="language-xml">    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>ru.yandex.clickhouse<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>clickhouse-jdbc<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>0.2.4<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.apache.logging.log4j<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>log4j-slf4j-impl<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>2.11.0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+</code></pre>
+<p>2、连接JDBC操作ClickHouse</p>
+<pre class=" language-java"><code class="language-java">    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> ClassNotFoundException<span class="token punctuation">,</span> SQLException <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// 初始化驱动</span>
+        Class<span class="token punctuation">.</span><span class="token function">forName</span><span class="token punctuation">(</span><span class="token string">"ru.yandex.clickhouse.ClickHouseDriver"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// url</span>
+        String url <span class="token operator">=</span> <span class="token string">"jdbc:clickhouse://localhost:8123"</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 用户名密码</span>
+        String user <span class="token operator">=</span> <span class="token string">"default"</span><span class="token punctuation">;</span>
+        String password <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 登录</span>
+        Connection con <span class="token operator">=</span> DriverManager<span class="token punctuation">.</span><span class="token function">getConnection</span><span class="token punctuation">(</span>url<span class="token punctuation">,</span> user<span class="token punctuation">,</span> password<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Statement stmt <span class="token operator">=</span> con<span class="token punctuation">.</span><span class="token function">createStatement</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 查询</span>
+        ResultSet rs <span class="token operator">=</span> stmt<span class="token punctuation">.</span><span class="token function">executeQuery</span><span class="token punctuation">(</span><span class="token string">"SELECT 1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        rs<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">printf</span><span class="token punctuation">(</span><span class="token string">"res "</span> <span class="token operator">+</span> rs<span class="token punctuation">.</span><span class="token function">getInt</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p><strong>高可用集群模式操作</strong></p>
+<p>高可用模式允许设置多个host地址，每次会从可用的地址中随机 选择一个进行连接，在高可用模式下，需要通过BalancedClickhouseDataSource对象获 取连接。</p>
+<pre class=" language-java"><code class="language-java">    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token keyword">throws</span> SQLException <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//多个地址使用逗号分隔</span>
+        String url <span class="token operator">=</span> <span class="token string">"jdbc:clickhouse://localhost:8123,localhost:8123/default"</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//设置JDBC参数</span>
+        ClickHouseProperties clickHouseProperties <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ClickHouseProperties</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        clickHouseProperties<span class="token punctuation">.</span><span class="token function">setUser</span><span class="token punctuation">(</span><span class="token string">"default"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//声明数据源</span>
+        BalancedClickhouseDataSource balanced <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BalancedClickhouseDataSource</span><span class="token punctuation">(</span>url<span class="token punctuation">,</span>
+            clickHouseProperties<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//对每个host进行ping操作, 排除不可用的dead连接</span>
+        balanced<span class="token punctuation">.</span><span class="token function">actualize</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//获得JDBC连接</span>
+        Connection con <span class="token operator">=</span> balanced<span class="token punctuation">.</span><span class="token function">getConnection</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Statement stmt <span class="token operator">=</span> con<span class="token punctuation">.</span><span class="token function">createStatement</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//查询</span>
+        ResultSet rs <span class="token operator">=</span> stmt<span class="token punctuation">.</span><span class="token function">executeQuery</span><span class="token punctuation">(</span><span class="token string">"SELECT 1 , hostName()"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        rs<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"res "</span><span class="token operator">+</span>rs<span class="token punctuation">.</span><span class="token function">getInt</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">+</span><span class="token string">","</span><span class="token operator">+</span>rs<span class="token punctuation">.</span><span class="token function">getString</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<h3 id="第四章：数据定义"><a href="#第四章：数据定义" class="headerlink" title="第四章：数据定义"></a>第四章：数据定义</h3><h4 id="ClickHouse的数据类型"><a href="#ClickHouse的数据类型" class="headerlink" title="ClickHouse的数据类型"></a>ClickHouse的数据类型</h4><h5 id="基础类型"><a href="#基础类型" class="headerlink" title="基础类型"></a>基础类型</h5><p>基础类型只有数值、字符串和时间三种类型，没有Boolean类型， 但可以使用整型的0或1替代。</p>
+<h5 id="数值类型"><a href="#数值类型" class="headerlink" title="数值类型"></a>数值类型</h5><ul>
+<li>Int类型，使用Int8、Int16、Int32和Int64指代4种大 小的Int类型，可对应mysql中的Tinyint、Smallint、Int和Bigint，支持无符号数，分别用Uint8、Uint16、Uint32、Uint64表示。</li>
+<li><p>Float类型，使用Float32和Float64代表单精度浮点 数以及双精度浮点数，Float32有效精度7位，Float64有效精度16位，支持正无穷、负无穷、非数字的表达式。</p>
+</li>
+<li><p>Decimal, ClickHouse提 供了Decimal32、Decimal64和Decimal128三种精度的定点数</p>
+<ul>
+<li>简写方式： Decimal32(S) 等效于Decimal(1-9,S) 、Decimal64(S) 等效于Decimal(10-18,S) 、 Decimal128(S) 等效于Decimal(19-38,S) 三种</li>
+<li>原生方式：Decimal(P,S)，P代表精度，决定总位数（整数部分+小数部分），取值范围是1 ～38，S代表规模，决定小数位数，取值范围是0～P。</li>
+</ul>
+</li>
+<li>字符串类型：分为String、FixedString和UUID三类<ul>
+<li>字符串由String定义，长度不限</li>
+<li>FixedString类型，定长字符串类型，和传统意义上的Char类型有些类似，定长字符串通过 FixedString(N)声明，其中N表示字符串长度。</li>
+<li>UUID共有32位，它的格式为8-4-4-4-12，如： 4d4d4a1d-c30c-4727-bade-298a1930231f</li>
+</ul>
+</li>
+</ul>
+<h5 id="时间类型"><a href="#时间类型" class="headerlink" title="时间类型"></a>时间类型</h5><ul>
+<li>DateTime :DateTime类型包含时、分、秒信息，精确到秒，支持使用字符串形 式写入</li>
+<li>DateTime64:DateTime64可以记录亚秒，它在DateTime之上增加了精度的设置</li>
+<li>Date:Date类型不包含具体的时间信息，只精确到天，它同样也支持字符 串形式写入</li>
+</ul>
+<h5 id="复合类型"><a href="#复合类型" class="headerlink" title="复合类型"></a>复合类型</h5><ul>
+<li>数组类型 Array<ul>
+<li>例子：SELECT tuple(1,’a’,now()) AS x, toTypeName(x)</li>
+<li>定义字段：CREATE TABLE Array_TEST ( c1 Array(String) ) eng</li>
+</ul>
+</li>
+<li>Tuple：元组类型由1～n个元素组成，每个元素之间允许设置不同的数据 类型，且彼此之间不要求兼容<ul>
+<li>例子：SELECT tuple(1,’a’,now()) AS x, toTypeName(x)</li>
+<li>定义字段：CREATE TABLE Tuple_TEST ( c1 Tuple(String,Int8) ) ENGINE = Memory;</li>
+</ul>
+</li>
+<li><p>Enum类型：提供了Enum8和Enum16两种枚举类型，</p>
+<ul>
+<li>定义字段：CREATE TABLE Enum_TEST ( c1 Enum8(‘ready’ = 1, ‘start’ = 2, ‘success’ = 3, ‘error’ = 4) ) ENGINE = Memory;</li>
+<li>注意：Key和Value是 不允许重复的，要保证唯一性。其次，Key和Value的值都不能为 Null，但Key允许是空字符串</li>
+</ul>
+</li>
+<li><p>Nested：嵌套类型：一张数据表，可以定义 任意多个嵌套类型字段，但每个字段的嵌套层级只支持一级，即嵌套 表内不能继续使用嵌套类型。</p>
+<ul>
+<li>定义语句：CREATE TABLE nested_test ( name String, age UInt8 , dept Nested( id UInt8, name String ) ) ENGINE = Memory;</li>
+</ul>
+</li>
+</ul>
+<h5 id="特殊类型"><a href="#特殊类型" class="headerlink" title="特殊类型"></a>特殊类型</h5><ul>
+<li>Nullable </li>
+<li>Domain： 域名类型：域名类型分为IPv4和IPv6两类，本质上它们是对整型和字符串的 进一步封装。IPv4类型是基于UInt32封装的</li>
+</ul>
+<h4 id="如何定义数据表"><a href="#如何定义数据表" class="headerlink" title="如何定义数据表"></a>如何定义数据表</h4><p>ClickHouse一共支持五种引擎</p>
+<ul>
+<li>Ordinary：默认引擎，在绝大多数情况下我们都会使用默认引 擎，使用时无须刻意声明。在此数据库下可以使用任意类型的表引 擎。</li>
+<li>Dictionary:字典引擎，此类数据库会自动为所有数据字典创建 它们的数据表</li>
+<li>Memory：内存引擎，用于存放临时数据。此类数据库下的数据 表只会停留在内存中，不会涉及任何磁盘操作，当服务重启后数据会 被清除。</li>
+<li>Lazy:日志引擎，此类数据库下只能使用Log系列的表引擎</li>
+<li>Mysql:mysql引擎：此类数据库下会自动拉取远端MySQL中 的数据，并为它们创建MySQL表引擎的数据表。</li>
+</ul>
+<h5 id="基本DDL操作"><a href="#基本DDL操作" class="headerlink" title="基本DDL操作"></a>基本DDL操作</h5><p>删除数据库、删除表</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">DROP</span> <span class="token keyword">DATABASE</span> <span class="token punctuation">[</span><span class="token keyword">IF</span> <span class="token keyword">EXISTS</span><span class="token punctuation">]</span> db_name
+<span class="token keyword">DROP</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span><span class="token keyword">IF</span> <span class="token keyword">EXISTS</span><span class="token punctuation">]</span> table_name
+</code></pre>
+<h5 id="数据表"><a href="#数据表" class="headerlink" title="数据表"></a>数据表</h5><p>建表语句</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span><span class="token keyword">IF</span> <span class="token operator">NOT</span> <span class="token keyword">EXISTS</span><span class="token punctuation">]</span> <span class="token punctuation">[</span>db_name<span class="token punctuation">.</span><span class="token punctuation">]</span>table_name <span class="token punctuation">(</span>
+name1 <span class="token punctuation">[</span><span class="token keyword">type</span><span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token keyword">DEFAULT</span><span class="token operator">|</span>MATERIALIZED<span class="token operator">|</span>ALIAS expr<span class="token punctuation">]</span><span class="token punctuation">,</span>
+name2 <span class="token punctuation">[</span><span class="token keyword">type</span><span class="token punctuation">]</span> <span class="token punctuation">[</span><span class="token keyword">DEFAULT</span><span class="token operator">|</span>MATERIALIZED<span class="token operator">|</span>ALIAS expr<span class="token punctuation">]</span><span class="token punctuation">,</span>
+省略…
+<span class="token punctuation">)</span> <span class="token keyword">ENGINE</span> <span class="token operator">=</span> <span class="token keyword">engine</span>
+</code></pre>
+<p>复制其他表结构：</p>
+<pre class=" language-sql"><code class="language-sql">复制表
+<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span><span class="token keyword">IF</span> <span class="token operator">NOT</span> <span class="token keyword">EXISTS</span><span class="token punctuation">]</span> <span class="token punctuation">[</span>db_name1<span class="token punctuation">.</span><span class="token punctuation">]</span>table_name <span class="token keyword">AS</span> <span class="token punctuation">[</span>db_name2<span class="token punctuation">.</span><span class="token punctuation">]</span> table_name2
+<span class="token punctuation">[</span><span class="token keyword">ENGINE</span> <span class="token operator">=</span> <span class="token keyword">engine</span><span class="token punctuation">]</span>
+<span class="token comment" spellcheck="true">--创建新的数据库</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">DATABASE</span> <span class="token keyword">IF</span> <span class="token operator">NOT</span> <span class="token keyword">EXISTS</span> new_db
+<span class="token comment" spellcheck="true">--将default.hits_v1的结构复制到new_db.hits_v1</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token keyword">IF</span> <span class="token operator">NOT</span> <span class="token keyword">EXISTS</span> new_db<span class="token punctuation">.</span>hits_v1 <span class="token keyword">AS</span> <span class="token keyword">default</span><span class="token punctuation">.</span>hits_v1 <span class="token keyword">ENGINE</span> <span class="token operator">=</span> TinyLog
+<span class="token comment" spellcheck="true">//select方式复制</span>
+<span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span><span class="token keyword">IF</span> <span class="token operator">NOT</span> <span class="token keyword">EXISTS</span><span class="token punctuation">]</span> <span class="token punctuation">[</span>db_name<span class="token punctuation">.</span><span class="token punctuation">]</span>table_name <span class="token keyword">ENGINE</span> <span class="token operator">=</span> <span class="token keyword">engine</span> <span class="token keyword">AS</span> <span class="token keyword">SELECT</span> …
+例子：
+<span class="token keyword">create</span> <span class="token keyword">table</span> test1 <span class="token keyword">ENGINE</span> <span class="token operator">=</span> TinyLog <span class="token keyword">AS</span> <span class="token keyword">select</span> <span class="token operator">*</span> <span class="token keyword">from</span> test<span class="token punctuation">;</span>
+<span class="token keyword">create</span> <span class="token keyword">table</span> test3 <span class="token keyword">ENGINE</span> <span class="token operator">=</span> TinyLog <span class="token keyword">AS</span> test1 <span class="token keyword">ENGINE</span> <span class="token operator">=</span> TinyLog<span class="token punctuation">;</span>
+</code></pre>
+<h5 id="默认表示值"><a href="#默认表示值" class="headerlink" title="默认表示值"></a>默认表示值</h5><p>表字段支持三种默认值表达式的定义方法，分别是DEFAULT、 MATERIALIZED和ALIAS。</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> dfv_v1 <span class="token punctuation">(</span>
+id String<span class="token punctuation">,</span>
+<span class="token number">c1</span> <span class="token keyword">DEFAULT</span> <span class="token number">1000</span><span class="token punctuation">,</span>
+<span class="token number">c2</span> String <span class="token keyword">DEFAULT</span> <span class="token number">c1</span>
+<span class="token punctuation">)</span> <span class="token keyword">ENGINE</span> <span class="token operator">=</span> TinyLog
+</code></pre>
+<p>修改默认值</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> <span class="token punctuation">[</span>db_name<span class="token punctuation">.</span><span class="token punctuation">]</span><span class="token keyword">table</span> <span class="token keyword">MODIFY</span> <span class="token keyword">COLUMN</span> col_name <span class="token keyword">DEFAULT</span> <span class="token keyword">value</span>
+</code></pre>
+<h5 id="临时表"><a href="#临时表" class="headerlink" title="临时表"></a>临时表</h5><p>创建临时表，临时表引擎是内存，如果会话结束、表会被销毁。</p>
+<pre><code>CREATE TEMPORARY TABLE [IF NOT EXISTS] table_name (
+name1 [type] [DEFAULT|MATERIALIZED|ALIAS expr],
+name2 [type] [DEFAULT|MATERIALIZED|ALIAS expr],
+)
+</code></pre><h5 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h5><p>数据分区（partition）和数据分片（shard）是完全不同的两个概 念。数据分区是针对本地数据而言的，是数据的一种纵向切分。而数 据分片是数据的一种横向切分</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> partition_v1 <span class="token punctuation">(</span>
+ID String<span class="token punctuation">,</span>
+URL String<span class="token punctuation">,</span>
+EventTime <span class="token keyword">Date</span>
+<span class="token punctuation">)</span> <span class="token keyword">ENGINE</span> <span class="token operator">=</span> MergeTree<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">PARTITION</span> <span class="token keyword">BY</span> toYYYYMM<span class="token punctuation">(</span>EventTime<span class="token punctuation">)</span>
+<span class="token keyword">ORDER</span> <span class="token keyword">BY</span> ID
+</code></pre>
+<h5 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h5><p>ClickHouse拥有普通和物化两种视图，其中物化视图拥有独立的 存储，而普通视图只是一层简单的查询代理</p>
+<h4 id="数据表的基本操作"><a href="#数据表的基本操作" class="headerlink" title="数据表的基本操作"></a>数据表的基本操作</h4><p>追加新字段</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> testcol_v1 <span class="token keyword">ADD</span> <span class="token keyword">COLUMN</span> OS String <span class="token keyword">DEFAULT</span> <span class="token string">'mac'</span>
+<span class="token comment" spellcheck="true">//在指定字段后面追加</span>
+<span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> testcol_v1 <span class="token keyword">ADD</span> <span class="token keyword">COLUMN</span> IP String <span class="token keyword">AFTER</span> ID
+</code></pre>
+<p>修改数据类型</p>
+<pre><code>ALTER TABLE tb_name MODIFY COLUMN [IF EXISTS] name [type] [default_expr]
+//例子
+ALTER TABLE testcol_v1 MODIFY COLUMN IP IPv4
+</code></pre><p>修改备注</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> testcol_v1 <span class="token keyword">COMMENT</span> <span class="token keyword">COLUMN</span> ID <span class="token string">'主键ID'</span>
+</code></pre>
+<p>删除已有字段</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> tb_name <span class="token keyword">DROP</span> <span class="token keyword">COLUMN</span> <span class="token punctuation">[</span><span class="token keyword">IF</span> <span class="token keyword">EXISTS</span><span class="token punctuation">]</span> name
+<span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> testcol_v1 <span class="token keyword">DROP</span> <span class="token keyword">COLUMN</span> UR
+</code></pre>
+<p>清空数据表</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">TRUNCATE</span> <span class="token keyword">TABLE</span> db_test<span class="token punctuation">.</span>testcol_v2
+</code></pre>
+<h4 id="数据分区的基本操作"><a href="#数据分区的基本操作" class="headerlink" title="数据分区的基本操作"></a>数据分区的基本操作</h4><p>删除指定分区</p>
+<pre><code>ALTER TABLE partition_v2 DROP PARTITION 201907
+</code></pre><p>复制分区数据</p>
+<p>适用于快速数据写入、多表间数据同步和备份等场景，复制的前提条件，两张表需要拥有相同的分区键，它们的表结构完全相同。</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">ALTER</span> <span class="token keyword">TABLE</span> B REPLACE <span class="token keyword">PARTITION</span> partition_expr <span class="token keyword">FROM</span> A
+</code></pre>
+<p>重置分区数据</p>
+<p>如果数据表某一列的数据有误，需要将其重置为初始值，此时可 以使用下面的语句实现：</p>
+<pre><code>ALTER TABLE tb_name CLEAR COLUMN column_name IN PARTITION partition_expr
+//例子
+ALTER TABLE partition_v2 CLEAR COLUMN URL in PARTITION 201908
+</code></pre><h4 id="分布式DDL执行"><a href="#分布式DDL执行" class="headerlink" title="分布式DDL执行"></a>分布式DDL执行</h4><p>如果在集群中任意一个节点上执行DDL 语句，那么集群中的每个节点都会以相同的顺序执行相同的语句。</p>
+<p>加上ON CLUSTER cluster_name声明即可 ，执行命令</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> partition_v3 <span class="token keyword">ON</span> CLUSTER ch_cluster<span class="token punctuation">(</span>
+ID String<span class="token punctuation">,</span>
+URL String<span class="token punctuation">,</span>
+EventTime <span class="token keyword">Date</span>
+<span class="token punctuation">)</span> <span class="token keyword">ENGINE</span> <span class="token operator">=</span> MergeTree<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">PARTITION</span> <span class="token keyword">BY</span> toYYYYMM<span class="token punctuation">(</span>EventTime<span class="token punctuation">)</span>
+<span class="token keyword">ORDER</span> <span class="token keyword">BY</span> ID
+</code></pre>
+<h5 id="数据的写入"><a href="#数据的写入" class="headerlink" title="数据的写入"></a>数据的写入</h5><p>支持批量插入</p>
+<pre class=" language-sql"><code class="language-sql"><span class="token comment" spellcheck="true">//支持批量插入</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> partition_v2 <span class="token keyword">VALUES</span> <span class="token punctuation">(</span><span class="token string">'A0011'</span><span class="token punctuation">,</span><span class="token string">'www.nauu.com'</span><span class="token punctuation">,</span> <span class="token string">'2019-10-01'</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">(</span><span class="token string">'A0012'</span><span class="token punctuation">,</span><span class="token string">'www.nauu.com'</span><span class="token punctuation">,</span> <span class="token string">'2019-11-20'</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token string">'A0013'</span><span class="token punctuation">,</span><span class="token string">'www.nauu.com'</span><span class="token punctuation">,</span> <span class="token string">'2019-12-20'</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">//支持表达式或函数</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> partition_v2 <span class="token keyword">VALUES</span> <span class="token punctuation">(</span><span class="token string">'A0014'</span><span class="token punctuation">,</span>toString<span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">+</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">//select 查询写入</span>
+<span class="token keyword">INSERT</span> <span class="token keyword">INTO</span> partition_v2 <span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> partition_v1
+</code></pre>
+<h5 id="数据的删除和修改"><a href="#数据的删除和修改" class="headerlink" title="数据的删除和修改"></a>数据的删除和修改</h5><p>ClickHouse提供了DELETE和UPDATE的能力，这类操作被称为 Mutation查询，不支持事务，异步执行。hexo g -dg</p>
+<p><code>`</code>sql<br>//数据删除的范围由WHERE查询子句决定<br>ALTER TABLE partition_v2 DELETE WHERE ID = ‘A003’</p>
+
+            </div>
+            <hr/>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力!</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.bmp" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.bmp" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://gaohueric.github.io" class="b-link-green">Hi 高虎</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2021/12/18/ClickHose原理解析与应用实践/" class="b-link-green">ClickHose原理解析与应用实践</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: 'sEivhtbcORSdLImEVeyeRuYq-gzGzoHsz',
+        appKey: 'YDXvnpTcya3IeYf4o8fmOrzf',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'monsterid',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2022/01/22/计划大纲/">
+                    <div class="card-image">
+                        
+                        <img src="https://raw.githubusercontent.com/gaohueric/blogpicture/master/jmm10.jpg" class="responsive-img" alt="计划大纲">
+                        
+                        <span class="card-title">计划大纲</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Java线程之间的通信由JMM控制,JMM决定一个线程对共享变量的写入何时对另一个线程可见.
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2022-01-22
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Java/" class="post-category" target="_blank">
+                                    Java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2021/04/27/数据库索引/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="数据库索引">
+                        
+                        <span class="card-title">数据库索引</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            概念索引的出现其实就是为了提高数据查询的效率，就像书的目录一样。一本 500 页的书，如果你想快速找到其中的某一个知识点，在不借助目录的情况下，那我估计你可得找一会儿。同样，对于数据库的表而言，索引其实就是它的“目录”。
+
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2021-04-27
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/数据库/" class="post-category" target="_blank">
+                                    数据库
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/数据库/" target="_blank">
+                        <span class="chip bg-color">数据库</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Hi 高虎<br />'
+            + '作者: 高虎<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&copy; 2016 gaohueric. 
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+                    
+                        <span id="busuanzi_container_site_pv" style='display:none'></span>
+                        总访问量: <span id="busuanzi_value_site_pv" class="white-color"></span>
+                    
+        
+                    
+                        <span id="busuanzi_container_site_uv" style='display:none'></span>
+                        人次&nbsp; | &nbsp;访客人数: <span id="busuanzi_value_site_uv" class="white-color"></span> 人
+                    
+    
+            
+
+            
+                &nbsp; | &nbsp;字数统计:&nbsp;
+                <span class="white-color">283.9k</span> 字
+            
+            <br>
+        <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1278301656'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s9.cnzz.com/z_stat.php%3Fid%3D1278301656%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>
+            
+            <br>
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/https://github.com/gaohueric" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=gaohueric@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=1085669445&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+</div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2016, 05, 12, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已勉强运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/libs/materialize/materialize.min.js"></script>
+        <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/libs/aos/aos.js"></script>
+        <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/libs/others/clicklove.js"></script>
+        
+
+        
+            <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+        
+
+        <!-- 洪卫 shw2018 add 2019.08.28 -->
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+        <!-- 鼠标点击烟花爆炸效果  洪卫 shw2018 add 2019.09.09 -->
+        
+
+        <!-- 背景雪花飘落特效洪卫 shw2018 add 2019.09.10 -->
+        
+
+        <!-- 鼠标点击文字特效 洪卫 shw2018 add 2019.09.10-->
+        
+
+        <!-- 背景雪花飘落特效 洪卫 shw2018 add 2019.09.10 -->
+        
+
+        <!-- 在线聊天工具  洪卫 shw2018 add 2019.09.11 -->
+        
+
+        <!-- 背景 canvas-nest  洪卫 shw 2018  add 2019.09.15-->
+        
+
+        <!-- 背景静止彩带  洪卫 shw 2018  add 2019.09.15-->
+        
+
+        <!-- 背景动态彩带 洪卫 shw 2018  add 2019.09.15-->
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+        
+        
+
+    </body>
+</html>

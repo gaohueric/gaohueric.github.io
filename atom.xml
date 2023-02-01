@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Hi 高虎</title>
+  
+  <subtitle>GaoHu&#39;s BLOG</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://gaohueric.github.io/"/>
+  <updated>2023-02-01T03:21:22.617Z</updated>
+  <id>https://gaohueric.github.io/</id>
+  
+  <author>
+    <name>高虎</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>love</title>
+    <link href="https://gaohueric.github.io/2023/02/01/love/"/>
+    <id>https://gaohueric.github.io/2023/02/01/love/</id>
+    <published>2023-02-01T03:21:22.000Z</published>
+    <updated>2023-02-01T03:21:22.617Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>大数据经典文章解读</title>
+    <link href="https://gaohueric.github.io/2022/03/22/%E5%A4%A7%E6%95%B0%E6%8D%AE%E6%96%87%E7%AB%A0%E8%A7%A3%E8%AF%BB/"/>
+    <id>https://gaohueric.github.io/2022/03/22/大数据文章解读/</id>
+    <published>2022-03-22T11:59:40.000Z</published>
+    <updated>2023-02-01T02:24:56.291Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;The-Google-File-System-（一）：-Master的三个身份&quot;&gt;&lt;a href=&quot;#The-Google-File-System-（一）：-Master的三个身份&quot; class=&quot;headerlink&quot; title=&quot;The Google
+        
+      
+    
+    </summary>
+    
+      <category term="Java" scheme="https://gaohueric.github.io/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="https://gaohueric.github.io/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>设计大纲</title>
+    <link href="https://gaohueric.github.io/2022/02/22/%E8%AE%BE%E8%AE%A1%E5%A4%A7%E7%BA%B2/"/>
+    <id>https://gaohueric.github.io/2022/02/22/设计大纲/</id>
+    <published>2022-02-22T11:59:40.000Z</published>
+    <updated>2023-02-01T02:24:56.313Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;一、ES篇&quot;&gt;&lt;a href=&quot;#一、ES篇&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Java" scheme="https://gaohueric.github.io/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="https://gaohueric.github.io/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>计划大纲</title>
+    <link href="https://gaohueric.github.io/2022/01/22/%E8%AE%A1%E5%88%92%E5%A4%A7%E7%BA%B2/"/>
+    <id>https://gaohueric.github.io/2022/01/22/计划大纲/</id>
+    <published>2022-01-22T11:59:40.000Z</published>
+    <updated>2023-02-01T02:24:56.308Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h1 id=&quot;一、基础篇&quot;&gt;&lt;a href=&quot;#一、基础篇&quot; class=&quot;headerlink&quot; title=&quot;一、基础篇&quot;&gt;&lt;/a&gt;一、基础篇&lt;/h1&gt;&lt;h2 id=&quot;网络基础&quot;&gt;&lt;a href=&quot;#网络基础&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="Java" scheme="https://gaohueric.github.io/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="https://gaohueric.github.io/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ClickHose原理解析与应用实践</title>
+    <link href="https://gaohueric.github.io/2021/12/18/ClickHose%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90%E4%B8%8E%E5%BA%94%E7%94%A8%E5%AE%9E%E8%B7%B5/"/>
+    <id>https://gaohueric.github.io/2021/12/18/ClickHose原理解析与应用实践/</id>
+    <published>2021-12-18T09:43:33.000Z</published>
+    <updated>2023-02-01T02:24:56.278Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;ClickHouse的架构概述&quot;&gt;&lt;a href=&quot;#ClickHouse的架构概述&quot; class=&quot;headerlink&quot; title=&quot;ClickHouse的架构概述&quot;&gt;&lt;/a&gt;ClickHouse的架构概述&lt;/h3&gt;&lt;h4
+        
+      
+    
+    </summary>
+    
+      <category term="大数据" scheme="https://gaohueric.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    
+    
+      <category term="大数据" scheme="https://gaohueric.github.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据库索引</title>
+    <link href="https://gaohueric.github.io/2021/04/27/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95/"/>
+    <id>https://gaohueric.github.io/2021/04/27/数据库索引/</id>
+    <published>2021-04-27T09:39:38.000Z</published>
+    <updated>2023-02-01T02:24:56.292Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;概念&quot;&gt;&lt;a href=&quot;#概念&quot; class=&quot;headerlink&quot; title=&quot;概念&quot;&gt;&lt;/a&gt;概念&lt;/h3&gt;&lt;p&gt;索引的出现其实就是为了提高数据查询的效率，就像书的目录一样。一本 500 页的书，如果你想快速找到其中的某一个知识点，在不借助目录的情况下，那我估计你可得找一会儿。同样，对于数据库的表而言，索引其实就是它的“目录”。
+    
+    </summary>
+    
+      <category term="数据库" scheme="https://gaohueric.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+      <category term="数据库" scheme="https://gaohueric.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MySQL基础架构</title>
+    <link href="https://gaohueric.github.io/2021/03/01/Mysql%E5%9F%BA%E7%A1%80%E6%9E%B6%E6%9E%84/"/>
+    <id>https://gaohueric.github.io/2021/03/01/Mysql基础架构/</id>
+    <published>2021-03-01T05:03:26.000Z</published>
+    <updated>2023-02-01T02:24:56.288Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;strong&gt;摘要 ：&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;通过把 MySQL 拆解一下，看看里面都有哪些“零件”，借由这个拆解过程，对 MySQL 有更深入的理解。这样当我们碰到 MySQL
+        
+      
+    
+    </summary>
+    
+      <category term="Java" scheme="https://gaohueric.github.io/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="https://gaohueric.github.io/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>编程珠玑</title>
+    <link href="https://gaohueric.github.io/2021/02/01/%E7%BC%96%E7%A8%8B%E7%8F%A0%E7%8E%91/"/>
+    <id>https://gaohueric.github.io/2021/02/01/编程珠玑/</id>
+    <published>2021-02-01T13:32:14.000Z</published>
+    <updated>2023-02-01T02:24:56.299Z</updated>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;计算机编程充满乐趣。有时候，它是一门优雅的科学，有时候，它要去开发和使用新的软件工具。编程与人息息相关：客户实际想解决什么问题？&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="数据结构与算法分析" scheme="https://gaohueric.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="算法" scheme="https://gaohueric.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>LeetCode刷题指南</title>
+    <link href="https://gaohueric.github.io/2021/01/31/LeetCode%E5%88%B7%E9%A2%98%E6%8C%87%E5%8D%97/"/>
+    <id>https://gaohueric.github.io/2021/01/31/LeetCode刷题指南/</id>
+    <published>2021-01-30T16:00:00.000Z</published>
+    <updated>2023-02-01T02:24:56.287Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h4 id=&quot;一-数组&quot;&gt;&lt;a href=&quot;#一-数组&quot; class=&quot;headerlink&quot; title=&quot;一. 数组&quot;&gt;&lt;/a&gt;一.
+        
+      
+    
+    </summary>
+    
+      <category term="数据结构与算法分析" scheme="https://gaohueric.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="数据结构与算法分析" scheme="https://gaohueric.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>线程池</title>
+    <link href="https://gaohueric.github.io/2020/08/17/%E7%BA%BF%E7%A8%8B%E6%B1%A0/"/>
+    <id>https://gaohueric.github.io/2020/08/17/线程池/</id>
+    <published>2020-08-17T05:03:26.000Z</published>
+    <updated>2023-02-01T02:24:56.295Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;p&gt;&lt;strong&gt;摘要 ：&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;线程池是一种多线程处理形式，处理过程中将任务添加到队列，然后在创建线程后自动启动这些任务。线程池线程都是后台线程。每个线程都使用默认的&lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="Java" scheme="https://gaohueric.github.io/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="https://gaohueric.github.io/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据库事务</title>
+    <link href="https://gaohueric.github.io/2020/04/24/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1/"/>
+    <id>https://gaohueric.github.io/2020/04/24/数据库事务/</id>
+    <published>2020-04-24T15:58:49.000Z</published>
+    <updated>2023-02-01T02:24:56.292Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h1&gt;&lt;p&gt;数据库事务( transaction)是访问并可能操作各种&lt;a href=&quot;https://baike.baidu.com/item/数据项/3227309&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;数据项&lt;/a&gt;的一个数据库操作&lt;a href=&quot;https://baike.baidu.com/item/序列/1302588&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;序列&lt;/a&gt;，这些操作要么全部执行,要么全部不执行，是一个不可分割的工作单位。事务由事务开始与事务结束之间执行的全部数据库操作组成。
+    
+    </summary>
+    
+      <category term="数据库" scheme="https://gaohueric.github.io/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+      <category term="数据库" scheme="https://gaohueric.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据结构与算法专栏</title>
+    <link href="https://gaohueric.github.io/2019/11/17/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E4%B8%93%E6%A0%8F/"/>
+    <id>https://gaohueric.github.io/2019/11/17/数据结构与算法专栏/</id>
+    <published>2019-11-17T11:09:03.000Z</published>
+    <updated>2023-02-01T02:24:56.293Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h5 id=&quot;复杂度分析&quot;&gt;&lt;a href=&quot;#复杂度分析&quot; class=&quot;headerlink&quot; title=&quot;复杂度分析&quot;&gt;&lt;/a&gt;复杂度分析&lt;/h5&gt;&lt;p&gt;&lt;strong&gt;总的时间复杂度就等于量级最大的那段代码的时间复杂度&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img
+        
+      
+    
+    </summary>
+    
+      <category term="数据结构与算法分析" scheme="https://gaohueric.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/"/>
+    
+    
+      <category term="数据结构与算法分析" scheme="https://gaohueric.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java类加载机制详解</title>
+    <link href="https://gaohueric.github.io/2019/02/15/Java%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6%E8%AF%A6%E8%A7%A3/"/>
+    <id>https://gaohueric.github.io/2019/02/15/Java类加载机制详解/</id>
+    <published>2019-02-15T08:27:22.000Z</published>
+    <updated>2023-02-01T02:24:56.286Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;1-了解-class&quot;&gt;&lt;a href=&quot;#1-了解-class&quot; class=&quot;headerlink&quot; title=&quot;1. 了解 .class&quot;&gt;&lt;/a&gt;1. 了解 .class&lt;/h3&gt;&lt;h4 id=&quot;1-1-字节码-class-来源&quot;&gt;&lt;a
+        
+      
+    
+    </summary>
+    
+      <category term="Java" scheme="https://gaohueric.github.io/categories/Java/"/>
+    
+    
+      <category term="JVM" scheme="https://gaohueric.github.io/tags/JVM/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>新一代流式计算引擎 Flink</title>
+    <link href="https://gaohueric.github.io/2019/01/16/%E6%96%B0%E4%B8%80%E4%BB%A3%E6%B5%81%E5%BC%8F%E8%AE%A1%E7%AE%97%E5%BC%95%E6%93%8E-Flink/"/>
+    <id>https://gaohueric.github.io/2019/01/16/新一代流式计算引擎-Flink/</id>
+    <published>2019-01-16T04:38:06.000Z</published>
+    <updated>2023-02-01T02:24:56.294Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;初探Flink&quot;&gt;&lt;a href=&quot;#初探Flink&quot; class=&quot;headerlink&quot; title=&quot;初探Flink&quot;&gt;&lt;/a&gt;初探Flink&lt;/h3&gt;&lt;p&gt;Apache Flink 是为分布式、高性能、随时可用以及准确的流处理应用程序打造的开源流处理框架。”Flink不仅能提供同时支持高吞吐和exactly-once 语义的实时计算，还能提供批量数据处理.&lt;/p&gt;
+&lt;h3 id&gt;&lt;a href=&quot;#&quot; class=&quot;headerlink&quot; title&gt;&lt;/a&gt;
+    
+    </summary>
+    
+      <category term="大数据" scheme="https://gaohueric.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    
+    
+      <category term="大数据" scheme="https://gaohueric.github.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    
+      <category term="Flink" scheme="https://gaohueric.github.io/tags/Flink/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>HashMap完全解读</title>
+    <link href="https://gaohueric.github.io/2019/01/10/HashMap%E5%AE%8C%E5%85%A8%E8%A7%A3%E8%AF%BB/"/>
+    <id>https://gaohueric.github.io/2019/01/10/HashMap完全解读/</id>
+    <published>2019-01-10T11:57:24.000Z</published>
+    <updated>2023-02-01T02:24:56.280Z</updated>
+    
+    <summary type="html">
+    
+      &lt;!-- toc --&gt;
+&lt;h4 id=&quot;HashMap解读&quot;&gt;&lt;a href=&quot;#HashMap解读&quot; class=&quot;headerlink&quot; title=&quot;HashMap解读&quot;&gt;&lt;/a&gt;HashMap解读&lt;/h4&gt;&lt;h5 id=&quot;概念：-什么是HashMap&quot;&gt;&lt;a href=&quot;#概念：-什么是HashMap&quot; class=&quot;headerlink&quot; title=&quot;概念： 什么是HashMap&quot;&gt;&lt;/a&gt;概念： 什么是HashMap&lt;/h5&gt;&lt;blockquote&gt;
+&lt;p&gt;基于哈希表的Map接口实现.此实现提供所有可选的映射操作,并允许使用null值和null键.除了非同步和允许使用null外,HashMap 类与HashTable 大致相同,此类不保证映射的顺序,特别是它不保证该顺序亘久不变,此实现假定哈希函数将元素适当地分布在各桶之间,可为基本操作（get 和 put）提供稳定的性能.迭代 collection 视图所需的时间与 HashMap 实例的“容量”（桶的数量）及其大小（键-值映射关系数）成比例.所以,如果迭代性能很重要,则不要将初始容量设置得太高（或将加载因子设置得太低）.&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="Java" scheme="https://gaohueric.github.io/categories/Java/"/>
+    
+    
+      <category term="集合框架" scheme="https://gaohueric.github.io/tags/%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>多线程特性解读</title>
+    <link href="https://gaohueric.github.io/2019/01/07/%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%89%B9%E6%80%A7%E8%A7%A3%E8%AF%BB/"/>
+    <id>https://gaohueric.github.io/2019/01/07/多线程特性解读/</id>
+    <published>2019-01-07T08:33:26.000Z</published>
+    <updated>2023-02-01T02:24:56.291Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;原子性&quot;&gt;&lt;a href=&quot;#原子性&quot; class=&quot;headerlink&quot; title=&quot;原子性&quot;&gt;&lt;/a&gt;原子性&lt;/h4&gt;&lt;blockquote&gt;
+&lt;p&gt;java的原子性就和数据库事物的原子性差不多,线程的一个或者多个操作要么全部执行,而且执行过程不会被打断,要么全部都不执行.&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="Java" scheme="https://gaohueric.github.io/categories/Java/"/>
+    
+    
+      <category term="多线程" scheme="https://gaohueric.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+      <category term="并发编程" scheme="https://gaohueric.github.io/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Synchronized深度解析</title>
+    <link href="https://gaohueric.github.io/2019/01/06/Synchronized%E6%B7%B1%E5%BA%A6%E8%A7%A3%E6%9E%90/"/>
+    <id>https://gaohueric.github.io/2019/01/06/Synchronized深度解析/</id>
+    <published>2019-01-06T14:02:58.000Z</published>
+    <updated>2023-02-01T02:24:56.289Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://pkwj22qv0.bkt.clouddn.com/006tNbRwgy1fvyf0zkwadj31g80teqh0.jpg&quot; alt&gt;&lt;/p&gt;
+&lt;h3 id=&quot;Synchronized-的两种用法&quot;&gt;&lt;a href=&quot;#Synchronized-的两种用法&quot; class=&quot;headerlink&quot; title=&quot;Synchronized 的两种用法&quot;&gt;&lt;/a&gt;Synchronized 的两种用法&lt;/h3&gt;&lt;ol&gt;
+&lt;li&gt;对象锁 (包括方法锁，默认锁对象为this当前实例对象)和同步代码块锁(自己指定锁对象)&lt;/li&gt;
+&lt;li&gt;类锁(指synchronizd修饰静态的方法或指定锁为Class对象)
+    
+    </summary>
+    
+      <category term="Java" scheme="https://gaohueric.github.io/categories/Java/"/>
+    
+    
+      <category term="多线程" scheme="https://gaohueric.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+      <category term="并发编程" scheme="https://gaohueric.github.io/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>HDFS简介及其功能</title>
+    <link href="https://gaohueric.github.io/2019/01/02/HDFS%E7%AE%80%E4%BB%8B%E5%8F%8A%E5%85%B6%E5%8A%9F%E8%83%BD/"/>
+    <id>https://gaohueric.github.io/2019/01/02/HDFS简介及其功能/</id>
+    <published>2019-01-02T03:24:56.000Z</published>
+    <updated>2023-02-01T02:24:56.279Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h4 id=&quot;HDFS简介&quot;&gt;&lt;a href=&quot;#HDFS简介&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="大数据" scheme="https://gaohueric.github.io/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    
+    
+      <category term="大数据" scheme="https://gaohueric.github.io/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    
+      <category term="HDFS" scheme="https://gaohueric.github.io/tags/HDFS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>synchronized和ReentrantLock区别</title>
+    <link href="https://gaohueric.github.io/2019/01/01/synchronized%E5%92%8CReentrantLock%E5%8C%BA%E5%88%AB/"/>
+    <id>https://gaohueric.github.io/2019/01/01/synchronized和ReentrantLock区别/</id>
+    <published>2019-01-01T12:25:24.000Z</published>
+    <updated>2023-02-01T02:24:56.290Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;synchronized-和-ReentrantLock-区别&quot;&gt;&lt;a href=&quot;#synchronized-和-ReentrantLock-区别&quot; class=&quot;headerlink&quot; title=&quot;synchronized 和 ReentrantLock 区别&quot;&gt;&lt;/a&gt;synchronized 和 ReentrantLock 区别&lt;/h4&gt;&lt;p&gt;synchronized 是 Java 内建的同步机制,所以也有人称其为 Intrinsic Locking,它提供了互斥的语义和可见性,当一个线程已经获取当前锁时，其他试图获取的线程只能等待或者阻塞在那里.&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Java" scheme="https://gaohueric.github.io/categories/Java/"/>
+    
+    
+      <category term="多线程" scheme="https://gaohueric.github.io/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+      <category term="并发编程" scheme="https://gaohueric.github.io/tags/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Kafka消息中间件</title>
+    <link href="https://gaohueric.github.io/2018/11/22/Kafka%E6%B6%88%E6%81%AF%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+    <id>https://gaohueric.github.io/2018/11/22/Kafka消息中间件/</id>
+    <published>2018-11-22T08:14:55.000Z</published>
+    <updated>2023-02-01T02:24:56.287Z</updated>
+    
+    <summary type="html">
+    
+      
+      
+        
+        
+          &lt;h3 id=&quot;概述&quot;&gt;&lt;a href=&quot;#概述&quot; class=&quot;headerlink&quot;
+        
+      
+    
+    </summary>
+    
+      <category term="基础组件" scheme="https://gaohueric.github.io/categories/%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6/"/>
+    
+    
+      <category term="中间件" scheme="https://gaohueric.github.io/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+    
+  </entry>
+  
+</feed>

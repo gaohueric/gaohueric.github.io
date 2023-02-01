@@ -1,0 +1,2233 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+    <!-- shw2018 洪卫  modify 2019.08.15-->
+
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Java8新特性, Hi 高虎">
+    <meta name="baidu-site-verification" content="fmlEuI34ir">
+    <meta name="google-site-verification" content="KeoTn_OFy4ndJwXNmm2gMeQfPhd7alqE9vQDwI32KCY">
+    <meta name="description" content="背景介绍：
+毫无疑问，Java 8发行版是自Java 5（发行于2004，已经过了相当一段时间了）以来最具革命性的版本。Java 8 为Java语言、编译器、类库、开发工具与JVM（Java虚拟机）带来了大量新特性。在这篇教程中，我们将一一">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Java8新特性 | Hi 高虎</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    
+    <style type="text/css">
+        
+            
+            code[class*="language-"],
+            pre[class*="language-"] {
+                white-space: pre !important;
+            }
+
+        
+    </style>
+
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    
+    <script>
+        var _hmt = _hmt || [];
+        (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?46e79e71af0709a5b9106bf20cecc493";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+    
+    
+        <script>
+            (function(){
+                var bp = document.createElement('script');
+                var curProtocol = window.location.protocol.split(':')[0];
+                if (curProtocol === 'https') {
+                    bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+                }
+                else {
+                    bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+                }
+                var s = document.getElementsByTagName("script")[0];
+                s.parentNode.insertBefore(bp, s);
+            })();
+        </script>
+    
+
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+    <body>
+
+        <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">Hi 高虎</span>
+                </a>
+            </div>
+            
+
+
+<!-- <a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
+    
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="" class="waves-effect waves-light">
+            
+            <i class="fa fas fa-list"></i>
+            
+            <span>清单</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于我</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/contact" class="waves-effect waves-light">
+            
+            <i class="fa fa-envelope"></i>
+            
+            <span>留言板</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul> -->
+
+<!-- 支持二级菜单特性 洪卫 shw2018 modify 2019.09.17  -->
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right nav-menu">
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/" class="waves-effect waves-light">
+              
+                <i class="fa fa-home"></i>
+              
+              <span>首页</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/tags" class="waves-effect waves-light">
+              
+                <i class="fa fa-tags"></i>
+              
+              <span>标签</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/categories" class="waves-effect waves-light">
+              
+                <i class="fa fa-bookmark"></i>
+              
+              <span>分类</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/archives" class="waves-effect waves-light">
+              
+                <i class="fa fa-archive"></i>
+              
+              <span>归档</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+              <a href="" class="waves-effect waves-light">
+                
+                  <i class="fa fas fa-list"></i>
+                
+                <span>清单</span>
+                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+              </a>
+
+            <ul class="sub-nav menus_item_child ">
+              
+                <li> 
+                  <a href="/musics" >
+                    
+                      <i class="fa fas fa-music" style="margin-top: -20px;"></i>
+                    
+                    <span>音乐</span>
+                  </a>
+                </li>
+              
+                <li> 
+                  <a href="/movies" >
+                    
+                      <i class="fa fas fa-film" style="margin-top: -20px;"></i>
+                    
+                    <span>电影</span>
+                  </a>
+                </li>
+              
+                <li> 
+                  <a href="/gitbook" >
+                    
+                      <i class="fa fas fa-book" style="margin-top: -20px;"></i>
+                    
+                    <span>书单</span>
+                  </a>
+                </li>
+              
+                <li> 
+                  <a href="/galleries" >
+                    
+                      <i class="fa fas fa-image" style="margin-top: -20px;"></i>
+                    
+                    <span>相册</span>
+                  </a>
+                </li>
+               
+            </ul>
+          
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/about" class="waves-effect waves-light">
+              
+                <i class="fa fa-user-circle-o"></i>
+              
+              <span>关于我</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/contact" class="waves-effect waves-light">
+              
+                <i class="fa fa-envelope"></i>
+              
+              <span>留言板</span>
+            </a>
+
+            
+      </li>
+    
+      <li class="hide-on-med-and-down nav-item" >
+
+        
+            <a href="/friends" class="waves-effect waves-light">
+              
+                <i class="fa fa-address-book"></i>
+              
+              <span>友情链接</span>
+            </a>
+
+            
+      </li>
+    
+
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+
+</ul>
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">Hi 高虎</div>
+        <div class="logo-desc">
+            
+            天空没有痕迹,风雨已在心中
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fas fa-list"></i>
+                
+                清单
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于我
+            </a>
+        </li>
+        
+        <li>
+            <a href="/contact" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-envelope"></i>
+                
+                留言板
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/gaohueric" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+
+   
+   
+<!-- 支持二级菜单特性 洪卫 shw2018 modify 2019.09.17  -->
+<!-- <ul class="menu-list mobile-menu-list">
+    
+        <li class="m-nav-item">
+                
+                    <a href="/" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-home"></i>
+                        
+                        首页
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/tags" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-tags"></i>
+                        
+                        标签
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/categories" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-bookmark"></i>
+                        
+                        分类
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/archives" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-archive"></i>
+                        
+                        归档
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="javascript:;">
+                            
+                            <i class="fa fa-fw fas fa-list"></i>
+                            
+                            清单
+                            <span class="m-icon"><i class="fa fa-chevron-right"></i></span>
+                    </a>
+                <ul>
+                  
+                    <li> 
+                      <a href="/musics" >
+                           
+                            <i class="fa fas fa-music" style="left: 18px; position: absolute;"></i>
+                       
+                       <span>音乐</span>
+                      </a>
+                    </li>
+                  
+                    <li> 
+                      <a href="/movies" >
+                           
+                            <i class="fa fas fa-film" style="left: 18px; position: absolute;"></i>
+                       
+                       <span>电影</span>
+                      </a>
+                    </li>
+                  
+                    <li> 
+                      <a href="/gitbook" >
+                           
+                            <i class="fa fas fa-book" style="left: 18px; position: absolute;"></i>
+                       
+                       <span>书单</span>
+                      </a>
+                    </li>
+                  
+                    <li> 
+                      <a href="/galleries" >
+                           
+                            <i class="fa fas fa-image" style="left: 18px; position: absolute;"></i>
+                       
+                       <span>相册</span>
+                      </a>
+                    </li>
+                   
+                </ul>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/about" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-user-circle-o"></i>
+                        
+                        关于我
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/contact" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-envelope"></i>
+                        
+                        留言板
+                    </a>
+              
+            </li>
+        
+        <li class="m-nav-item">
+                
+                    <a href="/friends" class="waves-effect waves-light">
+                        
+                        <i class="fa fa-fw fa-address-book"></i>
+                        
+                        友情链接
+                    </a>
+              
+            </li>
+        
+
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/gaohueric" class="waves-effect waves-light" target="_blank">
+                <i class="fa fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul> -->
+
+</div>
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/gaohueric" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+        
+<script src="/libs/cryptojs/crypto-js.min.js"></script>
+<script>
+    (function() {
+        let pwd = '';
+        if (pwd && pwd.length > 0) {
+            if (pwd !== CryptoJS.SHA256(prompt('请输入访问本文章的密码')).toString(CryptoJS.enc.Hex)) {
+                alert('密码错误，将返回主页！');
+                location.href = '/';
+            }
+        }
+    })();
+</script>
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        Java8新特性
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- shw2018 洪卫  modify 2019.08.15-->
+<!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/Java/" target="_blank">
+                                <span class="chip bg-color">Java</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/Java/" class="post-category" target="_blank">
+                                Java
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2017-03-23
+                </div>
+
+                <div class="post-author info-break-policy">
+                    <i class="fa fa-user-o fa-fw"></i>作者:&nbsp;&nbsp;
+                    
+                        高虎
+                    
+                </div>
+
+                
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
+                        6.6k
+                    </div>
+                    
+
+                    
+                    <div class="info-break-policy">
+                        <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                        27 分
+                    </div>
+                    
+                
+                
+                
+                        <span id="busuanzi_container_site_pv" style='display:none'></span>
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv" ></span>
+    
+                
+
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>背景介绍：</p>
+<p>毫无疑问，<a href="http://www.oracle.com/technetwork/java/javase/8train-relnotes-latest-2153846.html" target="_blank" rel="noopener">Java 8发行版</a>是自Java 5（发行于2004，已经过了相当一段时间了）以来最具革命性的版本。Java 8 为Java语言、编译器、类库、开发工具与JVM（Java虚拟机）带来了大量新特性。在这篇教程中，我们将一一探索这些变化，并用真实的例子说明它们适用的场景。<br><a id="more"></a></p>
+<p>Java语言的新特性</p>
+<h5 id="Lambda表达式与Functional接口"><a href="#Lambda表达式与Functional接口" class="headerlink" title="Lambda表达式与Functional接口"></a>Lambda表达式与Functional接口</h5><p>Lambda表达式（也称为闭包）是整个Java 8发行版中最受期待的在Java语言层面上的改变，Lambda允许把函数作为一个方法的参数（函数作为参数传递进方法中），或者把代码看成数据：函数式程序员对这一概念非常熟悉。在JVM平台上的很多语言（Groovy，<a href="http://www.javacodegeeks.com/tutorials/scala-tutorials/" target="_blank" rel="noopener">Scala</a>，……）从一开始就有Lambda，但是Java程序员不得不使用毫无新意的匿名类来代替lambda。</p>
+<p>关于Lambda设计的讨论占用了大量的时间与社区的努力。可喜的是，最终找到了一个平衡点，使得可以使用一种即简洁又紧凑的新方式来构造Lambdas。在最简单的形式中，一个lambda可以由用逗号分隔的参数列表、–&gt;符号与函数体三部分表示。例如：</p>
+<pre><code>Arrays.asList( &quot;a&quot;, &quot;b&quot;, &quot;d&quot; ).forEach( e -&gt; System.out.println( e ) );
+</code></pre><p>注意：e的类型是编译器推测出来的,同时,也可以通过把参数类型与参数包括在括号中的形式直接给出参数的类型</p>
+<pre><code>Arrays.asList( &quot;a&quot;, &quot;b&quot;, &quot;d&quot; ).forEach( ( String e ) -&gt; System.out.println( e ) );
+</code></pre><p>在某些情况下lambda的函数体会更加复杂,这时可以把函数体放到一对花括号中,就像在Java中定义普通函数一样,例如：</p>
+<pre><code>Arrays.asList( &quot;a&quot;, &quot;b&quot;, &quot;d&quot; ).forEach( e -&gt; {
+    System.out.print( e );
+    System.out.print( e );
+} );
+</code></pre><p>Lambda可以引用类的成员变量与局部变量（如果这些变量不是final的话，它们会被隐含的转为final，这样效率更高）。例如，下面两个代码片段是等价的：</p>
+<pre><code>String separator = &quot;,&quot;;
+Arrays.asList( &quot;a&quot;, &quot;b&quot;, &quot;d&quot; ).forEach(( String e ) -&gt; System.out.print( e + separator ));
+</code></pre><p>Lambda可能会返回一个值。返回值的类型也是由编译器推测出来的。如果lambda的函数体只有一行的话，那么没有必要显式使用return语句。下面两个代码片段是等价的：</p>
+<pre><code>Arrays.asList( &quot;a&quot;, &quot;b&quot;, &quot;d&quot; ).sort( ( e1, e2 ) -&gt; e1.compareTo( e2 ) );
+//等价于
+Arrays.asList( &quot;a&quot;, &quot;b&quot;, &quot;d&quot; ).sort( ( e1, e2 ) -&gt; {
+    int result = e1.compareTo( e2 );
+    return result;
+ } );
+</code></pre><p>语言设计者投入了大量精力来思考如何使现有的函数友好地支持lambda。最终采取的方法是：增加函数式接口的概念。函数式接口就是一个具有一个方法的普通接口。像这样的接口，可以被隐式转换为lambda表达式。java.lang.Runnable与java.util.concurrent.Callable是函数式接口最典型的两个例子。在实际使用过程中，函数式接口是容易出错的：如有某个人在接口定义中增加了另一个方法，这时，这个接口就不再是函数式的了，并且编译过程也会失败。为了克服函数式接口的这种脆弱性并且能够明确声明接口作为函数式接口的意图，Java 8增加了一种特殊的注解@FunctionalInterface（Java 8中所有类库的已有接口都添加了@FunctionalInterface注解）。让我们看一下这种函数式接口的定义：</p>
+<pre><code>@FunctionalInterface
+public interface Functional {
+    void method();
+}
+</code></pre><p>Tips:  默认方法与静态方法并不影响函数式接口的契约，可以任意使用：</p>
+<pre><code>@FunctionalInterface
+public interface FunctionalDefaultMethods {
+    void method();  
+    default void defaultMethod() {            
+    }        
+}
+</code></pre><p>Lambda是Java 8最大的卖点。它具有吸引越来越多程序员到Java平台上的潜力，并且能够在纯Java语言环境中提供一种优雅的方式来支持函数式编程。更多详情可以参考<a href="http://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html" target="_blank" rel="noopener">官方文档</a>。</p>
+<h4 id="接口的默认方法与静态方法"><a href="#接口的默认方法与静态方法" class="headerlink" title="接口的默认方法与静态方法"></a>接口的默认方法与静态方法</h4><p>Java 8用默认方法与静态方法这两个新概念来扩展接口的声明。<a href="http://www.javacodegeeks.com/2014/04/java-8-default-methods-what-can-and-can-not-do.html" target="_blank" rel="noopener">默认方法</a>使接口有点像Traits（Scala中特征(trait)类似于Java中的Interface，但它可以包含实现代码，也就是目前Java8新增的功能），但与传统的接口又有些不一样，它允许在已有的接口中添加新方法，而同时又保持了与旧版本代码的兼容性。</p>
+<p>默认方法与抽象方法不同之处在于抽象方法必须要求实现，但是默认方法则没有这个要求。相反，每个接口都必须提供一个所谓的默认实现，这样所有的接口实现者将会默认继承它（如果有必要的话，可以覆盖这个默认实现）。让我们看看下面的例子：</p>
+<pre><code>private interface Defaulable {
+    // Interfaces now allow default methods, the implementer may or 
+    // may not implement (override) them.
+    default String notRequired() { 
+        return &quot;Default implementation&quot;; 
+    }        
+}
+
+private static class DefaultableImpl implements Defaulable {
+}
+
+private static class OverridableImpl implements Defaulable {
+    @Override
+    public String notRequired() {
+        return &quot;Overridden implementation&quot;;
+    }
+}
+</code></pre><p>Defaulable接口用关键字default声明了一个默认方法notRequired()，Defaulable接口的实现者之一DefaultableImpl实现了这个接口，并且让默认方法保持原样。Defaulable接口的另一个实现者OverridableImpl用自己的方法覆盖了默认方法。</p>
+<p>Java 8带来的另一个有趣的特性是接口可以声明（并且可以提供实现）静态方法。例如：</p>
+<pre><code>private interface DefaulableFactory {
+    // Interfaces now allow static methods
+    static Defaulable create( Supplier&lt; Defaulable &gt; supplier ) {
+        return supplier.get();
+    }
+}
+</code></pre><p>默认方法与静态方法黏合到一起。</p>
+<pre><code>public static void main( String[] args ) {
+    Defaulable defaulable = DefaulableFactory.create( DefaultableImpl::new );
+    System.out.println( defaulable.notRequired() );
+
+    defaulable = DefaulableFactory.create( OverridableImpl::new );
+    System.out.println( defaulable.notRequired() );
+}
+</code></pre><p>这个程序的控制台输出如下：</p>
+<pre><code>Default implementation
+Overridden implementation
+</code></pre><p>在JVM中，默认方法的实现是非常高效的，并且通过字节码指令为方法调用提供了支持。默认方法允许继续使用现有的Java接口，而同时能够保障正常的编译过程。这方面好的例子是大量的方法被添加到java.util.Collection接口中去：stream()，parallelStream()，forEach()，removeIf()，……</p>
+<p>尽管默认方法非常强大，但是在使用默认方法时我们需要小心注意一个地方：在声明一个默认方法前，请仔细思考是不是真的有必要使用默认方法，因为默认方法会带给程序歧义，并且在复杂的继承体系中容易产生编译错误。更多详情请参考<a href="http://docs.oracle.com/javase/tutorial/java/IandI/defaultmethods.html" target="_blank" rel="noopener">官方文档</a></p>
+<h4 id="方法引用"><a href="#方法引用" class="headerlink" title="方法引用"></a>方法引用</h4><p>方法引用提供了非常有用的语法，可以直接引用已有Java类或对象（实例）的方法或构造器。与lambda联合使用，方法引用可以使语言的构造更紧凑简洁，减少冗余代码。</p>
+<p>定义了4个方法的Car这个类作为例子，区分Java中支持的4种不同的方法引用。</p>
+<pre><code>public static class Car {
+    public static Car create( final Supplier&lt; Car &gt; supplier ) {
+        return supplier.get();
+    }              
+
+    public static void collide( final Car car ) {
+        System.out.println( &quot;Collided &quot; + car.toString() );
+    }
+
+    public void follow( final Car another ) {
+        System.out.println( &quot;Following the &quot; + another.toString() );
+    }
+
+    public void repair() {   
+        System.out.println( &quot;Repaired &quot; + this.toString() );
+    }
+}
+</code></pre><p>第一种方法引用是构造器引用，它的语法是Class::new，或者更一般的Class&lt; T &gt;::new。请注意构造器没有参数。</p>
+<pre><code>final Car car = Car.create( Car::new );
+final List&lt; Car &gt; cars = Arrays.asList( car );
+</code></pre><p>第二种方法引用是静态方法引用，它的语法是Class::static_method。请注意这个方法接受一个Car类型的参数。</p>
+<pre><code>cars.forEach( Car::collide );
+</code></pre><p>第三种方法引用是特定类的任意对象的方法引用，它的语法是Class::method。请注意，这个方法没有参数。</p>
+<pre><code>cars.forEach( Car::repair );
+</code></pre><p>最后，第四种方法引用是特定对象的方法引用，它的语法是instance::method。请注意，这个方法接受一个Car类型的参数</p>
+<pre><code>final Car police = Car.create( Car::new );
+cars.forEach( police::follow );
+</code></pre><p>运行上面的Java程序在控制台上会有下面的输出（Car的实例可能不一样）：</p>
+<pre><code>Collided com.javacodegeeks.java8.method.references.MethodReferences$Car@7a81197d
+Repaired com.javacodegeeks.java8.method.references.MethodReferences$Car@7a81197d
+Following the com.javacodegeeks.java8.method.references.MethodReferences$Car@7a81197d
+</code></pre><p>关于方法引用的更多详情请参考<a href="http://docs.oracle.com/javase/tutorial/java/javaOO/methodreferences.html" target="_blank" rel="noopener">官方文档</a>。</p>
+<h4 id="重复注解"><a href="#重复注解" class="headerlink" title="重复注解"></a>重复注解</h4><p>自从Java 5引入了<a href="http://www.javacodegeeks.com/2012/08/java-annotations-explored-explained.html" target="_blank" rel="noopener">注解</a>机制，这一特性就变得非常流行并且广为使用。然而，使用注解的一个限制是相同的注解在同一位置只能声明一次，不能声明多次。Java 8打破了这条规则，引入了重复注解机制，这样相同的注解可以在同一地方声明多次。</p>
+<p>重复注解机制本身必须用@Repeatable注解。事实上，这并不是语言层面上的改变，更多的是编译器的技巧，底层的原理保持不变。让我们看一个快速入门的例子：</p>
+<pre><code>package com.javacodegeeks.java8.repeatable.annotations;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Repeatable;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+public class RepeatingAnnotations {
+    @Target( ElementType.TYPE )
+    @Retention( RetentionPolicy.RUNTIME )
+    public @interface Filters {
+        Filter[] value();
+    }
+
+    @Target( ElementType.TYPE )
+    @Retention( RetentionPolicy.RUNTIME )
+    @Repeatable( Filters.class )
+    public @interface Filter {
+        String value();
+    };
+
+    @Filter( &quot;filter1&quot; )
+    @Filter( &quot;filter2&quot; )
+    public interface Filterable {        
+    }
+
+    public static void main(String[] args) {
+        for( Filter filter: Filterable.class.getAnnotationsByType( Filter.class ) ) {
+            System.out.println( filter.value() );
+        }
+    }
+}
+</code></pre><p>正如我们看到的，这里有个使用@Repeatable( Filters.class )注解的注解类Filter，Filters仅仅是Filter注解的数组，但Java编译器并不想让程序员意识到Filters的存在。这样，接口Filterable就拥有了两次Filter（并没有提到Filter）注解。</p>
+<p>同时，反射相关的API提供了新的函数getAnnotationsByType()来返回重复注解的类型（请注意Filterable.class.getAnnotation( Filters.class )经编译器处理后将会返回Filters的实例）。</p>
+<p>程序输出结果如下：</p>
+<pre><code>filter1
+filter2
+</code></pre><p>更多详情请参考<a href="http://docs.oracle.com/javase/tutorial/java/annotations/repeating.html" target="_blank" rel="noopener">官方文档</a></p>
+<h4 id="更好的类型推测机制"><a href="#更好的类型推测机制" class="headerlink" title="更好的类型推测机制"></a>更好的类型推测机制</h4><p>Java 8在类型推测方面有了很大的提高。在很多情况下，编译器可以推测出确定的参数类型，这样就能使代码更整洁。让我们看一个例子：</p>
+<pre><code>package com.javacodegeeks.java8.type.inference;
+
+public class Value&lt; T &gt; {
+    public static&lt; T &gt; T defaultValue() { 
+        return null; 
+    }
+
+    public T getOrDefault( T value, T defaultValue ) {
+        return ( value != null ) ? value : defaultValue;
+    }
+}
+</code></pre><p>这里是Value&lt; String &gt;类型的用法。</p>
+<pre><code>package com.javacodegeeks.java8.type.inference;
+
+public class TypeInference {
+    public static void main(String[] args) {
+        final Value&lt; String &gt; value = new Value&lt;&gt;();
+        value.getOrDefault( &quot;22&quot;, Value.defaultValue() );
+    }
+}
+</code></pre><p>Value.defaultValue()的参数类型可以被推测出，所以就不必明确给出。在Java 7中，相同的例子将不会通过编译，正确的书写方式是 Value.&lt; String &gt;defaultValue()。</p>
+<h4 id="扩展注解的支持"><a href="#扩展注解的支持" class="headerlink" title="扩展注解的支持"></a>扩展注解的支持</h4><p>Java 8扩展了注解的上下文。现在几乎可以为任何东西添加注解：局部变量、泛型类、父类与接口的实现，就连方法的异常也能添加注解。下面演示几个例子：</p>
+<pre><code>package com.javacodegeeks.java8.annotations;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.util.ArrayList;
+import java.util.Collection;
+
+public class Annotations {
+    @Retention( RetentionPolicy.RUNTIME )
+    @Target( { ElementType.TYPE_USE, ElementType.TYPE_PARAMETER } )
+    public @interface NonEmpty {        
+    }
+
+    public static class Holder&lt; @NonEmpty T &gt; extends @NonEmpty Object {
+        public void method() throws @NonEmpty Exception {           
+        }
+    }
+
+    @SuppressWarnings( &quot;unused&quot; )
+    public static void main(String[] args) {
+        final Holder&lt; String &gt; holder = new @NonEmpty Holder&lt; String &gt;();       
+        @NonEmpty Collection&lt; @NonEmpty String &gt; strings = new ArrayList&lt;&gt;();       
+    }
+}
+</code></pre><p>ElementType.TYPE_USE和ElementType.TYPE_PARAMETER是两个新添加的用于描述适当的注解上下文的元素类型。在Java语言中，注解处理API也有小的改动来识别新增的类型注解。</p>
+<h4 id="Java编译器的新特性"><a href="#Java编译器的新特性" class="headerlink" title="Java编译器的新特性"></a>Java编译器的新特性</h4><p>很长一段时间里，Java程序员一直在发明不同的方式使得<a href="http://www.javacodegeeks.com/2014/04/constructormethod-parameters-metadata-available-via-reflection-in-jdk-8.html" target="_blank" rel="noopener">方法参数的名字能保留在Java字节码</a>中，并且能够在运行时获取它们（比如，<a href="https://github.com/paul-hammant/paranamer" target="_blank" rel="noopener">Paranamer类库</a>）。最终，在Java 8中把这个强烈要求的功能添加到语言层面（通过反射API与Parameter.getName()方法）与字节码文件（通过新版的javac的–parameters选项）中。</p>
+<pre><code>package com.javacodegeeks.java8.parameter.names;
+
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+
+public class ParameterNames {
+    public static void main(String[] args) throws Exception {
+        Method method = ParameterNames.class.getMethod( &quot;main&quot;, String[].class );
+        for( final Parameter parameter: method.getParameters() ) {
+            System.out.println( &quot;Parameter: &quot; + parameter.getName() );
+        }
+    }
+}
+</code></pre><p>如果不使用–parameters参数来编译这个类，然后运行这个类，会得到下面的输出：</p>
+<pre><code>Parameter: arg0
+</code></pre><p>对于<a href="http://www.javacodegeeks.com/tag/apache-maven/" target="_blank" rel="noopener">有经验的Maven用户</a>，通过maven-compiler-plugin的配置可以将-parameters参数添加到编译器中去。</p>
+<pre><code>&lt;plugin&gt;
+    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+    &lt;version&gt;3.1&lt;/version&gt;
+    &lt;configuration&gt;
+        &lt;compilerArgument&gt;-parameters&lt;/compilerArgument&gt;
+        &lt;source&gt;1.8&lt;/source&gt;
+        &lt;target&gt;1.8&lt;/target&gt;
+    &lt;/configuration&gt;
+&lt;/plugin&gt;
+</code></pre><p>此外，Parameter类有一个很方便的方法isNamePresent()来验证是否可以获取参数的名字。</p>
+<h4 id="Java-类库的新特性"><a href="#Java-类库的新特性" class="headerlink" title="Java 类库的新特性"></a>Java 类库的新特性</h4><p>Java 8 通过增加大量新类，扩展已有类的功能的方式来改善对并发编程、函数式编程、日期/时间相关操作以及其他更多方面的支持。</p>
+<p>到目前为止，<a href="http://examples.javacodegeeks.com/java-basics/exceptions/java-lang-nullpointerexception-how-to-handle-null-pointer-exception/" target="_blank" rel="noopener">臭名昭著的空指针异常</a>是导致Java应用程序失败的最常见原因。以前，为了解决空指针异常，<a href="http://code.google.com/p/guava-libraries/" target="_blank" rel="noopener">Google公司著名的Guava项目</a>引入了Optional类，Guava通过使用检查空值的方式来防止代码污染，它鼓励程序员写更干净的代码。受到<a href="http://code.google.com/p/guava-libraries/" target="_blank" rel="noopener">Google Guava</a>的启发，Optional类已经成为Java 8类库的一部分。</p>
+<p>Optional实际上是个容器：它可以保存类型T的值，或者仅仅保存null。Optional提供很多有用的方法，这样我们就不用显式进行空值检测。更多详情请参考<a href="http://docs.oracle.com/javase/8/docs/api/" target="_blank" rel="noopener">官方文档</a>。</p>
+<p>我们下面用两个小例子来演示如何使用Optional类：一个允许为空值，一个不允许为空值。</p>
+<pre><code>Optional&lt; String &gt; fullName = Optional.ofNullable( null );
+System.out.println( &quot;Full Name is set? &quot; + fullName.isPresent() );        
+System.out.println( &quot;Full Name: &quot; + fullName.orElseGet( () -&gt; &quot;[none]&quot; ) ); 
+System.out.println( fullName.map( s -&gt; &quot;Hey &quot; + s + &quot;!&quot; ).orElse( &quot;Hey Stranger!&quot; ) );
+</code></pre><p>如果Optional类的实例为非空值的话，isPresent()返回true，否从返回false。为了防止Optional为空值，orElseGet()方法通过回调函数来产生一个默认值。map()函数对当前Optional的值进行转化，然后返回一个新的Optional实例。orElse()方法和orElseGet()方法类似，但是orElse接受一个默认值而不是一个回调函数。下面是这个程序的输出：</p>
+<pre><code>Full Name is set? false
+Full Name: [none]
+Hey Stranger!
+</code></pre><p>另一个例子：</p>
+<pre><code>Optional&lt; String &gt; firstName = Optional.of( &quot;Tom&quot; );
+System.out.println( &quot;First Name is set? &quot; + firstName.isPresent() );        
+System.out.println( &quot;First Name: &quot; + firstName.orElseGet( () -&gt; &quot;[none]&quot; ) ); 
+System.out.println( firstName.map( s -&gt; &quot;Hey &quot; + s + &quot;!&quot; ).orElse( &quot;Hey Stranger!&quot; ) );
+System.out.println();
+</code></pre><p>输出</p>
+<pre><code>First Name is set? true
+First Name: Tom
+Hey Tom!
+</code></pre><p>更多详情请参考<a href="http://docs.oracle.com/javase/8/docs/api/java/util/Optional.html" target="_blank" rel="noopener">官方文档</a></p>
+<h4 id="Stream"><a href="#Stream" class="headerlink" title="Stream"></a>Stream</h4><p>最新添加的<a href="http://www.javacodegeeks.com/2014/05/the-effects-of-programming-with-java-8-streams-on-algorithm-performance.html" target="_blank" rel="noopener">Stream API</a>（java.util.stream） 把真正的函数式编程风格引入到Java中。这是目前为止对Java类库最好的补充，因为Stream API可以极大提供Java程序员的生产力，让程序员写出高效率、干净、简洁的代码。</p>
+<p>Stream API极大简化了集合框架的处理（但它的处理的范围不仅仅限于集合框架的处理，这点后面我们会看到）。让我们以一个简单的Task类为例进行介绍：</p>
+<pre><code>public class Streams  {
+    private enum Status {
+        OPEN, CLOSED
+    };
+
+    private static final class Task {
+        private final Status status;
+        private final Integer points;
+
+        Task( final Status status, final Integer points ) {
+            this.status = status;
+            this.points = points;
+        }
+
+        public Integer getPoints() {
+            return points;
+        }
+
+        public Status getStatus() {
+            return status;
+        }
+
+        @Override
+        public String toString() {
+            return String.format( &quot;[%s, %d]&quot;, status, points );
+        }
+    }
+}
+</code></pre><p>Task类有一个分数的概念（或者说是伪复杂度），其次是还有一个值可以为OPEN或CLOSED的状态.让我们引入一个Task的小集合作为演示例子：</p>
+<pre><code>final Collection&lt; Task &gt; tasks = Arrays.asList(
+    new Task( Status.OPEN, 5 ),
+    new Task( Status.OPEN, 13 ),
+    new Task( Status.CLOSED, 8 ) 
+);
+</code></pre><p>这个例子和第一个例子很相似，但这个例子的不同之处在于这个程序是并行运行的，其次使用reduce方法来算最终的结果。下面是这个例子在控制台的输出：</p>
+<pre><code>Total points (all tasks): 26.0
+</code></pre><p>经常会有这个一个需求：我们需要按照某种准则来对集合中的元素进行分组。Stream也可以处理这样的需求，下面是一个例子</p>
+<pre><code>// Group tasks by their status
+final Map&lt; Status, List&lt; Task &gt; &gt; map = tasks
+    .stream()
+    .collect( Collectors.groupingBy( Task::getStatus ) );
+System.out.println( map );
+</code></pre><p>这个例子的控制台输出如下：</p>
+<pre><code>{CLOSED=[[CLOSED, 8]], OPEN=[[OPEN, 5], [OPEN, 13]]}
+</code></pre><p>让我们来计算整个集合中每个task分数（或权重）的平均值来结束task的例子。</p>
+<pre><code>// Calculate the weight of each tasks (as percent of total points) 
+final Collection&lt; String &gt; result = tasks
+    .stream()                                        // Stream&lt; String &gt;
+    .mapToInt( Task::getPoints )                     // IntStream
+    .asLongStream()                                  // LongStream
+    .mapToDouble( points -&gt; points / totalPoints )   // DoubleStream
+    .boxed()                                         // Stream&lt; Double &gt;
+    .mapToLong( weigth -&gt; ( long )( weigth * 100 ) ) // LongStream
+    .mapToObj( percentage -&gt; percentage + &quot;%&quot; )      // Stream&lt; String&gt; 
+    .collect( Collectors.toList() );                 // List&lt; String &gt; 
+
+System.out.println( result );
+</code></pre><p>下面是这个例子的控制台输出：</p>
+<pre><code>[19%, 50%, 30%]
+</code></pre><p>最后，就像前面提到的，Stream API不仅仅处理Java集合框架。像从文本文件中逐行读取数据这样典型的I/O操作也很适合用Stream API来处理。下面用一个例子来应证这一点。</p>
+<pre><code>final Path path = new File( filename ).toPath();
+try( Stream&lt; String &gt; lines = Files.lines( path, StandardCharsets.UTF_8 ) ) {
+    lines.onClose( () -&gt; System.out.println(&quot;Done!&quot;) ).forEach( System.out::println );
+}
+</code></pre><p>对一个stream对象调用onClose方法会返回一个在原有功能基础上新增了关闭功能的stream对象，当对stream对象调用close()方法时，与关闭相关的处理器就会执行。</p>
+<p>Stream API、<a href="http://www.importnew.com/11908.html#lambdaAndFunctional" target="_blank" rel="noopener">Lambda表达式</a>与<a href="http://www.importnew.com/11908.html#methodReferences" target="_blank" rel="noopener">方法引用</a>在<a href="http://www.importnew.com/11908.html#defaultAndStaticMethod" target="_blank" rel="noopener">接口默认方法与静态方法</a>的配合下是Java 8对现代软件开发范式的回应。更多详情请参考<a href="http://docs.oracle.com/javase/tutorial/collections/streams/index.html" target="_blank" rel="noopener">官方文档</a>。</p>
+<h4 id="4-3-Date-Time-API-JSR-310"><a href="#4-3-Date-Time-API-JSR-310" class="headerlink" title="4.3 Date/Time API (JSR 310)"></a>4.3 Date/Time API (JSR 310)</h4><p>Java 8通过发布<a href="https://jcp.org/en/jsr/detail?id=310" target="_blank" rel="noopener">新的Date-Time API (JSR 310)</a>来进一步加强对日期与时间的处理。对日期与时间的操作一直是Java程序员最痛苦的地方之一。标准的 java.util.Date以及后来的java.util.Calendar一点没有改善这种情况（可以这么说，它们一定程度上更加复杂）。</p>
+<p>这种情况直接导致了<a href="http://www.joda.org/joda-time/" target="_blank" rel="noopener">Joda-Time</a>——一个可替换标准日期/时间处理且功能非常强大的Java API的诞生。Java 8<a href="https://jcp.org/en/jsr/detail?id=310" target="_blank" rel="noopener">新的Date-Time API (JSR 310)</a>在很大程度上受到<a href="http://www.joda.org/joda-time/" target="_blank" rel="noopener">Joda-Time</a>的影响，并且吸取了其精髓。新的java.time包涵盖了<a href="http://www.javacodegeeks.com/2014/03/whats-new-in-java-8-date-api.html" target="_blank" rel="noopener">所有处理日期，时间，日期/时间，时区，时刻（instants），过程（during）与时钟（clock）的操作</a>。在设计新版API时，十分注重与旧版API的兼容性：不允许有任何的改变（从java.util.Calendar中得到的深刻教训）。如果需要修改，会返回这个类的一个新实例。</p>
+<p>让我们用例子来看一下新版API主要类的使用方法。第一个是Clock类，它通过指定一个时区，然后就可以获取到当前的时刻，日期与时间。Clock可以替换System.currentTimeMillis()与TimeZone.getDefault()。</p>
+<pre><code>// Get the system clock as UTC offset 
+final Clock clock = Clock.systemUTC();
+System.out.println( clock.instant() );
+System.out.println( clock.millis() );
+</code></pre><p>下面是程序在控制台上的输出：</p>
+<pre><code>2014-04-12T15:19:29.282Z
+1397315969360
+</code></pre><p>我们需要关注的其他类是LocaleDate与LocalTime。LocaleDate只持有ISO-8601格式且无时区信息的日期部分。相应的，LocaleTime只持有ISO-8601格式且无时区信息的时间部分。LocaleDate与LocalTime都可以从Clock中得到。</p>
+<pre><code>// Get the local date and local time
+final LocalDate date = LocalDate.now();
+final LocalDate dateFromClock = LocalDate.now( clock );
+
+System.out.println( date );
+System.out.println( dateFromClock );
+
+// Get the local date and local time
+final LocalTime time = LocalTime.now();
+final LocalTime timeFromClock = LocalTime.now( clock );
+
+System.out.println( time );
+System.out.println( timeFromClock );
+</code></pre><p>下面是程序在控制台上的输出：</p>
+<pre><code>2014-04-12
+2014-04-12
+11:25:54.568
+15:25:54.568
+</code></pre><p>LocaleDateTime把LocaleDate与LocaleTime的功能合并起来，它持有的是ISO-8601格式无时区信息的日期与时间。下面是一个<a href="http://www.javacodegeeks.com/2014/04/java-8-date-time-api-tutorial-localdatetime.html" target="_blank" rel="noopener">快速入门</a>的例子。</p>
+<pre><code>// Get the local date/time
+final LocalDateTime datetime = LocalDateTime.now();
+final LocalDateTime datetimeFromClock = LocalDateTime.now( clock );
+
+System.out.println( datetime );
+System.out.println( datetimeFromClock );
+</code></pre><p>下面是程序在控制台上的输出：</p>
+<pre><code>2014-04-12T11:37:52.309
+2014-04-12T15:37:52.309
+</code></pre><p>如果你需要特定时区的日期/时间，那么ZonedDateTime是你的选择。它持有ISO-8601格式具具有时区信息的日期与时间。下面是一些不同时区的例子：</p>
+<pre><code>// Get the zoned date/time
+final ZonedDateTime zonedDatetime = ZonedDateTime.now();
+final ZonedDateTime zonedDatetimeFromClock = ZonedDateTime.now( clock );
+final ZonedDateTime zonedDatetimeFromZone = ZonedDateTime.now( ZoneId.of( &quot;America/Los_Angeles&quot; ) );
+
+System.out.println( zonedDatetime );
+System.out.println( zonedDatetimeFromClock );
+System.out.println( zonedDatetimeFromZone );
+</code></pre><p>下面是程序在控制台上的输出：</p>
+<pre><code>2014-04-12T11:47:01.017-04:00[America/New_York]
+2014-04-12T15:47:01.017Z
+2014-04-12T08:47:01.017-07:00[America/Los_Angeles]
+</code></pre><p>最后，让我们看一下Duration类：在秒与纳秒级别上的一段时间。Duration使计算两个日期间的不同变的十分简单。下面让我们看一个这方面的例子。</p>
+<pre><code>// Get duration between two dates
+final LocalDateTime from = LocalDateTime.of( 2014, Month.APRIL, 16, 0, 0, 0 );
+final LocalDateTime to = LocalDateTime.of( 2015, Month.APRIL, 16, 23, 59, 59 );
+
+final Duration duration = Duration.between( from, to );
+System.out.println( &quot;Duration in days: &quot; + duration.toDays() );
+System.out.println( &quot;Duration in hours: &quot; + duration.toHours() );
+</code></pre><p>上面的例子计算了两个日期2014年4月16号与2014年4月16号之间的过程。下面是程序在控制台上的输出：</p>
+<pre><code>Duration in days: 365
+Duration in hours: 8783
+</code></pre><p>对Java 8在日期/时间API的改进整体印象是非常非常好的。一部分原因是因为它建立在“久战杀场”的<a href="http://www.joda.org/joda-time/" target="_blank" rel="noopener">Joda-Time</a>基础上，另一方面是因为用来大量的时间来设计它，并且这次程序员的声音得到了认可。更多详情请参考<a href="http://docs.oracle.com/javase/tutorial/datetime/index.html" target="_blank" rel="noopener">官方文档</a>。</p>
+<h4 id="4-4-JavaScript引擎Nashorn"><a href="#4-4-JavaScript引擎Nashorn" class="headerlink" title="4.4 JavaScript引擎Nashorn"></a>4.4 JavaScript引擎Nashorn</h4><p>Nashorn，一个新的JavaScript引擎随着Java 8一起公诸于世，它允许在JVM上开发运行某些JavaScript应用。Nashorn就是javax.script.ScriptEngine的另一种实现，并且它们俩遵循相同的规则，允许Java与JavaScript相互调用。下面看一个例子：</p>
+<pre><code>ScriptEngineManager manager = new ScriptEngineManager();
+ScriptEngine engine = manager.getEngineByName( &quot;JavaScript&quot; );
+
+System.out.println( engine.getClass().getName() );
+System.out.println( &quot;Result:&quot; + engine.eval( &quot;function f() { return 1; }; f() + 1;&quot; ) );
+</code></pre><p>下面是程序在控制台上的输出：</p>
+<pre><code>jdk.nashorn.api.scripting.NashornScriptEngine
+Result: 2
+</code></pre><p><a href="undefined">我们在后面的</a><a href="http://www.importnew.com/11908.html#newJavaTool" target="_blank" rel="noopener">Java新工具</a>章节会再次谈到Nashorn。</p>
+<h4 id="4-5-Base64"><a href="#4-5-Base64" class="headerlink" title="4.5 Base64"></a>4.5 Base64</h4><p>在Java 8中，<a href="http://www.javacodegeeks.com/2014/04/base64-in-java-8-its-not-too-late-to-join-in-the-fun.html" target="_blank" rel="noopener">Base64编码</a>已经成为Java类库的标准。它的使用十分简单，下面让我们看一个例子：</p>
+<pre><code>package com.javacodegeeks.java8.base64;
+
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
+
+public class Base64s {
+    public static void main(String[] args) {
+        final String text = &quot;Base64 finally in Java 8!&quot;;
+
+        final String encoded = Base64
+            .getEncoder()
+            .encodeToString( text.getBytes( StandardCharsets.UTF_8 ) );
+        System.out.println( encoded );
+
+        final String decoded = new String( 
+            Base64.getDecoder().decode( encoded ),
+            StandardCharsets.UTF_8 );
+        System.out.println( decoded );
+    }
+}
+</code></pre><p>程序在控制台上输出了编码后的字符与解码后的字符：</p>
+<pre><code>QmFzZTY0IGZpbmFsbHkgaW4gSmF2YSA4IQ==
+Base64 finally in Java 8!
+</code></pre><p>Base64类同时还提供了对URL、MIME友好的编码器与解码器（Base64.getUrlEncoder() / Base64.getUrlDecoder(), Base64.getMimeEncoder() / Base64.getMimeDecoder()）。</p>
+<h4 id="4-6-并行（parallel）数组"><a href="#4-6-并行（parallel）数组" class="headerlink" title="4.6 并行（parallel）数组"></a>4.6 并行（parallel）数组</h4><p>Java 8增加了大量的新方法来对数组进行并行处理。可以说，最重要的是parallelSort()方法，因为它可以在多核机器上极大提高数组排序的速度。下面的例子展示了新方法（parallelXxx）的使用。</p>
+<pre><code>package com.javacodegeeks.java8.parallel.arrays;
+
+import java.util.Arrays;
+import java.util.concurrent.ThreadLocalRandom;
+
+public class ParallelArrays {
+    public static void main( String[] args ) {
+        long[] arrayOfLong = new long [ 20000 ];        
+
+        Arrays.parallelSetAll( arrayOfLong, 
+            index -&gt; ThreadLocalRandom.current().nextInt( 1000000 ) );
+        Arrays.stream( arrayOfLong ).limit( 10 ).forEach( 
+            i -&gt; System.out.print( i + &quot; &quot; ) );
+        System.out.println();
+
+        Arrays.parallelSort( arrayOfLong );     
+        Arrays.stream( arrayOfLong ).limit( 10 ).forEach( 
+            i -&gt; System.out.print( i + &quot; &quot; ) );
+        System.out.println();
+    }
+}
+</code></pre><p>上面的代码片段使用了parallelSetAll()方法来对一个有20000个元素的数组进行随机赋值。然后，调用parallelSort方法。这个程序首先打印出前10个元素的值，之后对整个数组排序。这个程序在控制台上的输出如下（请注意数组元素是随机生产的）：</p>
+<pre><code>Unsorted: 591217 891976 443951 424479 766825 351964 242997 642839 119108 552378 
+Sorted: 39 220 263 268 325 607 655 678 723 793
+</code></pre><h4 id="4-7-并发（Concurrency）"><a href="#4-7-并发（Concurrency）" class="headerlink" title="4.7 并发（Concurrency）"></a>4.7 并发（Concurrency）</h4><p>在新增Stream机制与lambda的基础之上，在java.util.concurrent.ConcurrentHashMap中加入了一些新方法来支持聚集操作。同时也在java.util.concurrent.ForkJoinPool类中加入了一些新方法来支持共有资源池（common pool）（请查看<a href="http://academy.javacodegeeks.com/course/java-concurrency-essentials/" target="_blank" rel="noopener">我们关于Java 并发的免费课程</a>）。</p>
+<p>新增的java.util.concurrent.locks.StampedLock类提供一直基于容量的锁，这种锁有三个模型来控制读写操作（它被认为是不太有名的java.util.concurrent.locks.ReadWriteLock类的替代者）。</p>
+<p>在java.util.concurrent.atomic包中还增加了下面这些类：</p>
+<ul>
+<li>DoubleAccumulator</li>
+<li>DoubleAdder</li>
+<li>LongAccumulator</li>
+<li>LongAdder</li>
+</ul>
+<h3 id="5-新的Java工具"><a href="#5-新的Java工具" class="headerlink" title="5. 新的Java工具"></a>5. 新的Java工具</h3><p>Java 8也带来了一些新的命令行工具。在这节里我们将会介绍它们中最有趣的部分。</p>
+<h4 id="5-1-Nashorn引擎-jjs"><a href="#5-1-Nashorn引擎-jjs" class="headerlink" title="5.1 Nashorn引擎: jjs"></a>5.1 Nashorn引擎: jjs</h4><p>jjs是个基于Nashorn引擎的命令行工具。它接受一些JavaScript源代码为参数，并且执行这些源代码。例如，我们创建一个具有如下内容的func.js文件：</p>
+<pre><code>function f() { 
+     return 1; 
+}; 
+
+print( f() + 1 );
+</code></pre><p>我们可以把这个文件作为参数传递给jjs使得这个文件可以在命令行中执行：</p>
+<pre><code>jjs func.js
+</code></pre><p>下面是程序在控制台上的输出：</p>
+<pre><code>2
+</code></pre><p>更多详情请参考<a href="http://docs.oracle.com/javase/8/docs/technotes/tools/unix/jjs.html" target="_blank" rel="noopener">官方文档</a></p>
+<h4 id="5-2-类依赖分析器jdeps"><a href="#5-2-类依赖分析器jdeps" class="headerlink" title="5.2 类依赖分析器jdeps"></a>5.2 类依赖分析器jdeps</h4><p>jdeps是一个很有用的命令行工具。它可以显示Java类的包级别或类级别的依赖。它接受一个.class文件，一个目录，或者一个jar文件作为输入。jdeps默认把结果输出到系统输出（控制台）上。</p>
+<p>下面我们查看现阶段较流行的<a href="http://projects.spring.io/spring-framework/" target="_blank" rel="noopener">Spring框架</a>类库的依赖报告，为了简化这个例子，我们只分析一个jar文件：<strong>org.springframework.core-3.0.5.RELEASE.jar</strong></p>
+<p>这个命令输出的内容很多，所以这里我们只选取一小部分。依赖信息按照包名进行分组。如果依赖不在classpath中，那么就会显示<strong>not found</strong>。</p>
+<pre><code>org.springframework.core-3.0.5.RELEASE.jar -&gt; C:\Program Files\Java\jdk1.8.0\jre\lib\rt.jar
+   org.springframework.core (org.springframework.core-3.0.5.RELEASE.jar)
+      -&gt; java.io                                            
+      -&gt; java.lang                                          
+      -&gt; java.lang.annotation                               
+      -&gt; java.lang.ref                                      
+      -&gt; java.lang.reflect                                  
+      -&gt; java.util                                          
+      -&gt; java.util.concurrent                               
+      -&gt; org.apache.commons.logging                         not found
+      -&gt; org.springframework.asm                            not found
+      -&gt; org.springframework.asm.commons                    not found
+   org.springframework.core.annotation (org.springframework.core-3.0.5.RELEASE.jar)
+      -&gt; java.lang                                          
+      -&gt; java.lang.annotation                               
+      -&gt; java.lang.reflect                                  
+      -&gt; java.util
+</code></pre>
+            </div>
+            <hr/>
+
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力!</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.bmp" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.bmp" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+            
+            
+            <div class="reprint1">
+                <p>
+                    <span class="reprint1-tip">
+                        <i class="fa fa-exclamation-circle"></i>&nbsp;&nbsp;转载请注明:
+                    </span>
+                    <a href="https://gaohueric.github.io" class="b-link-green">Hi 高虎</a>
+                    <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
+                    <a href="/2017/03/23/Java8新特性/" class="b-link-green">Java8新特性</a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+        <style>
+    .valine-card {
+        margin: 1.5rem auto;
+    }
+
+    .valine-card .card-content {
+        padding: 20px 20px 5px 20px;
+    }
+    /* valine 评论框增加背景图片 */
+    #vcomments textarea {
+        box-sizing: border-box;
+        background: url("") 100% 100% no-repeat;
+    }
+
+    #vcomments input[type=text],
+    #vcomments input[type=email],
+    #vcomments input[type=url],
+    #vcomments textarea {
+        box-sizing: border-box;
+    }
+
+    #vcomments p {
+        margin: 2px 2px 10px;
+        font-size: 1.05rem;
+        line-height: 1.78rem;
+    }
+
+    #vcomments blockquote p {
+        text-indent: 0.2rem;
+    }
+
+    #vcomments a {
+        padding: 0 2px;
+        color: #42b983;
+        font-weight: 500;
+        text-decoration: underline;
+    }
+
+    #vcomments img {
+        max-width: 100%;
+        height: auto;
+        cursor: pointer;
+    }
+
+    #vcomments ol li {
+        list-style-type: decimal;
+    }
+
+    #vcomments ol,
+    ul {
+        display: block;
+        padding-left: 2em;
+        word-spacing: 0.05rem;
+    }
+
+    #vcomments ul li,
+    ol li {
+        display: list-item;
+        line-height: 1.8rem;
+        font-size: 1rem;
+    }
+
+    #vcomments ul li {
+        list-style-type: disc;
+    }
+
+    #vcomments ul ul li {
+        list-style-type: circle;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    #vcomments table, th, td {
+        border: 0;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments h1 {
+        font-size: 1.85rem;
+        font-weight: bold;
+        line-height: 2.2rem;
+    }
+
+    #vcomments h2 {
+        font-size: 1.65rem;
+        font-weight: bold;
+        line-height: 1.9rem;
+    }
+
+    #vcomments h3 {
+        font-size: 1.45rem;
+        font-weight: bold;
+        line-height: 1.7rem;
+    }
+
+    #vcomments h4 {
+        font-size: 1.25rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    #vcomments h5 {
+        font-size: 1.1rem;
+        font-weight: bold;
+        line-height: 1.4rem;
+    }
+
+    #vcomments h6 {
+        font-size: 1rem;
+        line-height: 1.3rem;
+    }
+
+    #vcomments p {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+
+    #vcomments hr {
+        margin: 12px 0;
+        border: 0;
+        border-top: 1px solid #ccc;
+    }
+
+    #vcomments blockquote {
+        margin: 15px 0;
+        border-left: 5px solid #42b983;
+        padding: 1rem 0.8rem 0.3rem 0.8rem;
+        color: #666;
+        background-color: rgba(66, 185, 131, .1);
+    }
+
+    #vcomments pre {
+        font-family: monospace, monospace;
+        padding: 1.2em;
+        margin: .5em 0;
+        background: #272822;
+        overflow: auto;
+        border-radius: 0.3em;
+        tab-size: 4;
+    }
+
+    #vcomments code {
+        font-family: monospace, monospace;
+        padding: 1px 3px;
+        font-size: 0.92rem;
+        color: #e96900;
+        background-color: #f8f8f8;
+        border-radius: 2px;
+    }
+
+    #vcomments pre code {
+        font-family: monospace, monospace;
+        padding: 0;
+        color: #e8eaf6;
+        background-color: #272822;
+    }
+
+    #vcomments pre[class*="language-"] {
+        padding: 1.2em;
+        margin: .5em 0;
+    }
+
+    #vcomments code[class*="language-"],
+    pre[class*="language-"] {
+        color: #e8eaf6;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    #vcomments b,
+    strong {
+        font-weight: bold;
+    }
+
+    #vcomments dfn {
+        font-style: italic;
+    }
+
+    #vcomments small {
+        font-size: 85%;
+    }
+
+    #vcomments cite {
+        font-style: normal;
+    }
+
+    #vcomments mark {
+        background-color: #fcf8e3;
+        padding: .2em;
+    }
+
+    #vcomments table, th, td {
+        padding: 12px 13px;
+        border: 1px solid #dfe2e5;
+    }
+
+    table tr:nth-child(2n), thead {
+        background-color: #fafafa;
+    }
+
+    #vcomments table th {
+        background-color: #f2f2f2;
+        min-width: 80px;
+    }
+
+    #vcomments table td {
+        min-width: 80px;
+    }
+
+    #vcomments [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+        position: inherit;
+        margin-left: -1.3rem;
+        margin-right: 0.4rem;
+        margin-top: -1px;
+        vertical-align: middle;
+        left: unset;
+        visibility: visible;
+    }
+
+    /* 修复评论第一行位置错位 */
+    .v .vlist .vcard {
+    padding-top: 2.5em !important ;
+    }
+</style>
+
+<div class="card valine-card" data-aos="fade-up">
+    <div id="vcomments" class="card-content"></div>
+</div>
+
+<script src="/libs/valine/av-min.js"></script>
+<script src="/libs/valine/Valine.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/libs//libs/jQuery-emoji/dist/css/jquery.emoji.css">
+<script src="/libs//libs/jQuery-emoji/dist/js/jquery.emoji.min.js"></script>
+<script src="/libs//libs/jQuery-emoji/dist/js/emoji.list.js"></script> -->
+<script>
+    new Valine({
+        el: '#vcomments',
+        appId: 'sEivhtbcORSdLImEVeyeRuYq-gzGzoHsz',
+        appKey: 'YDXvnpTcya3IeYf4o8fmOrzf',
+        notify: 'true' === 'true',
+        verify: 'true' === 'true',
+        visitor: 'true' === 'true',
+        avatar: 'monsterid',
+        pageSize: '10',
+        lang: 'zh-cn',
+        placeholder: 'just go go',
+
+    });
+
+//     function parse_emoji() {
+//     jQuery(".vcontent").emojiParse({
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists   // 注：详见 js/emoji.list.js
+//     });
+//   }
+  
+//   setTimeout(function() {
+//     // jQuery emoji 解析
+//     parse_emoji();
+//     // jquery emoji 初始化
+//     jQuery(".veditor").emoji({
+//       showTab: true,
+//       animation: 'slide',
+//       basePath: '/libs/jQuery-emoji/images/emoji',
+//       icons: emojiLists  // 注：详见 js/emoji.list.js
+//     });
+//     jQuery(".vmore").on("click", function() {
+//       setTimeout(function() {
+//         parse_emoji();
+//       }, 500);
+//     });
+//   }, 800)
+
+</script>
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2017/03/25/Gson-Java-Json序列化和反序列化/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="Gson-Java-Json序列化和反序列化">
+                        
+                        <span class="card-title">Gson-Java-Json序列化和反序列化</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            Google的Gson库,可以将JSON格式的数据转化为Java对象,也支持将Java对象转成JSON数据格式.
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2017-03-25
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/Java/" class="post-category" target="_blank">
+                                    Java
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Java/" target="_blank">
+                        <span class="chip bg-color">Java</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2017/03/23/初识VueJs/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="初识VueJs">
+                        
+                        <span class="card-title">初识VueJs</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            ViewModel是Vue.js的核心,它是一个Vue实例.Vue实例是作用于某一个HTML元素上的.
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2017-03-23
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/前端/" class="post-category" target="_blank">
+                                    前端
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/前端/" target="_blank">
+                        <span class="chip bg-color">前端</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+<script>
+    $('#articleContent').on('copy', function (e) {
+        // IE8 or earlier browser is 'undefined'
+        if (typeof window.getSelection === 'undefined') return;
+
+        var selection = window.getSelection();
+        // if the selection is short let's not annoy our users.
+        if (('' + selection).length < Number.parseInt('120')) {
+            return;
+        }
+
+        // create a div outside of the visible area and fill it with the selected text.
+        var bodyElement = document.getElementsByTagName('body')[0];
+        var newdiv = document.createElement('div');
+        newdiv.style.position = 'absolute';
+        newdiv.style.left = '-99999px';
+        bodyElement.appendChild(newdiv);
+        newdiv.appendChild(selection.getRangeAt(0).cloneContents());
+
+        // we need a <pre> tag workaround.
+        // otherwise the text inside "pre" loses all the line breaks!
+        if (selection.getRangeAt(0).commonAncestorContainer.nodeName === 'PRE') {
+            newdiv.innerHTML = "<pre>" + newdiv.innerHTML + "</pre>";
+        }
+
+        var url = document.location.href;
+        newdiv.innerHTML += '<br />'
+            + '来源: Hi 高虎<br />'
+            + '作者: 高虎<br />'
+            + '链接: <a href="' + url + '">' + url + '</a><br />'
+            + '本文章著作权归作者所有，任何形式的转载都请注明出处。';
+
+        selection.selectAllChildren(newdiv);
+        window.setTimeout(function () {bodyElement.removeChild(newdiv);}, 200);
+    });
+</script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h1, h2, h3, h4, h5'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h1, h2, h3, h4, h5').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+        <footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&copy; 2016 gaohueric. 
+
+            <br>
+            <span id="sitetime"></span><span class="my-face">ღゝ◡╹)ノ♡</span>
+            <br>
+
+            
+
+            
+                    
+                        <span id="busuanzi_container_site_pv" style='display:none'></span>
+                        总访问量: <span id="busuanzi_value_site_pv" class="white-color"></span>
+                    
+        
+                    
+                        <span id="busuanzi_container_site_uv" style='display:none'></span>
+                        人次&nbsp; | &nbsp;访客人数: <span id="busuanzi_value_site_uv" class="white-color"></span> 人
+                    
+    
+            
+
+            
+                &nbsp; | &nbsp;字数统计:&nbsp;
+                <span class="white-color">283.9k</span> 字
+            
+            <br>
+        <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? "https://" : "http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1278301656'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s9.cnzz.com/z_stat.php%3Fid%3D1278301656%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));</script>
+            
+            <br>
+        </div>
+
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/https://github.com/gaohueric" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+ 
+    <a href="https://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=gaohueric@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+    <a href="http://wpa.qq.com/msgrd?v=3&uin=1085669445&site=qq&menu=yes" class="tooltipped" target="_blank" data-tooltip="访问我的QQ空间" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+</div>
+
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+<script language=javascript>
+    function siteTime() {
+        window.setTimeout("siteTime()", 1000);
+        var seconds = 1000;
+        var minutes = seconds * 60;
+        var hours = minutes * 60;
+        var days = hours * 24;
+        var years = days * 365;
+        var today = new Date();
+        var todayYear = today.getFullYear();
+        var todayMonth = today.getMonth() + 1;
+        var todayDate = today.getDate();
+        var todayHour = today.getHours();
+        var todayMinute = today.getMinutes();
+        var todaySecond = today.getSeconds();
+
+        /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+        year - 作为date对象的年份，为4位年份值
+        month - 0-11之间的整数，做为date对象的月份
+        day - 1-31之间的整数，做为date对象的天数
+        hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+        minutes - 0-59之间的整数，做为date对象的分钟数
+        seconds - 0-59之间的整数，做为date对象的秒数
+        microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+
+        var t1 = Date.UTC(2016, 05, 12, 00, 00, 00); //北京时间2019-8-1 00:00:00
+        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+        var diff = t2 - t1;
+        var diffYears = Math.floor(diff / years);
+        var diffDays = Math.floor((diff / days) - diffYears * 365);
+        var diffHours = Math.floor((diff - (diffYears * 365 + diffDays) * days) / hours);
+        var diffMinutes = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours) / minutes);
+        var diffSeconds = Math.floor((diff - (diffYears * 365 + diffDays) * days - diffHours * hours - diffMinutes *
+            minutes) / seconds);
+        document.getElementById("sitetime").innerHTML = "本站已勉强运行 " + diffYears + " 年 " + diffDays + " 天 " + diffHours +
+            " 小时 " + diffMinutes + " 分钟 " + diffSeconds + " 秒" ;
+    } /*因为建站时间还没有一年，就将之注释掉了。需要的可以取消*/
+    siteTime();
+</script>
+
+
+
+
+
+
+        <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+        <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+        <script src="/libs/materialize/materialize.min.js"></script>
+        <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+        <script src="/libs/aos/aos.js"></script>
+        <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+        <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+        <script src="/js/matery.js"></script>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+        
+            <script src="/libs/others/clicklove.js"></script>
+        
+
+        
+            <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+        
+
+        <!-- 洪卫 shw2018 add 2019.08.28 -->
+        <script type="text/javascript">
+            var OriginTitile = document.title,
+                st;
+            document.addEventListener("visibilitychange", function () {
+                document.hidden ? (document.title = "看不见我🙈~看不见我🙈~", clearTimeout(st)) : (document.title =
+                    "(๑•̀ㅂ•́) ✧被发现了～", st = setTimeout(function () {
+                        document.title = OriginTitile
+                    }, 3e3))
+            })
+        </script>
+
+        <!-- 鼠标点击烟花爆炸效果  洪卫 shw2018 add 2019.09.09 -->
+        
+
+        <!-- 背景雪花飘落特效洪卫 shw2018 add 2019.09.10 -->
+        
+
+        <!-- 鼠标点击文字特效 洪卫 shw2018 add 2019.09.10-->
+        
+
+        <!-- 背景雪花飘落特效 洪卫 shw2018 add 2019.09.10 -->
+        
+
+        <!-- 在线聊天工具  洪卫 shw2018 add 2019.09.11 -->
+        
+
+        <!-- 背景 canvas-nest  洪卫 shw 2018  add 2019.09.15-->
+        
+
+        <!-- 背景静止彩带  洪卫 shw 2018  add 2019.09.15-->
+        
+
+        <!-- 背景动态彩带 洪卫 shw 2018  add 2019.09.15-->
+        
+            <script type="text/javascript">
+            var windowWidth = $(window).width();
+            if (windowWidth > 992) {
+                document.write('<script type="text/javascript" src="/libs/background/ribbon-dynamic.js"><\/script>');
+            }
+            </script>
+        
+        
+        
+
+    </body>
+</html>
