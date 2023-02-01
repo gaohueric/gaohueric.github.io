@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://gaohueric.github.io/"/>
-  <updated>2023-02-01T03:21:22.617Z</updated>
+  <updated>2023-02-01T02:24:56.291Z</updated>
   <id>https://gaohueric.github.io/</id>
   
   <author>
@@ -15,20 +15,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>love</title>
-    <link href="https://gaohueric.github.io/2023/02/01/love/"/>
-    <id>https://gaohueric.github.io/2023/02/01/love/</id>
-    <published>2023-02-01T03:21:22.000Z</published>
-    <updated>2023-02-01T03:21:22.617Z</updated>
-    
-    <summary type="html">
-    
-    </summary>
-    
-    
-  </entry>
   
   <entry>
     <title>大数据经典文章解读</title>
@@ -498,6 +484,27 @@
     
     
       <category term="中间件" scheme="https://gaohueric.github.io/tags/%E4%B8%AD%E9%97%B4%E4%BB%B6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>阿里巴巴Java开发手册</title>
+    <link href="https://gaohueric.github.io/2018/08/17/%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4Java%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C/"/>
+    <id>https://gaohueric.github.io/2018/08/17/阿里巴巴Java开发手册/</id>
+    <published>2018-08-17T05:03:26.000Z</published>
+    <updated>2023-02-01T02:24:56.315Z</updated>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;一、编程规约&quot;&gt;&lt;a href=&quot;#一、编程规约&quot; class=&quot;headerlink&quot; title=&quot;一、编程规约&quot;&gt;&lt;/a&gt;一、编程规约&lt;/h4&gt;&lt;h5 id=&quot;一-命名风格&quot;&gt;&lt;a href=&quot;#一-命名风格&quot; class=&quot;headerlink&quot; title=&quot;(一) 命名风格&quot;&gt;&lt;/a&gt;(一) 命名风格&lt;/h5&gt;&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;代码中的命名严禁使用拼音与英文混合的方式,更不允许直接使用中文的方式.&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Java" scheme="https://gaohueric.github.io/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="https://gaohueric.github.io/tags/Java/"/>
     
   </entry>
   
